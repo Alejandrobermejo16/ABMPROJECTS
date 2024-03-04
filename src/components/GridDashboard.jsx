@@ -4,13 +4,16 @@ import { connect } from 'react-redux';
 import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
 
 class GridDashboard extends Component {
-    
-    componentDidUpdate(){
-        
+
+    componentDidUpdate(prevProps) {
+        if (this.props.dataRandom !== prevProps.dataRandom) {
+            console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
         }
-    
+    }
+
+
     render() {
-        const { dataRandom, fetchColumnAleatorioAction  } = this.props;
+        const { dataRandom, fetchColumnAleatorioAction } = this.props;
 
         return (
             <Container>
@@ -48,8 +51,8 @@ class GridDashboard extends Component {
                     </Col>
                     <Col>
                         <h3>Palabra aleatoria</h3>
-                        {dataRandom ? <p>{dataRandom}</p> : null}
-                        <Button variant="dark" onClick= {() => {fetchColumnAleatorioAction()}}>Aleatorio</Button>
+                        <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
+                        {dataRandom && <h1>{dataRandom.dataRandom}</h1>}
                         <p>Contenido de la columna 5</p>
                         <p>Contenido de la columna 5</p>
                         <p>Contenido de la columna 5</p>
@@ -57,7 +60,7 @@ class GridDashboard extends Component {
                     </Col>
                 </Row>
             </Container>
-            );
+        );
     }
 }
 
@@ -66,10 +69,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchColumnAleatorioAction: () => {
-        console.log("Dispatching fetchColumnAleatorioAction");
-        dispatch(fetchColumnRandomStart());
-    },
+    fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
+
 });
 
 

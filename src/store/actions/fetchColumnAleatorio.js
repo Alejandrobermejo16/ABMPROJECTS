@@ -1,21 +1,17 @@
-export const actions = {
-    FETCH_COLUMN_RANDOM_START: 'FETCH_COLUMN_RANDOM_START',
-    FETCH_COLUMN_RANDOM_SUCCESS: 'FETCH_COLUMN_RANDOM_SUCCESS',
-    FETCH_COLUMN_RANDOM_FAILED: 'FETCH_COLUMN_RANDOM_FAILED',
-
-}
+// fetchColumnAleatorio.js en la carpeta actions
+import * as types from './actionTypes';
 
 export const fetchColumnRandomStart = () => ({
-    type: actions.FETCH_COLUMN_RANDOM_START,
+    type: types.FETCH_COLUMN_RANDOM_START,
     payload: {},
 });
 
 export const fetchColumnRandomSuccess = (dataRandom) => ({
-    type: actions.FETCH_COLUMN_RANDOM_SUCCESS,
+    type: types.FETCH_COLUMN_RANDOM_SUCCESS,
     payload: {dataRandom},
 });
 
 export const fetchColumnRandomFailed = (error) => ({
-    type: actions.FETCH_COLUMN_RANDOM_FAILED,
+    type: types.FETCH_COLUMN_RANDOM_FAILED,
     payload: {error},
 });

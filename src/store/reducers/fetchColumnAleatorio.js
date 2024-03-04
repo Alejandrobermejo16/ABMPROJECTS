@@ -1,4 +1,4 @@
-import { actions } from '../actions/fetchColumnAleatorio';
+import * as types from '../actions/actionTypes'; // Importa los tipos de acciones desde actionTypes.js
 
 const initState = {
     dataRandom: null,
@@ -6,17 +6,19 @@ const initState = {
     loading: false,
 }
 
-export const columnRandomReducer = (state = initState, action) => {
+const columnRandomReducer = (state = initState, action) => {
     switch(action.type){
-        case actions.FETCH_COLUMN_RANDOM_START:
+        case types.FETCH_COLUMN_RANDOM_START: // Accede a los tipos de acciones a través del objeto types
             console.log("estoy en el start");
-            return {...state, loading:true};
-        case actions.FETCH_COLUMN_RANDOM_SUCCESS:
+            return {...state, loading:true };
+        case types.FETCH_COLUMN_RANDOM_SUCCESS:
             console.log("estoy en el success");
             return { ...state, loading: false, error: false, dataRandom: action.payload }; 
-        case actions.FETCH_COLUMN_RANDOM_FAILED:
-            console.log("estoy en el start");
+        case types.FETCH_COLUMN_RANDOM_FAILED:
+            console.log("estoy en el failed");
             return {...state, loading:false, error: true};
         default: return state;
     }
 };
+
+export default columnRandomReducer;

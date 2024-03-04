@@ -1,9 +1,10 @@
-import {all} from 'redux-saga/effects';
-import randomSagas from './fetchColumnAleatorio';
+// rootSaga.js
 
-export default function* SagaMaster(){
+import { all } from 'redux-saga/effects';
+import wordsagas from './fetchColumnAleatorio';
+
+export default function* SagaMaster() {
     yield all([
-    randomSagas,
-
-]);
+        wordsagas(), // Debes llamar a la función generadora
+    ]);
 }
