@@ -29,11 +29,11 @@ function* getProjectsSaga() {
 
 function* addTask(action) {
   const todoistToken = process.env.REACT_APP_TODOIST_TOKEN;
-  const { id, text } = action.payload;
+  const { selectedProjectId, text } = action.payload;
   const api = new TodoistApi(todoistToken);
 
   try {
-    const task = yield api.addTask({ content: `${text}`, projectId: `${id}` });
+    const task = yield api.addTask({ content: `${text}`, projectId: `${selectedProjectId}` });
     console.log("La tarea ha sido agregada correctamente");
   } catch (error) {
     console.error(error);

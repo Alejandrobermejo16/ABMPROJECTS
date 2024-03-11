@@ -33,13 +33,13 @@ class GridDashboard extends Component {
     }
 
     //abre la segunda modal cerrando la primera
-    openModalAddTask2 = () => {
+    openModalAddTask2 = (projectId) => {
         this.setState({ openModal: false });
-        this.setState({ openModal2: true })
+        this.setState({ openModal2: true, selectedProjectId: projectId })
 
     }
     closedModalAddTask2 = () => {
-        this.setState({ openModal2: false })
+        this.setState({ openModal2: false, tareaYaEscrita: false });
 
     }
 
@@ -59,7 +59,7 @@ class GridDashboard extends Component {
 
     render() {
         const { dataRandom, fetchColumnAleatorioAction, addTaskAction, deleteTask, listTask } = this.props;
-        const { openModal, openModal2, tareaYaEscrita, inputValue } = this.state;
+        const { openModal, openModal2, tareaYaEscrita, inputValue, selectedProjectId } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
@@ -71,8 +71,7 @@ class GridDashboard extends Component {
                     {listTask.listTask[key].name}
                 </Col>
             );
-            idProyecto.push(listTask.listTask[key].id); // Añadimos el ID de todos los proyectos a la lista
-
+            idProyecto.push(listTask.listTask[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
         }
 
 
@@ -157,7 +156,7 @@ class GridDashboard extends Component {
                                 variant="dark"
                                 disabled={!tareaYaEscrita}
                                 onClick={() => {
-                                    addTaskAction(idProyecto, inputValue);
+                                    addTaskAction(idProyecto[index], inputValue);
                                     this.closedModalAddTask2();
                                 }}>
                                 {nombreProyecto}
@@ -190,7 +189,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
     fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
     getListTaskAction: () => dispatch(getListTask()),
-    addTaskAction: (id, text) => dispatch(addTaskStart(id, text)),
+    addTaskAction: (selectedProjectId, text) => dispatch(addTaskStart(selectedProjectId, text)),
     deleteTaskAction: (idTask) => dispatch()
 
 });

@@ -17,9 +17,9 @@ export const getListTaskFailed = (error) => ({
 });
 
 
-export const addTaskStart = (id, text) => ({
+export const addTaskStart = (selectedProjectId, text) => ({
     type: types.ADD_TASK,
-    payload: {id, text},
+    payload: {selectedProjectId, text},
 });
 
 export const addTaskSuccess = (task, idTask) => ({
