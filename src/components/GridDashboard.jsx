@@ -2,7 +2,7 @@ import { Container, Row, Col, Button, Modal, InputGroup, Form } from 'react-boot
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
-import { getListTask, addTaskStart } from '../store/actions/task';
+import { getProjectsStart, addTaskStart } from '../store/actions/task';
 
 
 class GridDashboard extends Component {
@@ -14,14 +14,14 @@ class GridDashboard extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.dataRandom !== prevProps.dataRandom) {
-            console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
+            //console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
         }
     }
 
 
     componentDidMount() {
-        const { getListTaskAction } = this.props;
-        getListTaskAction();
+        const { getListProjectsAction } = this.props;
+        getListProjectsAction();
     }
 
     //abre la primera modal
@@ -58,20 +58,20 @@ class GridDashboard extends Component {
     }
 
     render() {
-        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, deleteTask, listTask } = this.props;
+        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, deleteTask, listProjects } = this.props;
         const { openModal, openModal2, tareaYaEscrita, inputValue, selectedProjectId } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
         const tareasRealizadas = [];
         const idProyecto = [];
-        for (let key in listTask.listTask) {
+        for (let key in listProjects.listProjects) {
             tareasRealizadas.push(
                 <Col key={key}>
-                    {listTask.listTask[key].name}
+                    {listProjects.listProjects[key].name}
                 </Col>
             );
-            idProyecto.push(listTask.listTask[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
+            idProyecto.push(listProjects.listProjects[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
         }
 
 
@@ -87,9 +87,9 @@ class GridDashboard extends Component {
                     </Col>
                     <Col>
                         <h3>Tareas realizadas</h3>
-                        <ul>
+                        <h5>
                             {tareasRealizadas}
-                        </ul>
+                        </h5>
                         <Button variant="dark" onClick={this.openModalAddTask}>Añadir Tarea</Button>
                         <p>Contenido de la columna 2</p>
                         <p>Contenido de la columna 2</p>
@@ -183,12 +183,12 @@ class GridDashboard extends Component {
 
 const mapStateToProps = (state) => ({
     dataRandom: state.columnRandomReducer.dataRandom,
-    listTask: state.taskReducer.listTask
+    listProjects: state.taskReducer.listProjects
 });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
-    getListTaskAction: () => dispatch(getListTask()),
+    getListProjectsAction: () => dispatch(getProjectsStart()),
     addTaskAction: (selectedProjectId, text) => dispatch(addTaskStart(selectedProjectId, text)),
     deleteTaskAction: (idTask) => dispatch()
 

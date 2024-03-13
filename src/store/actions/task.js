@@ -1,18 +1,18 @@
 import * as types from './actionTypes';
 
 
-export const getListTask = () => ({
-    type: types.GET_LIST_TASK,
+export const getProjectsStart = () => ({
+    type: types.GET_LIST_PROJECTS_START,
     payload: {},
 });
 
-export const getListTaskSuccess = (listTask) => ({
-    type: types.GET_LIST_TASK_SUCCESS,
-    payload: {listTask},
+export const getListProjectsSuccess = (listProjects) => ({
+    type: types.GET_LIST_PROJECTS_SUCCESS,
+    payload: {listProjects},
 });
 
-export const getListTaskFailed = (error) => ({
-    type: types.GET_LIST_TASK_FAILED,
+export const getListProjectsFailed = (error) => ({
+    type: types.GET_LIST_PROJECTS_FAILED,
     payload: {error},
 });
 

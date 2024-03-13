@@ -2,12 +2,13 @@
 //y lo que devolveremos del sagas es la lista filtrada con el elemento nuevo incluido
 
 //para borrar al contrario, se hace la llamada con el id de la tarea y , lo que hace es , devolver todas las tareas menos la eliminada
+
 import * as types from '../actions/actionTypes';
 
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { getListTaskSuccess, getListTaskFailed } from '../actions/task';
+import { getListProjectsSuccess, getListProjectsFailed, } from '../actions/task';
 
 
 
@@ -19,10 +20,10 @@ function* getProjectsSaga() {
   const api = new TodoistApi(todoistToken);
   try {
     const projects = yield api.getProjects();
-    yield put(getListTaskSuccess(projects));
+    yield put(getListProjectsSuccess(projects));
   } catch (error) {
     console.error("Error al obtener los proyectos:", error);
-    yield put(getListTaskFailed(error));
+    yield put(getListProjectsFailed(error));
   }
 }
 
@@ -33,17 +34,17 @@ function* addTask(action) {
   const api = new TodoistApi(todoistToken);
 
   try {
-    const task = yield api.addTask({ content: `${text}`, projectId: `${selectedProjectId}` });
-    console.log("La tarea ha sido agregada correctamente");
+    yield api.addTask({ content: `${text}`, projectId: `${selectedProjectId}` });
+    alert('La tarea ha sido añadida correctamente');
   } catch (error) {
-    console.error(error);
+    alert(error);
   }
 }
 
 
 
 function* tasksagas() {
-  yield takeLatest(types.GET_LIST_TASK, getProjectsSaga);
+  yield takeLatest(types.GET_LIST_PROJECTS_START, getProjectsSaga);
   yield takeLatest(types.ADD_TASK, addTask)
 }
 
