@@ -8,7 +8,7 @@ import * as types from '../actions/actionTypes';
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { getListProjectsSuccess, getListProjectsFailed, } from '../actions/task';
+import { getListProjectsSuccess, getListProjectsFailed, getListTaskSuccess, getListTaskFailed, } from '../actions/task';
 
 
 
@@ -41,11 +41,26 @@ function* addTask(action) {
   }
 }
 
+function* getTaskSaga(action){
+  const todoistToken = process.env.REACT_APP_TODOIST_TOKEN;
+  // const {  } = action.payload;
+  const api = new TodoistApi(todoistToken);
+
+  try{
+    const listTasks = yield api.getTasks();
+    yield put(getListTaskSuccess(listTasks));
+  } catch(error){
+    yield put(getListTaskFailed(error));
+  }
+
+
+}
 
 
 function* tasksagas() {
   yield takeLatest(types.GET_LIST_PROJECTS_START, getProjectsSaga);
-  yield takeLatest(types.ADD_TASK, addTask)
+  yield takeLatest(types.ADD_TASK, addTask);
+  yield takeLatest(types.GET_TASK_LIST_START, getTaskSaga);
 }
 
 export default tasksagas;

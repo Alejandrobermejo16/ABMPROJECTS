@@ -1,8 +1,8 @@
-import { Container, Row, Col, Button, Modal, InputGroup, Form } from 'react-bootstrap';
+import { Container, Row, Col, Button, Modal, InputGroup, Form, Spinner } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
-import { getProjectsStart, addTaskStart } from '../store/actions/task';
+import { getProjectsStart, addTaskStart, getListTaskStart } from '../store/actions/task';
 
 
 class GridDashboard extends Component {
@@ -20,8 +20,9 @@ class GridDashboard extends Component {
 
 
     componentDidMount() {
-        const { getListProjectsAction } = this.props;
+        const { getListProjectsAction, getListTaskAction } = this.props;
         getListProjectsAction();
+        getListTaskAction();
     }
 
     //abre la primera modal
@@ -58,17 +59,34 @@ class GridDashboard extends Component {
     }
 
     render() {
-        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, deleteTask, listProjects } = this.props;
-        const { openModal, openModal2, tareaYaEscrita, inputValue, selectedProjectId } = this.state;
+        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, listProjects, listTasks, loading } = this.props;
+        const { openModal, openModal2, tareaYaEscrita, inputValue } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
-        const tareasRealizadas = [];
+        const listaTareas = [];
+        const proyectos = [];
         const idProyecto = [];
+
+        // Renderizar Spinner si loading es true
+        if (loading) {
+            return <Spinner animation="border" variant="primary" />;
+        }
+
+        for (let key in listTasks.listTasks) {
+            listaTareas.push(
+                <Col key={key}>
+                    {listTasks.listTasks[key].content}
+
+                </Col>
+            );
+
+        }
         for (let key in listProjects.listProjects) {
-            tareasRealizadas.push(
+            proyectos.push(
                 <Col key={key}>
                     {listProjects.listProjects[key].name}
+
                 </Col>
             );
             idProyecto.push(listProjects.listProjects[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
@@ -88,7 +106,8 @@ class GridDashboard extends Component {
                     <Col>
                         <h3>Tareas realizadas</h3>
                         <h5>
-                            {tareasRealizadas}
+                            {proyectos}
+                            {listaTareas}
                         </h5>
                         <Button variant="dark" onClick={this.openModalAddTask}>Añadir Tarea</Button>
                         <p>Contenido de la columna 2</p>
@@ -150,7 +169,7 @@ class GridDashboard extends Component {
 
                             />
                         </InputGroup>
-                        {tareasRealizadas.map((nombreProyecto, index) => (
+                        {proyectos.map((nombreProyecto, index) => (
                             <Button
                                 key={index}
                                 variant="dark"
@@ -183,12 +202,15 @@ class GridDashboard extends Component {
 
 const mapStateToProps = (state) => ({
     dataRandom: state.columnRandomReducer.dataRandom,
-    listProjects: state.taskReducer.listProjects
+    listProjects: state.taskReducer.listProjects,
+    listTasks: state.taskReducer.listTasks,
+    loading: state.taskReducer.loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
     fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
     getListProjectsAction: () => dispatch(getProjectsStart()),
+    getListTaskAction: () => dispatch(getListTaskStart()),
     addTaskAction: (selectedProjectId, text) => dispatch(addTaskStart(selectedProjectId, text)),
     deleteTaskAction: (idTask) => dispatch()
 

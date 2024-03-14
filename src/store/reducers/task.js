@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes'; // Importa los tipos de acciones desde actionTypes.js
 
 const initState = {
-    listTasks: [],
+    listTasks: [], //lista de tareas
     error: false,
     loading: false,
     listProjects: [], //lista de proyectos
@@ -28,6 +28,12 @@ const taskReducer = (state = initState, action) => {
              return { ...state, loading: false, error: false, listProjects: action.payload }; 
         case types.DELETE_TASK_FAILED:
             return { ...state, loading: false, error: true }; 
+            case types.GET_TASK_LIST_START: 
+            return {...state, loading:true };
+            case types.GET_TASK_LIST_SUCCESS: 
+            return {...state, loading:false, listTasks: action.payload };
+            case types.GET_TASK_LIST_FAILED: 
+            return {...state, loading:false, };
             default: return state;
 
     }
