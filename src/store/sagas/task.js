@@ -36,6 +36,8 @@ function* addTask(action) {
   try {
     yield api.addTask({ content: `${text}`, projectId: `${selectedProjectId}` });
     alert('La tarea ha sido añadida correctamente');
+    const listTasks = yield api.getTasks();
+    yield put(getListTaskSuccess(listTasks));
   } catch (error) {
     alert(error);
   }
