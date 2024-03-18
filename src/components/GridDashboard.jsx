@@ -64,7 +64,6 @@ class GridDashboard extends Component {
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
-        const listaTareas = [];
         const proyectos = [];
         const idProyecto = [];
 
@@ -72,26 +71,6 @@ class GridDashboard extends Component {
         if (loading) {
             return <Spinner animation="border" variant="primary" />;
         }
-
-        for (let key in listTasks.listTasks) {
-            listaTareas.push(
-                <Col key={key}>
-                    {listTasks.listTasks[key].content}
-
-                </Col>
-            );
-
-        }
-        for (let key in listProjects.listProjects) {
-            proyectos.push(
-                <Col key={key}>
-                    {listProjects.listProjects[key].name}
-
-                </Col>
-            );
-            idProyecto.push(listProjects.listProjects[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
-        }
-
 
         return (
             <Container>
@@ -105,10 +84,18 @@ class GridDashboard extends Component {
                     </Col>
                     <Col>
                         <h3>Tareas realizadas</h3>
-                        <h5>
-                            {proyectos}
-                            {listaTareas}
-                        </h5>
+                        
+                        { listProjects.listProjects && listProjects.listProjects.map((project, index) => (
+                            <div key={index}>
+                                <h4>{project.name}</h4>
+                                {listTasks.listTasks && listTasks.listTasks
+                                    .filter(task => task.projectId === project.id)
+                                    .map((task, taskIndex) => (
+                                        <p style={{color: 'yellow'}} key={taskIndex}>{task.content}</p>
+                                    ))}
+                            </div>
+                        ))}
+
                         <Button variant="dark" onClick={this.openModalAddTask}>Añadir Tarea</Button>
                         <p>Contenido de la columna 2</p>
                         <p>Contenido de la columna 2</p>
@@ -133,7 +120,7 @@ class GridDashboard extends Component {
                     <Col>
                         <h3>Palabra aleatoria</h3>
                         <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
-                        {dataRandom && <h1>{dataRandom.dataRandom}</h1>}
+                        {dataRandom && <h1 style={{color: 'yellow'}}>{dataRandom.dataRandom}</h1>}
                         <p>Contenido de la columna 5</p>
                         <p>Contenido de la columna 5</p>
                         <p>Contenido de la columna 5</p>
