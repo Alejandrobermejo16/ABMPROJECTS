@@ -72,6 +72,18 @@ class GridDashboard extends Component {
             return <Spinner animation="border" variant="primary" />;
         }
 
+
+        for (let key in listProjects.listProjects) {
+            proyectos.push(
+                <Col key={key}>
+                    {listProjects.listProjects[key].name}
+
+                </Col>
+            );
+            idProyecto.push(listProjects.listProjects[key].id); //  En cada bucle , añadimos el id perteneciente a cada proyecto
+        }
+
+
         return (
             <Container>
                 <Row>
@@ -84,7 +96,7 @@ class GridDashboard extends Component {
                     </Col>
                     <Col>
                         <h3>Tareas realizadas</h3>
-                        
+                        {/* se obtiene el nombre del proyecto y se busca que la tarea coincida con cada proyecto para mostrarla dentro de cada proyecto */}
                         { listProjects.listProjects && listProjects.listProjects.map((project, index) => (
                             <div key={index}>
                                 <h4>{project.name}</h4>
@@ -96,7 +108,7 @@ class GridDashboard extends Component {
                             </div>
                         ))}
 
-                        <Button variant="dark" onClick={this.openModalAddTask}>Añadir Tarea</Button>
+                        <Button variant="primary" onClick={this.openModalAddTask}>Añadir Tarea</Button>
                         <p>Contenido de la columna 2</p>
                         <p>Contenido de la columna 2</p>
                         <p>Contenido de la columna 2</p>
