@@ -9,7 +9,7 @@ class GridDashboard extends Component {
 
     constructor() {
         super();
-        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true };
+        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true, openModalDelete: false };
     }
 
     componentDidUpdate(prevProps) {
@@ -59,15 +59,15 @@ class GridDashboard extends Component {
     }
 
     //cambia el estado de visibilidad del checkbox cada vez que se le llama
-    statusCheckbox = () => {
+    statusCheckbox = (idTarea) => {
         const { disabledCheckbox } = this.state;
-        alert('se ha cambiado el checkbox');
-        this.setState({ disabledCheckbox: !disabledCheckbox })
+        console.log("El id de la tarea seleccionada es ",idTarea);
+        this.setState({ disabledCheckbox: !disabledCheckbox  })
     }
 
     render() {
         const { dataRandom, fetchColumnAleatorioAction, addTaskAction, listProjects, listTasks, loading } = this.props;
-        const { openModal, openModal2, tareaYaEscrita, inputValue, disabledCheckbox } = this.state;
+        const { openModal, openModal2, tareaYaEscrita, inputValue, openModalDelete } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
@@ -114,7 +114,12 @@ class GridDashboard extends Component {
                                             {!this.state.disabledCheckbox && 
                                             <input 
                                              type="checkbox" 
-                                             onChange={this.statusCheckbox}
+                                             onChange={() => {
+                                                this.statusCheckbox(task.id);
+                                                this.setState({ openModalDelete: true }); // Actualiza el estado con el ID de la tarea seleccionada
+                                            }}
+                                             //funcion anonima para que solo se pase el id de la tarea seleccionada
+                                             style={{ marginTop: '-20px' }}
                                              />}
                                             <p style={{ color: 'yellow', marginLeft: '5px' }} key={taskIndex}>{task.content}</p>
                                         </div>
@@ -208,6 +213,24 @@ class GridDashboard extends Component {
                         {/*el boton de añadir debe de ser pulsado cuando seleecionemos un proyecto y escribamos algo  */}
 
                         <Button variant="dark" onClick={this.closedModalAddTask2}>Cerrar</Button>
+
+                        {/* Aquí puedes agregar cualquier contenido adicional para el pie de página del modal */}
+                    </Modal.Footer>
+                </Modal>
+
+                <Modal show={openModalDelete} size="sm">
+                    <Modal.Body>
+                        <div className="flex items-center md:items-start gap-2">
+                            <h3 className="text-body-4 md:text-body-2 font-semibold text-metal-900">
+                                ¿Estas seguro de eliminar esta tarea?
+                            </h3>
+                        </div>
+                    </Modal.Body>
+                    <Modal.Footer>
+
+                        <Button variant="dark" onClick={this.openModalAddTask2}>Eliminar</Button>
+
+                        <Button variant="dark" onClick={() => this.setState({ openModalDelete: false })}>Cerrar</Button>
 
                         {/* Aquí puedes agregar cualquier contenido adicional para el pie de página del modal */}
                     </Modal.Footer>
