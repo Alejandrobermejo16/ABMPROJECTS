@@ -49,13 +49,13 @@ export const getListTaskFailed = (error) => ({
 
 
 //elimina las tareas 
-export const deleteTask = (idTask) => ({
+export const deleteTaskStart = (idTask) => ({
     type: types.DELETE_TASK,
     payload: {idTask},
 });
-export const deleteTaskSuccess = (task, idTask) => ({
+export const deleteTaskSuccess = (idTask) => ({
     type: types.DELETE_TASK_SUCCESS,
-    payload: {task, idTask},
+    payload: {idTask},
 });
 
 export const deleteTaskFailed = (error) => ({

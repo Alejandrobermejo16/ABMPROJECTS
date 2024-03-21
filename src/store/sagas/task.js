@@ -8,7 +8,7 @@ import * as types from '../actions/actionTypes';
 import { TodoistApi } from "@doist/todoist-api-typescript";
 import { put, takeLatest } from 'redux-saga/effects';
 
-import { getListProjectsSuccess, getListProjectsFailed, getListTaskSuccess, getListTaskFailed, } from '../actions/task';
+import { getListProjectsSuccess, getListProjectsFailed, getListTaskSuccess, getListTaskFailed, deleteTaskSuccess, deleteTaskFailed } from '../actions/task';
 
 
 
@@ -58,11 +58,29 @@ function* getTaskSaga(action){
 
 }
 
+function* deleteTaskSaga(action){
+  const todoistToken = process.env.REACT_APP_TODOIST_TOKEN;
+   const { idTask } = action.payload;
+  const api = new TodoistApi(todoistToken);
+
+  try{
+    yield api.closeTask(idTask);
+    alert('La tarea ha sido Eliminada correctamente');
+    yield put(deleteTaskSuccess(idTask));
+  } catch(error){
+    yield put(deleteTaskFailed(error));
+  }
+
+
+}
+
+
 
 function* tasksagas() {
   yield takeLatest(types.GET_LIST_PROJECTS_START, getProjectsSaga);
   yield takeLatest(types.ADD_TASK, addTask);
   yield takeLatest(types.GET_TASK_LIST_START, getTaskSaga);
+  yield takeLatest(types.DELETE_TASK, deleteTaskSaga)
 }
 
 export default tasksagas;

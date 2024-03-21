@@ -2,20 +2,20 @@ import { Container, Row, Col, Button, Modal, InputGroup, Form, Spinner } from 'r
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
-import { getProjectsStart, addTaskStart, getListTaskStart } from '../store/actions/task';
+import { getProjectsStart, addTaskStart, getListTaskStart, deleteTaskStart } from '../store/actions/task';
 
 
 class GridDashboard extends Component {
 
     constructor() {
         super();
-        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true, openModalDelete: false };
+        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true, openModalDelete: false, selectedTaskId: null  };
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.dataRandom !== prevProps.dataRandom) {
             //console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
-        }
+        } 
     }
 
 
@@ -62,12 +62,12 @@ class GridDashboard extends Component {
     statusCheckbox = (idTarea) => {
         const { disabledCheckbox } = this.state;
         console.log("El id de la tarea seleccionada es ",idTarea);
-        this.setState({ disabledCheckbox: !disabledCheckbox  })
+        this.setState({ disabledCheckbox: !disabledCheckbox, selectedTaskId: idTarea  });
     }
 
     render() {
-        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, listProjects, listTasks, loading } = this.props;
-        const { openModal, openModal2, tareaYaEscrita, inputValue, openModalDelete } = this.state;
+        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, listProjects, listTasks, loading, deleteTaskAction } = this.props;
+        const { openModal, openModal2, tareaYaEscrita, inputValue, openModalDelete, selectedTaskId } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
         //a name
@@ -228,7 +228,10 @@ class GridDashboard extends Component {
                     </Modal.Body>
                     <Modal.Footer>
 
-                        <Button variant="dark" onClick={this.openModalAddTask2}>Eliminar</Button>
+                        <Button variant="dark" onClick={() => {
+                            deleteTaskAction(selectedTaskId)
+                            this.setState({ openModalDelete: false })}
+                            }>Eliminar</Button>
 
                         <Button variant="dark" onClick={() => this.setState({ openModalDelete: false })}>Cerrar</Button>
 
@@ -254,7 +257,7 @@ const mapDispatchToProps = (dispatch) => ({
     getListProjectsAction: () => dispatch(getProjectsStart()),
     getListTaskAction: () => dispatch(getListTaskStart()),
     addTaskAction: (selectedProjectId, text) => dispatch(addTaskStart(selectedProjectId, text)),
-    deleteTaskAction: (idTask) => dispatch()
+    deleteTaskAction: (idTask) => dispatch(deleteTaskStart(idTask)),
 
 });
 
