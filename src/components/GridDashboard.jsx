@@ -1,3 +1,4 @@
+import HeaderDashboard from './HeaderDashboard'
 import { Container, Row, Col, Button, Modal, InputGroup, Form, Spinner } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -9,13 +10,13 @@ class GridDashboard extends Component {
 
     constructor() {
         super();
-        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true, openModalDelete: false, selectedTaskId: null  };
+        this.state = { openModal: false, openModal2: false, tareaYaEscrita: false, inputValue: '', disabledCheckbox: true, openModalDelete: false, selectedTaskId: null };
     }
 
     componentDidUpdate(prevProps) {
         if (this.props.dataRandom !== prevProps.dataRandom) {
             //console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
-        } 
+        }
     }
 
 
@@ -61,8 +62,8 @@ class GridDashboard extends Component {
     //cambia el estado de visibilidad del checkbox cada vez que se le llama
     statusCheckbox = (idTarea) => {
         const { disabledCheckbox } = this.state;
-        console.log("El id de la tarea seleccionada es ",idTarea);
-        this.setState({ disabledCheckbox: !disabledCheckbox, selectedTaskId: idTarea  });
+        console.log("El id de la tarea seleccionada es ", idTarea);
+        this.setState({ disabledCheckbox: !disabledCheckbox, selectedTaskId: idTarea });
     }
 
     render() {
@@ -92,68 +93,50 @@ class GridDashboard extends Component {
 
 
         return (
-            <Container>
+            <Container style={{ minWidth: '1350px' }}> {/*para que el contenido salga bien extendido al pulsar en el filtro principal*/}
+                <HeaderDashboard />
                 <Row>
                     <Col>
-                        <h3>Estudios</h3>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                    </Col>
-                    <Col>
                         <h3>Tareas realizadas</h3>
-                         {/* se obtiene el nombre del proyecto y se busca que la tarea coincida con cada proyecto para mostrarla dentro de cada proyecto */}
+                        {/* se obtiene el nombre del proyecto y se busca que la tarea coincida con cada proyecto para mostrarla dentro de cada proyecto */}
                         {listProjects.listProjects && listProjects.listProjects.map((project, index) => (
-                            <div key={index}>
-                                <h4>{project.name}</h4>
+                            <div style={{ display: 'flex', flexDirection: 'row' }} key={index}>
+                                <h5>{project.name}</h5>
+                                <div style={{display: 'flex'}}>
                                 {listTasks.listTasks && listTasks.listTasks
                                     .filter(task => task.projectId === project.id)
                                     .map((task, taskIndex) => (
                                         <div key={taskIndex} style={{ display: 'flex', alignItems: 'center' }}>
-                                            {!this.state.disabledCheckbox && 
-                                            <input 
-                                             type="checkbox" 
-                                             onChange={() => {
-                                                this.statusCheckbox(task.id);
-                                                this.setState({ openModalDelete: true }); // Actualiza el estado con el ID de la tarea seleccionada
-                                            }}
-                                             //funcion anonima para que solo se pase el id de la tarea seleccionada
-                                             style={{ marginTop: '-20px' }}
-                                             />}
+                                            {!this.state.disabledCheckbox &&
+                                                <input
+                                                    type="checkbox"
+                                                    onChange={() => {
+                                                        this.statusCheckbox(task.id);
+                                                        this.setState({ openModalDelete: true }); // Actualiza el estado con el ID de la tarea seleccionada
+                                                    }}
+                                                    //funcion anonima para que solo se pase el id de la tarea seleccionada
+                                                    style={{ marginTop: '-20px' }}
+                                                />}
                                             <p style={{ color: 'yellow', marginLeft: '5px' }} key={taskIndex}>{task.content}</p>
                                         </div>
                                     ))}
+                                    </div>
                             </div>
                         ))}
 
 
 
-                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-                            <Button size="sm" variant="primary" onClick={this.openModalAddTask}>Añadir Tarea</Button>
+                        <div style={{ display: 'flex', marginBottom: '10px' }}>
+                            <Button size="sm" variant="primary" style={{ marginRight: '5px' }} onClick={this.openModalAddTask}>Añadir Tarea</Button>
                             <Button size="sm" variant="primary" onClick={this.statusCheckbox}>Eliminar Tarea</Button>
                         </div>
 
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                    </Col>
-                    <Col>
-                        <h3>Experiencia</h3>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
 
+                        <p>Contenido de la columna 2</p>
+                        <p>Contenido de la columna 2</p>
+                        <p>Contenido de la columna 2</p>
                     </Col>
-                    <Col>
-                        <h3>Cualidades</h3>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
 
-                    </Col>
                     <Col>
                         <h3>Palabra aleatoria</h3>
                         <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
@@ -230,15 +213,15 @@ class GridDashboard extends Component {
 
                         <Button variant="dark" onClick={() => {
                             deleteTaskAction(selectedTaskId)
-                            this.setState({ openModalDelete: false })}
-                            }>Eliminar</Button>
+                            this.setState({ openModalDelete: false })
+                        }
+                        }>Eliminar</Button>
 
                         <Button variant="dark" onClick={() => this.setState({ openModalDelete: false })}>Cerrar</Button>
 
                         {/* Aquí puedes agregar cualquier contenido adicional para el pie de página del modal */}
                     </Modal.Footer>
                 </Modal>
-
             </Container >
 
         );

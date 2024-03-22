@@ -7,7 +7,7 @@ class HeaderDashboard extends React.Component {
         return (
             <Navbar bg="dark" variant="dark">
                 <Container>
-                    <Navbar.Brand href="#home" style={{ textAlign: 'center', width: '100%' }}>Mi Viaje Profesional en Páginas Web Interactivas
+                    <Navbar.Brand href="#home" style={{ textAlign: 'center', width: '100%', marginRight: '250px' }}>Mi Viaje Profesional en Páginas Web Interactivas
                     </Navbar.Brand>
                 </Container>
             </Navbar>
