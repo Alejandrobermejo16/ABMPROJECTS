@@ -1,10 +1,9 @@
-import HeaderDashboard from './HeaderDashboard'
+import HeaderDashboard from './HeaderDashboard';
+import '../styles/GridDashboard.css';
 import { Container, Row, Col, Button, Modal, InputGroup, Form, Spinner } from 'react-bootstrap';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
 import { getProjectsStart, addTaskStart, getListTaskStart, deleteTaskStart } from '../store/actions/task';
-
 
 class GridDashboard extends Component {
 
@@ -67,7 +66,7 @@ class GridDashboard extends Component {
     }
 
     render() {
-        const { dataRandom, fetchColumnAleatorioAction, addTaskAction, listProjects, listTasks, loading, deleteTaskAction } = this.props;
+        const {  addTaskAction, listProjects, listTasks, loading, deleteTaskAction } = this.props;
         const { openModal, openModal2, tareaYaEscrita, inputValue, openModalDelete, selectedTaskId } = this.state;
         //creo un array vacio donde guardaremos el nombre de los proyectos o tareas 
         //dentro a ese array le metemos una lista que tendra como key , las claves del objeto pero solo accederemos
@@ -95,58 +94,42 @@ class GridDashboard extends Component {
         return (
             <Container style={{ minWidth: '1350px' }}> {/*para que el contenido salga bien extendido al pulsar en el filtro principal*/}
                 <HeaderDashboard />
-                <Row>
-                    <Col>
-                        <h3>Tareas realizadas</h3>
-                        {/* se obtiene el nombre del proyecto y se busca que la tarea coincida con cada proyecto para mostrarla dentro de cada proyecto */}
-                        {listProjects.listProjects && listProjects.listProjects.map((project, index) => (
-                            <div style={{ display: 'flex', flexDirection: 'row' }} key={index}>
-                                <h5>{project.name}</h5>
-                                <div style={{display: 'flex'}}>
-                                {listTasks.listTasks && listTasks.listTasks
-                                    .filter(task => task.projectId === project.id)
-                                    .map((task, taskIndex) => (
-                                        <div key={taskIndex} style={{ display: 'flex', alignItems: 'center' }}>
-                                            {!this.state.disabledCheckbox &&
-                                                <input
-                                                    type="checkbox"
-                                                    onChange={() => {
-                                                        this.statusCheckbox(task.id);
-                                                        this.setState({ openModalDelete: true }); // Actualiza el estado con el ID de la tarea seleccionada
-                                                    }}
-                                                    //funcion anonima para que solo se pase el id de la tarea seleccionada
-                                                    style={{ marginTop: '-20px' }}
-                                                />}
-                                            <p style={{ color: 'yellow', marginLeft: '5px' }} key={taskIndex}>{task.content}</p>
-                                        </div>
-                                    ))}
-                                    </div>
+                <Row style={{ marginLeft: '-20px', overflowX: 'auto' }}>
+    <div style={{ display: 'flex', flexDirection: 'row', paddingLeft: '20px' }}>
+        {listProjects.listProjects && listProjects.listProjects.map((project, index) => (
+            <div key={index} style={{ marginRight: '10px', marginLeft: '10px' }}> {/* Añade margen izquierdo y derecho */}
+                <h5 className='NombreProyectos'>{project.name}</h5>
+                {/* Mapeo de las tareas correspondientes a este proyecto */}
+                <div className={'DivTareas'} > {/* Establece la altura máxima y permite el desplazamiento vertical */}
+                    {listTasks.listTasks && listTasks.listTasks
+                        .filter(task => task.projectId === project.id)
+                        .map((task, taskIndex) => (
+                            <div key={taskIndex} style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                {!this.state.disabledCheckbox &&
+                                    <input
+                                        type="checkbox"
+                                        onChange={() => {
+                                            this.statusCheckbox(task.id);
+                                            this.setState({ openModalDelete: true }); // Actualiza el estado con el ID de la tarea seleccionada
+                                        }}
+                                        //funcion anonima para que solo se pase el id de la tarea seleccionada
+                                        style={{ marginTop: '-20px' }}
+                                    />}
+                                <p style={{ color: 'yellow', marginLeft: '5px', marginBottom: '0' }} key={taskIndex}>{task.content}</p>
                             </div>
                         ))}
+                </div>
+            </div>
+        ))}
+    </div>
+</Row>
 
 
+                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', paddingRight: '260px' }}>
+                    <Button size="sm" variant="primary" style={{ marginRight: '5px' }} onClick={this.openModalAddTask}>Añadir Tarea</Button>
+                    <Button size="sm" variant="primary" onClick={this.statusCheckbox}>Eliminar Tarea</Button>
+                </div>
 
-                        <div style={{ display: 'flex', marginBottom: '10px' }}>
-                            <Button size="sm" variant="primary" style={{ marginRight: '5px' }} onClick={this.openModalAddTask}>Añadir Tarea</Button>
-                            <Button size="sm" variant="primary" onClick={this.statusCheckbox}>Eliminar Tarea</Button>
-                        </div>
-
-
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                    </Col>
-
-                    <Col>
-                        <h3>Palabra aleatoria</h3>
-                        <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
-                        {dataRandom && <h1 style={{ color: 'yellow' }}>{dataRandom.dataRandom}</h1>}
-                        <p>Contenido de la columna 5</p>
-                        <p>Contenido de la columna 5</p>
-                        <p>Contenido de la columna 5</p>
-
-                    </Col>
-                </Row>
                 <Modal show={openModal} size="sm">
                     <Modal.Body>
                         <div className="flex items-center md:items-start gap-2">
@@ -236,7 +219,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
     getListProjectsAction: () => dispatch(getProjectsStart()),
     getListTaskAction: () => dispatch(getListTaskStart()),
     addTaskAction: (selectedProjectId, text) => dispatch(addTaskStart(selectedProjectId, text)),

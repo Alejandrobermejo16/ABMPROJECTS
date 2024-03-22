@@ -27,7 +27,7 @@ class FilterScreens extends React.Component {
                     <div className='initialFilterHeader'><h2>Filtro</h2></div>
                     <Nav className="flex-column">
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Tabla de Actividades</Nav.Link>
-                        <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>Pantalla 2</Nav.Link>
+                        <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>Aleatorio</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('pantalla3')}>Pantalla 3</Nav.Link>
                     </Nav>
                 </div>

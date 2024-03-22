@@ -1,49 +1,38 @@
 import Container from 'react-bootstrap/Container';
 import React from 'react';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Row, Col,Button} from 'react-bootstrap/';
 import { Component } from 'react';
+import { fetchColumnRandomStart } from '../store/actions/fetchColumnAleatorio';
+import { connect } from 'react-redux';
+
 
 class GridDataAlejandro extends Component {
     render() {
+        const {fetchColumnAleatorioAction, dataRandom} = this.props;
         return (
             <Container>
                 <Row>
                     <Col>
-                        <h3>Columna 1</h3>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                        <p>Contenido de la columna 1</p>
-                    </Col>
-                    <Col>
-                        <h3>Columna 2</h3>
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
-                        <p>Contenido de la columna 2</p>
+                        <h3>Pincha en el boton para ver la palabra Aleatoria</h3>
+                        <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
+                        {dataRandom && <h1 style={{ color: 'yellow' }}>{dataRandom.dataRandom}</h1>}
                         
-                    </Col>
-                    <Col>
-                        <h3>Columna 3</h3>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
-                        <p>Contenido de la columna 3</p>
-
-                    </Col>
-                    <Col>
-                        <h3>Columna 4</h3>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
-                        <p>Contenido de la columna 4</p>
-
                     </Col>
                 </Row>
             </Container>
+
+
         )
     }
 }
 
-export default GridDataAlejandro;
+const mapStateToProps = (state) => ({
+    dataRandom: state.columnRandomReducer.dataRandom,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    fetchColumnAleatorioAction: () => dispatch(fetchColumnRandomStart()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(GridDataAlejandro);
+
