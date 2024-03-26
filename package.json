@@ -1,8 +1,9 @@
 {
   "name": "proyectoalejandro",
   "version": "0.1.0",
-  "private": true,
-  "dependencies": {
+  "private": false,
+  "homepage": "https://Alejandrobermejo16/RepositorioCVAlejandro",
+    "dependencies": {
     "@doist/todoist-api-typescript": "^3.0.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",

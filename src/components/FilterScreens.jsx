@@ -7,18 +7,9 @@ import '../styles/InitialFilter.css';
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
+import { LENGUAJESDEPROGRAMACION, FRAMEWORKS } from '../Constants.js';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
-
-// Declara la constante data fuera de la clase
-const LenguajesProgramacion = [
-    { name: 'Javascript', nivel: 20, color: '#FFBB28' },
-    { name: 'Java', nivel: 15, color: '#00C49F' },
-
-    { name: 'Php', nivel: 10, color: '#FF0000' },
-    { name: 'TypeScript', nivel: 5, color: '#0000FF' },
-];
-
 
 
 class FilterScreens extends React.Component {
@@ -47,7 +38,7 @@ class FilterScreens extends React.Component {
                 <div className="sidebar">
                     <div className='initialFilterHeader'><p>Explorador de Componentes y Proyectos</p></div>
                     <Nav className="flex-column">
-                        <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Tabla de Actividades</Nav.Link>
+                        <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Agenda de Tareas</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>Aleatorio</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('pantalla3')}>Pantalla 3</Nav.Link>
                     </Nav>
@@ -90,29 +81,98 @@ class FilterScreens extends React.Component {
                             ) : ''}
 
                             {loadingSkills ? (
-                                <BarChart
-                                    width={500}
-                                    height={300}
-                                    data={LenguajesProgramacion}
-                                    margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                <div
+                                style={{display: 'flex',
+                                flexDirection: 'row',
+                                flexWrap: 'wrap'
+                            }}
                                 >
-                                    <CartesianGrid strokeDasharray="3 3" />
-                                    <XAxis dataKey="name" />
-                                    <YAxis />
-                                    <Tooltip />
-                                    <Legend />
-                                    {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
-                                    <Bar dataKey="nivel">
-                                        {
-                                            LenguajesProgramacion.map((entry, index) => (
-                                                <Cell key={`cell-${index}`} fill={entry.color} />
-                                            ))
-                                        }
-                                    </Bar>
-                                </BarChart>
+                                    <BarChart
+                                        width={500}
+                                        height={300}
+                                        data={LENGUAJESDEPROGRAMACION}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
+                                        <Bar dataKey="nivel_Lenguaje">
+                                            {
+                                                LENGUAJESDEPROGRAMACION.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))
+                                            }
+                                        </Bar>
+                                    </BarChart>
 
+                                    <BarChart
+                                        width={500}
+                                        height={300}
+                                        data={FRAMEWORKS}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
+                                        <Bar dataKey="nivel_FrameWork">
+                                            {
+                                                FRAMEWORKS.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))
+                                            }
+                                        </Bar>
+                                    </BarChart>
 
+                                    
+                                    <BarChart
+                                        width={500}
+                                        height={300}
+                                        data={FRAMEWORKS}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
+                                        <Bar dataKey="nivel_FrameWork">
+                                            {
+                                                FRAMEWORKS.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))
+                                            }
+                                        </Bar>
+                                    </BarChart>
 
+                                    <BarChart
+                                        width={500}
+                                        height={300}
+                                        data={FRAMEWORKS}
+                                        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+                                    >
+                                        <CartesianGrid strokeDasharray="3 3" />
+                                        <XAxis dataKey="name" />
+                                        <YAxis />
+                                        <Tooltip />
+                                        <Legend />
+                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
+                                        <Bar dataKey="nivel_FrameWork">
+                                            {
+                                                FRAMEWORKS.map((entry, index) => (
+                                                    <Cell key={`cell-${index}`} fill={entry.color} />
+                                                ))
+                                            }
+                                        </Bar>
+                                    </BarChart>
+
+                                </div>
 
                             ) : null}
 
