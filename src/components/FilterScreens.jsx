@@ -41,6 +41,7 @@ class FilterScreens extends React.Component {
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Agenda de Tareas</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>Aleatorio</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('pantalla3')}>Pantalla 3</Nav.Link>
+                        <Nav.Link onClick={() => this.handlePantallaClick('pantalla4')}>E-commerce</Nav.Link>
                     </Nav>
                 </div>
                 {noData ? (
