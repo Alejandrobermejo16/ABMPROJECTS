@@ -19,7 +19,7 @@ class GridDataAlejandro extends Component {
                         <h3>Pincha en el boton para ver la palabra Aleatoria</h3>
                         <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
                         {dataRandom && <h1 style={{ color: 'yellow' }}>{dataRandom.dataRandom}</h1>}
-                        <Button variant="dark" onClick={() => fetchTraduccionAction(dataRandom.dataRandom)}>Usar Traductor de Google</Button>
+                        <Button variant="primary" onClick={() => fetchTraduccionAction(dataRandom.dataRandom)}>Usar Traductor de Google</Button>
                          {palabraEspañol && <h1 style={{ color: 'yellow' }}>{palabraEspañol.palabraEspañol}</h1>}
 
                     </Col>
