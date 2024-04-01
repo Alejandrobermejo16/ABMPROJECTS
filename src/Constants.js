@@ -15,10 +15,26 @@ const FRAMEWORKS = [
    
 ];
 
+const OTROS = [
+    { name: 'Git', otros: 20, color: '#FFA500' },
+    { name: 'Jira', otros: 19, color: '#0000FF' },
+    { name: 'BitBucket', otros: 19, color: '#0000FF' },
+    { name: 'GCP', otros: 15, color: '#FF0000' },
+    { name: 'Postman/Swagguer', otros: 10, color: '#FF6600' },
+];
+
+const LIBRERIAS = [
+    { name: 'REDUX', nivel_Libreria: 20, color: '#00C49F' },
+    { name: 'SAGAS', nivel_Libreria: 19, color: '#00C49F' },
+    { name: 'EXT/REACT', nivel_Libreria: 15, color: '#00C49F' },
+    { name: 'REACT/BOOTSTRAP', nivel_Libreria: 10, color: '#FF0000' },
+    { name: 'ANGULAR DEVTOOLS', nivel_Libreria: 10, color: '#FF0000' },
+
+];
 
 
 module.exports = {
-    LENGUAJESDEPROGRAMACION, FRAMEWORKS
+    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS
 };
 
 

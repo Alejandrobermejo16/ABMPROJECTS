@@ -7,7 +7,7 @@ import '../styles/InitialFilter.css';
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
-import { LENGUAJESDEPROGRAMACION, FRAMEWORKS } from '../Constants.js';
+import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
 
@@ -89,7 +89,7 @@ class FilterScreens extends React.Component {
                             }}
                                 >
                                     <BarChart
-                                        width={500}
+                                        width={600}
                                         height={300}
                                         data={LENGUAJESDEPROGRAMACION}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -110,7 +110,7 @@ class FilterScreens extends React.Component {
                                     </BarChart>
 
                                     <BarChart
-                                        width={500}
+                                        width={600}
                                         height={300}
                                         data={FRAMEWORKS}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
@@ -132,9 +132,9 @@ class FilterScreens extends React.Component {
 
                                     
                                     <BarChart
-                                        width={500}
+                                        width={600}
                                         height={300}
-                                        data={FRAMEWORKS}
+                                        data={OTROS}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                                     >
                                         <CartesianGrid strokeDasharray="3 3" />
@@ -143,9 +143,9 @@ class FilterScreens extends React.Component {
                                         <Tooltip />
                                         <Legend />
                                         {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
-                                        <Bar dataKey="nivel_FrameWork">
+                                        <Bar dataKey="otros">
                                             {
-                                                FRAMEWORKS.map((entry, index) => (
+                                                OTROS.map((entry, index) => (
                                                     <Cell key={`cell-${index}`} fill={entry.color} />
                                                 ))
                                             }
@@ -153,9 +153,9 @@ class FilterScreens extends React.Component {
                                     </BarChart>
 
                                     <BarChart
-                                        width={500}
+                                        width={600}
                                         height={300}
-                                        data={FRAMEWORKS}
+                                        data={LIBRERIAS}
                                         margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                                     >
                                         <CartesianGrid strokeDasharray="3 3" />
@@ -164,9 +164,9 @@ class FilterScreens extends React.Component {
                                         <Tooltip />
                                         <Legend />
                                         {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
-                                        <Bar dataKey="nivel_FrameWork">
+                                        <Bar dataKey="nivel_Libreria">
                                             {
-                                                FRAMEWORKS.map((entry, index) => (
+                                                LIBRERIAS.map((entry, index) => (
                                                     <Cell key={`cell-${index}`} fill={entry.color} />
                                                 ))
                                             }

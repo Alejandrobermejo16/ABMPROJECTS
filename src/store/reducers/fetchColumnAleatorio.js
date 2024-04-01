@@ -4,6 +4,7 @@ const initState = {
     dataRandom: null,
     error: false,
     loading: false,
+    palabraEspañol: null,
 }
 
 const columnRandomReducer = (state = initState, action) => {
@@ -14,7 +15,15 @@ const columnRandomReducer = (state = initState, action) => {
             return { ...state, loading: false, error: false, dataRandom: action.payload }; 
         case types.FETCH_COLUMN_RANDOM_FAILED:
             return {...state, loading:false, error: true};
+
+            case types.FETCH_TRADUCCION_START: 
+            return {...state, loading:true };
+        case types.FETCH_TRADUCCION_SUCCESS:
+            return { ...state, loading: false, error: false, palabraEspañol: action.payload }; 
+        case types.FETCH_TRADUCCION_FAILED:
+            return {...state, loading:false, error: true};
         default: return state;
+
     }
 };
 
