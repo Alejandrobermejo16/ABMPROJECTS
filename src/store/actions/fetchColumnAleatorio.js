@@ -17,9 +17,9 @@ export const fetchColumnRandomFailed = (error) => ({
 });
 
 
-export const fetchTraduccionStart = (palabraIngles) => ({
+export const fetchTraduccionStart = (palabraIngles, pais = '') => ({
     type: types.FETCH_TRADUCCION_START,
-    payload: {palabraIngles},
+    payload: { palabraIngles, pais },
 });
 
 export const fetchTraduccionSuccess = (palabraEspañol) => ({
