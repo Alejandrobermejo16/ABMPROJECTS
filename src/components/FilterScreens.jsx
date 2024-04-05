@@ -6,6 +6,7 @@ import '../styles/InitialFilter.css';
 // Importa los componentes de pantalla aquí
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
+import ReservasHipica from '../screens/ReservasHipica.jsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
 
@@ -40,7 +41,7 @@ class FilterScreens extends React.Component {
                     <Nav className="flex-column">
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Agenda de Tareas</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>Traductor</Nav.Link>
-                        <Nav.Link onClick={() => this.handlePantallaClick('pantalla3')}>Pantalla 3</Nav.Link>
+                        <Nav.Link onClick={() => this.handlePantallaClick('ReservasHipica')}>ReservasHipica</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('pantalla4')}>E-commerce</Nav.Link>
                     </Nav>
                 </div>
@@ -185,6 +186,7 @@ class FilterScreens extends React.Component {
                             {/* Renderiza el componente de pantalla actual */}
                             {pantallaActual === 'GridDashboard' && <GridDashboard />}
                             {pantallaActual === 'GridDataAlejandro' && <GridDataAlejandro />}
+                            {pantallaActual === 'ReservasHipica' && <ReservasHipica />}
                         </div>
                     )
                 )}

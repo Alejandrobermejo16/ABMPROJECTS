@@ -32,9 +32,17 @@ const LIBRERIAS = [
 
 ];
 
+const caballo = require('../src/img/2.png');
+const caballo2 = require('../src/img/3.png');
+const caballo3 = require('../src/img/4.png');
+
+const GALERIARESERVASHIPICA = [
+    { src: caballo, descripcion: 'Descripción de la imagen 1' },
+    { src: caballo2, descripcion: 'Descripción de la imagen 2' },
+    { src: caballo3, descripcion: 'Descripción de la imagen 3' }
+];
 
 module.exports = {
-    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS
+    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA
 };
-
 
