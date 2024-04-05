@@ -6,9 +6,7 @@ import { GALERIARESERVASHIPICA } from '../Constants';
 import { CalendarDateFill } from 'react-bootstrap-icons';
 import { Button, Modal } from 'react-bootstrap';
 
-
 class ReservasHipica extends React.Component {
-
     constructor() {
         super();
         this.state = { openModal: false };
@@ -18,17 +16,15 @@ class ReservasHipica extends React.Component {
         this.setState({ openModal: true });
     }
 
+    closeModal = () => {
+        this.setState({ openModal: false });
+    }
+
     render() {
         const { openModal } = this.state;
 
         return (
-            <div
-                className='ReservasHipica'
-                style={{
-                    height: '100vh',
-                    width: '100vw',
-                }}
-            >
+            <div className='ReservasHipica' style={{ height: '100vh', width: '100vw' }}>
                 <Clock formato="horayfecha" />
                 <h1 style={{ paddingTop: '30px', paddingLeft: '600px' }}>HIPICA  DON FAUSTINO</h1>
                 <GaleriaImagenes imagenes={GALERIARESERVASHIPICA} />
@@ -36,14 +32,14 @@ class ReservasHipica extends React.Component {
                     <p>¡Experimenta la emoción de montar a caballo en nuestra hípica! <br></br> Descubre la belleza de un paseo a caballo mientras exploras nuestros impresionantes senderos naturales. <br></br> Desde principiantes hasta jinetes experimentados, ¡todos son bienvenidos! Para reservar esta increíble experiencia ecuestre, simplemente pulsa en el siguiente botón</p>
                 </div>
                 <div style={{ paddingLeft: '700px', paddingTop: '100px' }}>
-                    <Button variant="primary" >
-                        <CalendarDateFill color="black" size={50} style={{ paddingRight: '10px' }} onClick={() => this.openModalReserve()} />
-                        RESERVAR</Button>
+                    <Button variant="primary" onClick={this.openModalReserve}>
+                        <CalendarDateFill color="black" size={50} style={{ paddingRight: '10px' }} />
+                        RESERVAR
+                    </Button>
                 </div>
 
-
-                <Modal show={openModal} fullscreen centered>
-                    <Modal.Body >
+                <Modal show={openModal} fullscreen centered onHide={this.closeModal}>
+                    <Modal.Body>
                         <div className="flex items-center md:items-start gap-2">
                             <h3 className="text-body-4 md:text-body-2 font-semibold text-metal-900">
                                 Introduce la fecha de la reserva
@@ -51,11 +47,7 @@ class ReservasHipica extends React.Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-
-
-
-                        <Button variant="dark" onClick={() => this.setState({ openModal: false })}>Cerrar</Button>
-
+                        <Button variant="dark" onClick={this.closeModal}>Cerrar</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -64,4 +56,3 @@ class ReservasHipica extends React.Component {
 }
 
 export default ReservasHipica;
-
