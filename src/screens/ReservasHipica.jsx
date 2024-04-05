@@ -79,16 +79,17 @@ class ReservasHipica extends React.Component {
                             <InputGroup className="mb-3" style={{ paddingTop: '10px' }}>
                                 <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
                                 <Form.Control
-                                    placeholder="direccion de correo"
-                                    aria-label="direccion de correo"
-                                    aria-describedby="direccion de correo"
+                                    placeholder="Direccion de correo"
+                                    aria-label="Direccion de correo"
+                                    aria-describedby="Direccion de correo"
                                 />
-                                <InputGroup.Text id="direccion de correo">@example.com</InputGroup.Text>
+                                <InputGroup.Text id="Direccion de correo">@example.com</InputGroup.Text>
                             </InputGroup>
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="dark" onClick={this.closeModal}>Cerrar</Button>
+                        <Button variant="primary" onClick={this.closeModal}>Enviar</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
