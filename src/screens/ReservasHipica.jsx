@@ -7,13 +7,18 @@ import { CalendarDateFill } from 'react-bootstrap-icons';
 import { Button, Modal, InputGroup, Form } from 'react-bootstrap';
 import Datetime from 'react-datetime'; // Importa Datetime
 import 'react-datetime/css/react-datetime.css'; // Importa los estilos
+import { sendHorseMailStart } from '../store/actions/sendMails';
+import { connect } from 'react-redux';
 
 class ReservasHipica extends React.Component {
     constructor() {
         super();
         this.state = {
             openModal: false,
-            selectedDate: new Date() // Inicializa la fecha seleccionada
+            selectedDate: new Date(), // Inicializa la fecha seleccionada
+            nombre: '',
+            apellidos: '',
+            correo: ''
         };
     }
 
@@ -29,8 +34,19 @@ class ReservasHipica extends React.Component {
         this.setState({ selectedDate: date });
     }
 
+    handleEnviarCorreo = () => {
+        const { nombre, apellidos, correo, selectedDate } = this.state;
+        const destinatario = `${correo}`;
+        const nombreReserva = `${nombre} ${apellidos}`;
+        const asunto = 'Reserva en Hípica Don Faustino';
+        const mensaje = `Fecha de reserva: ${selectedDate}`;
+
+        this.props.sendHorseMailAction(destinatario, asunto, mensaje, nombreReserva);
+        this.closeModal();
+    }
+
     render() {
-        const { openModal, selectedDate } = this.state;
+        const { openModal, selectedDate, nombre, apellidos, correo } = this.state;
 
         return (
             <div className='ReservasHipica' style={{ height: '100vh', width: '100vw' }}>
@@ -56,6 +72,8 @@ class ReservasHipica extends React.Component {
                                     placeholder="Nombre"
                                     aria-label="Nombre"
                                     aria-describedby="basic-addon1"
+                                    value={nombre}
+                                    onChange={(e) => this.setState({ nombre: e.target.value })}
                                 />
                             </InputGroup>
                             <InputGroup className="mb-3">
@@ -64,6 +82,8 @@ class ReservasHipica extends React.Component {
                                     placeholder="Apellidos"
                                     aria-label="Apellidos"
                                     aria-describedby="basic-addon1"
+                                    value={apellidos}
+                                    onChange={(e) => this.setState({ apellidos: e.target.value })}
                                 />
                             </InputGroup>
                             <h3 className="text-body-4 md:text-body-2 font-semibold text-metal-900">
@@ -82,6 +102,8 @@ class ReservasHipica extends React.Component {
                                     placeholder="Direccion de correo"
                                     aria-label="Direccion de correo"
                                     aria-describedby="Direccion de correo"
+                                    value={correo}
+                                    onChange={(e) => this.setState({ correo: e.target.value })}
                                 />
                                 <InputGroup.Text id="Direccion de correo">@example.com</InputGroup.Text>
                             </InputGroup>
@@ -89,7 +111,7 @@ class ReservasHipica extends React.Component {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="dark" onClick={this.closeModal}>Cerrar</Button>
-                        <Button variant="primary" onClick={this.closeModal}>Enviar</Button>
+                        <Button variant="primary" onClick={this.handleEnviarCorreo}>Enviar</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -97,4 +119,12 @@ class ReservasHipica extends React.Component {
     }
 }
 
-export default ReservasHipica;
+const mapStateToProps = (state) => ({
+    
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    sendHorseMailAction: (destinatario, asunto, mensaje, nombreReserva) => dispatch(sendHorseMailStart(destinatario, asunto, mensaje, nombreReserva)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReservasHipica);

@@ -74,9 +74,9 @@ class GridDashboard extends Component {
         const proyectos = [];
         const idProyecto = [];
 
-        // Renderizar Spinner si loading es true
+        // Renderizar Spinner si loading es true  
         if (loading) {
-            return <Spinner animation="border" variant="primary" />;
+            return <Spinner animation="border" variant="primary"  />;
         }
 
 

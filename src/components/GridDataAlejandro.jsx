@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Button, Form } from 'react-bootstrap';
 import { fetchColumnRandomStart, fetchTraduccionStart } from '../store/actions/fetchColumnAleatorio';
+import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 
 class GridDataAlejandro extends Component {
     constructor(props) {
@@ -26,13 +27,16 @@ class GridDataAlejandro extends Component {
                 <h3>Pincha en el botón para ver la palabra Aleatoria</h3>
                 <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
                 {dataRandom && <h1 style={{ color: 'yellow' }}>{dataRandom.dataRandom}</h1>}
+                <div style={{ paddingBottom: '10px', paddingTop: '10px'}}>
+                    <ExclamationTriangleFill /> El traductor aparecerá en un idioma aleatorio cada vez que sea pulsado
+                </div> 
                 <Button variant="primary" onClick={() => {
                      const idiomasDisponibles = ['es', 'it', 'pt', 'fr', 'de', 'ar'];
                      // Seleccionar un idioma aleatorio de la lista
                      const idiomaAleatorio = idiomasDisponibles[Math.floor(Math.random() * idiomasDisponibles.length)];                 
                     fetchTraduccionAction(dataRandom.dataRandom, idiomaAleatorio);
                     this.setState({ hiddenBoton: 1 });
-                }}>Usar Traductor de Google</Button>
+                                   }}>Usar Traductor de Google </Button>
                 {hiddenBoton === 1 && palabraEspañol && <h1 style={{ color: 'yellow' }}>{palabraEspañol.palabraEspañol}</h1>}
                 <br></br>
                 <Form>
