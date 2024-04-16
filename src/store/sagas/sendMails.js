@@ -5,15 +5,11 @@ import { sendHorseMailSuccess, sendHorseMailFailed } from '../actions/sendMails'
 function* sendMailHorseSagas(action) {
   const { destinatario, asunto, mensaje, nombreReserva } = action.payload;
 
-{/*curl -X POST   -H "Content-Type: application/json"   -d '{"destinatario":"trsasm@gmail.com","asunto":"Prueba desde la terminal",
-"mensaje":"Este es un mensaje de prueba desde la terminal"}'   https://backendabmprojects.vercel.app/*/}
-
-
-  const url = 'https://backendabmprojects.vercel.app/'; // Reemplaza con la URL de tu servidor backend
+  const url = 'https://backendabmprojects.vercel.app/';
   const data = {
-    destinatario: 'alejandrobermejomendez170712@gmail.com',
-    asunto: 'Prueba desde el frontend',
-    mensaje: 'nada'
+    destinatario: destinatario,
+    asunto: asunto,
+    mensaje: mensaje
   };
 
   try {
@@ -26,9 +22,9 @@ function* sendMailHorseSagas(action) {
     });
     
     const responseData = yield response.json();
-    yield put(sendHorseMailSuccess(responseData)); // Manejar la acción de éxito
+    yield put(sendHorseMailSuccess(responseData));
   } catch (error) {
-    yield put(sendHorseMailFailed(error.message)); // Manejar la acción de fallo
+    yield put(sendHorseMailFailed(error.message));
     console.error('Error al enviar el correo:', error.message);
   }
 }
