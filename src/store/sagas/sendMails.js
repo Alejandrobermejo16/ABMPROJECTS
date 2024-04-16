@@ -16,7 +16,8 @@ function* sendMailHorseSagas(action) {
     const response = yield call(fetch, url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin: https://abmprojects-7kay.vercel.app'
       },
       body: JSON.stringify(data)
     });
