@@ -1,7 +1,6 @@
 import React from 'react';
 import { Nav, Accordion, Card, Button } from 'react-bootstrap';
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
-
 import '../styles/InitialFilter.css';
 // Importa los componentes de pantalla aquí
 import GridDashboard from './GridDashboard';
@@ -46,11 +45,11 @@ class FilterScreens extends React.Component {
                     </Nav>
                 </div>
                 {noData ? (
-                    <div style={{ marginTop: '20px' }}>
+                    <div className="divAcordeon" style={{ marginTop: '5px' }}>
                         <Accordion defaultActiveKey="0" >
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>ALEJANDRO BERMEJO MENDEZ</Accordion.Header>
-                                <Accordion.Body>
+                                <Accordion.Body className="narrowAccordionBody">
                                     <p>
                                         Hola, soy Alejandro, un programador frontend con experiencia en el desarrollo de aplicaciones utilizando React, tanto con componentes de clase como sin el uso de hooks. Mi enfoque se centra en garantizar la estabilidad y eficiencia del código, priorizando una experiencia del usuario excepcional desde el primer clic.
                                     </p>
@@ -77,13 +76,13 @@ class FilterScreens extends React.Component {
                             </div>
 
                             {!loadingSkills ? (
-                                <div style={{ paddingTop: '60px', paddingLeft: '300px' }}>
-                                    <ExclamationTriangleFill /> Para poder ver todas las habilidades laborales pulsa el botón de Skills Profesionales
+                                <div className='divaviso' style={{ paddingTop: '60px', paddingLeft: '300px' }}>
+                                    <ExclamationTriangleFill className='aviso'/> Para poder ver todas las habilidades laborales pulsa el botón de Skills Profesionales
                                 </div>
                             ) : ''}
 
                             {loadingSkills ? (
-                                <div
+                                <div className='divSkills'
                                 style={{display: 'flex',
                                 flexDirection: 'row',
                                 flexWrap: 'wrap'

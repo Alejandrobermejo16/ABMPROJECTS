@@ -3,7 +3,7 @@ import * as types from '../actions/actionTypes';
 import { sendHorseMailSuccess, sendHorseMailFailed } from '../actions/sendMails';
 
 function* sendMailHorseSagas(action) {
-  const { destinatario, asunto, mensaje, nombreReserva } = action.payload;
+  const { destinatario, asunto, mensaje } = action.payload;
 
   const url = 'https://backendabmprojects.vercel.app/';
   const data = {
