@@ -43,6 +43,7 @@ class FilterScreens extends React.Component {
                         <Nav.Link onClick={() => this.handlePantallaClick('ReservasHipica')}>ReservasHipica</Nav.Link>
                         <Nav.Link onClick={() => this.handlePantallaClick('pantalla4')}>E-commerce</Nav.Link>
                     </Nav>
+                    <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                 </div>
                 {noData ? (
                     <div className="divAcordeon" style={{ marginTop: '5px' }}>

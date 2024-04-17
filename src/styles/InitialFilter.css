@@ -1,11 +1,18 @@
-.sidebar{
+.sidebar {
     border: 2px solid #808080;
     border-radius: 10px;
-    width: 100px; /* Ancho inicial */
-    height: 100%;
-    min-width: 200px; /* Ancho mínimo */
-    min-height: 930px;
+    min-width: 100px; /* Ancho inicial */
+    height: 100vh;
+    display: flex; /* Utilizar flexbox */
+    flex-direction: column; /* Alinear elementos en columna */
 }
+
+.initialFilterFooter {
+ border-top: solid 1px white;
+ text-align: center;
+    margin-top: auto; /* Colocar al final del contenedor verticalmente */
+}
+
 
 .initialFilterHeader{
     border-bottom: 2px solid #808080;

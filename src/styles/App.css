@@ -2,7 +2,6 @@
     display: flex;
     background-color: black;
     color: white;
-    height: 100%;
-    min-height: 950px; /* Ejemplo de altura mínima */
+    height: 100vh;
     overflow-x: hidden;
 }
