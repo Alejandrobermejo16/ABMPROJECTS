@@ -61,6 +61,7 @@ class FilterScreens extends React.Component {
                             </Accordion.Item>
                         </Accordion>
                         <div style={{ display: 'flex', flexDirection: 'row' }}>
+                        {!loadingSkills ? (
                             <div style={{ marginRight: '20px' }}>
                                 <div style={{ display: 'inline-block', padding: '5px', border: '2px solid yellow', borderRadius: '5px' }}>
                                     <Card style={{ width: '10rem', height: '40%', border: 'none' }}>
@@ -74,7 +75,7 @@ class FilterScreens extends React.Component {
                                     </Card>
                                 </div>
                             </div>
-
+                          ) : ''}
                             {!loadingSkills ? (
                                 <div className='divaviso' style={{ paddingTop: '60px', paddingLeft: '300px' }}>
                                     <ExclamationTriangleFill className='aviso'/> Para poder ver todas las habilidades laborales pulsa el botón de Skills Profesionales
