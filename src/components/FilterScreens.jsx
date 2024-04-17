@@ -34,7 +34,7 @@ class FilterScreens extends React.Component {
         const { pantallaActual, noData, loadingSkills } = this.state;
 
         return (
-            <div style={{ display: 'flex' }}>
+            <div className='padrepantallafiltro'>
                 <div className="sidebar">
                     <div className='initialFilterHeader'><p>Explorador de Componentes y Proyectos</p></div>
                     <Nav className="flex-column">

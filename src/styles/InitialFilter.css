@@ -31,54 +31,15 @@
     }
 }
 
-
+.padrepantallafiltro{display: flex;}
 
 /* Estilos para dispositivos móviles */
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
-    .sidebar {
-        min-width: 140px; /* Reducir aún más el ancho de la barra lateral */
-        }
-
-    /* Opcional: ajustar el tamaño del texto en la cabecera para dispositivos móviles */
-    .initialFilterHeader {
-        font-size: 16px; /* Ajustar el tamaño del texto en la cabecera para dispositivos móviles */
-    }
-
-    /* Opcional: ajustar el espaciado del contenido principal */
-    .no-data,
-    .screen {
-        padding: 10px; /* Ajustar el espaciado del contenido principal */
-    }
-    .narrowAccordionBody {
-        max-width: 2000px; /* Ajusta el ancho máximo según tus preferencias */
-        font-size: 8px;
-        white-space: nowrap; /* Evita que el texto se envuelva y lo fuerza a mostrarse horizontalmente */
-        overflow: scroll; /* Oculta cualquier texto que desborde el contenedor */
-        text-overflow: ellipsis; /* Agrega puntos suspensivos (...) al texto que desborde */
-    }
-.divAcordeon {
-    max-width: 500px;
-
+    .padrepantallafiltro{display: block;}
+    
 }
-
-.divaviso{font-size: 10px;
-  
-}
-.aviso{
-    font-size: 10px;
-}
-
-.divSkills{
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;    
-}
-    /* Opcional: aplicar estilos específicos para los gráficos en dispositivos móviles */
-    .skills {
-        /* Aquí puedes aplicar estilos específicos para los gráficos en dispositivos móviles */
-    }
-}
+    
 
   /* Estilos para tabletas */
   @media (min-width: 768px) and (max-width: 1024px) {
