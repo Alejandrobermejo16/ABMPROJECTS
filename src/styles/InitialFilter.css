@@ -1,70 +1,118 @@
 .sidebar {
-    border: 2px solid #808080;
-    border-radius: 10px;
-    min-width: 100px; /* Ancho inicial */
-    height: 100vh;
-    display: flex; /* Utilizar flexbox */
-    flex-direction: column; /* Alinear elementos en columna */
+  border: 2px solid #808080;
+  border-radius: 10px;
+  min-width: 100px;
+  /* Ancho inicial */
+  height: 100vh;
+  display: flex;
+  /* Utilizar flexbox */
+  flex-direction: column;
+  /* Alinear elementos en columna */
 }
 
 .initialFilterFooter {
- border-top: solid 1px white;
- text-align: center;
-    margin-top: auto; /* Colocar al final del contenedor verticalmente */
+  border-top: solid 1px white;
+  text-align: center;
+  margin-top: auto;
+  /* Colocar al final del contenedor verticalmente */
 }
 
 
-.initialFilterHeader{
-    border-bottom: 2px solid #808080;
-    text-align: center;
-    
+.initialFilterHeader {
+  border-bottom: 2px solid #808080;
+  text-align: center;
+
+}
+
+.divaviso {
+  padding-Top: '60px';
+  padding-Left: '300px'; 
 }
 
 @media (min-width: 1400px) {
-    .container,
-    .container-lg,
-    .container-md,
-    .container-sm,
-    .container-xl,
-    .container-xxl {
-        max-width: 1500px; 
-    }
+
+  .container,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    max-width: 1500px;
+  }
 }
 
-.padrepantallafiltro{display: flex;}
+.padrepantallafiltro {
+  display: flex;
+}
 
-/* Estilos para dispositivos móviles */
+.divSkills{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
 /* Estilos para dispositivos móviles */
 @media (max-width: 767px) {
-    .padrepantallafiltro{display: block;}
-    .sidebar{
-        height: 15em;
-    }
-    
-.divAcordeon{
-    display: flex;
-}
-    
-}
-    
+  .padrepantallafiltro {
+    display: block !important;
+    width: 100% !important;
+    max-width: 767px !important;
+  }
 
-  /* Estilos para tabletas */
-  @media (min-width: 768px) and (max-width: 1024px) {
-    /* Agrega estilos específicos para tabletas aquí */
+  .divaviso { 
+    display: flex;
+    align-items: center ;
+    justify-content: center; 
   }
-  
-  /* Estilos para dispositivos de escritorio */
-  @media (min-width: 1025px) {
-    /* Agrega estilos específicos para dispositivos de escritorio aquí */
+
+  /*para los hijos del dev de skills es decir el de los graficos*/
+  .divSkills > *{
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 100vw; /* No excede el ancho de la ventana gráfica (viewport) */
+    box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+    /* Agrega otros estilos según sea necesario */
   }
-  
-  /* Estilos para dispositivos con resoluciones de alta DPI */
-  @media (min-resolution: 192dpi) {
-    /* Agrega estilos específicos para dispositivos con alta DPI aquí */
+
+  /*para los hijos de la pantalla completa*/
+  .padrepantallafiltro > * {
+    width: 100%; /* Ocupa todo el ancho disponible */
+    max-width: 100vw; /* No excede el ancho de la ventana gráfica (viewport) */
+    box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+    /* Agrega otros estilos según sea necesario */
   }
-  
-  /* Estilos para dispositivos con resoluciones muy altas */
-  @media (min-width: 2561px) {
-    /* Agrega estilos específicos para dispositivos con resoluciones muy altas aquí */
+
+  .sidebar {
+    height: 15em;
+    background-color: #ffeb3b;
+    
   }
+
+  .divAcordeon {
+    display: flex;
+    flex-direction: column; /* Asegurar que los elementos dentro del contenedor se apilen verticalmente */
+    align-items: center; /* Centrar los elementos horizontalmente */
+  }
+
   
+}
+
+
+/* Estilos para tabletas */
+@media (min-width: 768px) and (max-width: 1024px) {
+  /* Agrega estilos específicos para tabletas aquí */
+}
+
+/* Estilos para dispositivos de escritorio */
+@media (min-width: 1025px) {
+  /* Agrega estilos específicos para dispositivos de escritorio aquí */
+}
+
+/* Estilos para dispositivos con resoluciones de alta DPI */
+@media (min-resolution: 192dpi) {
+  /* Agrega estilos específicos para dispositivos con alta DPI aquí */
+}
+
+/* Estilos para dispositivos con resoluciones muy altas */
+@media (min-width: 2561px) {
+  /* Agrega estilos específicos para dispositivos con resoluciones muy altas aquí */
+}

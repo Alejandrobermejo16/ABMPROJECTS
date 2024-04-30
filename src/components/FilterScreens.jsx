@@ -8,6 +8,7 @@ import GridDataAlejandro from './GridDataAlejandro';
 import ReservasHipica from '../screens/ReservasHipica.jsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
+import { List } from 'react-bootstrap-icons';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
 
@@ -19,7 +20,18 @@ class FilterScreens extends React.Component {
             pantallaActual: null,
             noData: true,
             loadingSkills: false,
+            isMenuVisible: false,
         };
+    }
+
+    componentDidMount() {
+        //para mostrar el menu hamburguesa
+        var ancho = document.querySelector('.padrepantallafiltro').clientWidth;
+        console.log(ancho);
+        if (ancho <= 754) {
+            this.setState({ isMenuVisible: true })
+        }
+
     }
 
     handlePantallaClick = (pantalla) => {
@@ -29,13 +41,22 @@ class FilterScreens extends React.Component {
     cargarSkillsButton = () => {
         this.setState({ loadingSkills: true });
     };
+    toggleMenu = () => {
+        this.setState(prevState => ({
+            isMenuVisible: !prevState.isMenuVisible
+        }));
+    };
+
+
+
 
     render() {
-        const { pantallaActual, noData, loadingSkills } = this.state;
+        const { pantallaActual, noData, loadingSkills, isMenuVisible } = this.state;
 
         return (
             <div className='padrepantallafiltro'>
-                <div className="sidebar">
+                {!isMenuVisible && (
+                    <div className="sidebar">
                     <div className='initialFilterHeader'><p>Explorador de Componentes y Proyectos</p></div>
                     <Nav className="flex-column">
                         <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}>Agenda de Tareas</Nav.Link>
@@ -45,6 +66,13 @@ class FilterScreens extends React.Component {
                     </Nav>
                     <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                 </div>
+                )}
+                
+                {isMenuVisible && (
+                    <Button variant="primary" onClick={() => this.toggleMenu()} >
+                        <List /> 
+                    </Button>
+                )}
                 {noData ? (
                     <div className="divAcordeon" style={{ marginTop: '5px' }}>
                         <Accordion defaultActiveKey="0" >
@@ -61,34 +89,31 @@ class FilterScreens extends React.Component {
                                 </Accordion.Body>
                             </Accordion.Item>
                         </Accordion>
-                        <div style={{ display: 'flex', flexDirection: 'row' }}>
-                        {!loadingSkills ? (
-                            <div style={{ marginRight: '20px' }}>
-                                <div style={{ display: 'inline-block', padding: '5px', border: '2px solid yellow', borderRadius: '5px' }}>
-                                    <Card style={{ width: '10rem', height: '40%', border: 'none' }}>
-                                        <Card.Img variant="top" src={ImagenAlejandro} alt='Imagen del desarrollador de la web' />
-                                        <Card.Body >
-                                            <Card.Text>
-                                                Desarrollador Front-end en continuo aprendizaje, con ganas de aportar y aprender.
-                                            </Card.Text>
-                                            <Button variant="primary" onClick={() => this.cargarSkillsButton()}>Skills Profesionales</Button>
-                                        </Card.Body>
-                                    </Card>
-                                </div>
-                            </div>
-                          ) : ''}
+                        <div style={{ display: 'flex', flexDirection: 'row', paddingTop: '10px' }}>
                             {!loadingSkills ? (
-                                <div className='divaviso' style={{ paddingTop: '60px', paddingLeft: '300px' }}>
-                                    <ExclamationTriangleFill className='aviso'/> Para poder ver todas las habilidades laborales pulsa el botón de Skills Profesionales
+                                <div style={{ marginRight: '20px' }}>
+                                    <div style={{ display: 'inline-block', padding: '5px', border: '2px solid yellow', borderRadius: '5px' }}>
+                                        <Card style={{ width: '10rem', height: '40%', border: 'none' }}>
+                                            <Card.Img variant="top" src={ImagenAlejandro} alt='Imagen del desarrollador de la web' />
+                                            <Card.Body >
+                                                <Card.Text>
+                                                    Desarrollador Front-end en continuo aprendizaje, con ganas de aportar y aprender.
+                                                </Card.Text>
+                                                <Button variant="primary" onClick={() => this.cargarSkillsButton()}>Skills Profesionales</Button>
+                                            </Card.Body>
+                                        </Card>
+                                    </div>
+                                </div>
+                            ) : ''}
+                            {!loadingSkills ? (
+                                <div className='divaviso'>
+                                    <ExclamationTriangleFill className='aviso' /> Para poder ver todas las habilidades laborales pulsa el botón de Skills Profesionales
                                 </div>
                             ) : ''}
 
                             {loadingSkills ? (
                                 <div className='divSkills'
-                                style={{display: 'flex',
-                                flexDirection: 'row',
-                                flexWrap: 'wrap'
-                            }}
+                                    
                                 >
                                     <BarChart
                                         width={600}
@@ -132,7 +157,7 @@ class FilterScreens extends React.Component {
                                         </Bar>
                                     </BarChart>
 
-                                    
+
                                     <BarChart
                                         width={600}
                                         height={300}
@@ -191,6 +216,7 @@ class FilterScreens extends React.Component {
                         </div>
                     )
                 )}
+
             </div>
         );
     }
