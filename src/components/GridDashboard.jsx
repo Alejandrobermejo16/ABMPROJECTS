@@ -92,7 +92,7 @@ class GridDashboard extends Component {
 
 
         return (
-            <Container style={{ minWidth: '1350px' }}> {/*para que el contenido salga bien extendido al pulsar en el filtro principal*/}
+            <Container className='componenteTareas' style={{ minWidth: '1350px' }}> {/*para que el contenido salga bien extendido al pulsar en el filtro principal*/}
                 <HeaderDashboard />
                 <Row style={{ marginLeft: '-20px', overflowX: 'auto' }}>
     <div style={{ display: 'flex', flexDirection: 'row', paddingLeft: '20px' }}>
@@ -125,7 +125,7 @@ class GridDashboard extends Component {
 </Row>
 
 
-                <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px', paddingRight: '260px' }}>
+                <div className='botonesTareas'>
                     <Button size="sm" variant="primary" style={{ marginRight: '5px' }} onClick={this.openModalAddTask}>Añadir Tarea</Button>
                     <Button size="sm" variant="primary" onClick={this.statusCheckbox}>Eliminar Tarea</Button>
                 </div>

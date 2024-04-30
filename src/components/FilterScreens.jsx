@@ -21,6 +21,7 @@ class FilterScreens extends React.Component {
             noData: true,
             loadingSkills: false,
             isMenuVisible: false,
+            
         };
     }
 
@@ -31,6 +32,7 @@ class FilterScreens extends React.Component {
         if (ancho <= 754) {
             this.setState({ isMenuVisible: true })
         }
+
 
     }
 
@@ -68,11 +70,11 @@ class FilterScreens extends React.Component {
                 </div>
                 )}
                 
-                
+                {isMenuVisible && (
                     <Button variant="primary" onClick={() => this.toggleMenu()} >
                         <List /> 
                     </Button>
-                
+                )}
                 {noData ? (
                     <div className="divAcordeon" style={{ marginTop: '5px' }}>
                         <Accordion defaultActiveKey="0" >
