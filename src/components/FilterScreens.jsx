@@ -68,11 +68,11 @@ class FilterScreens extends React.Component {
                 </div>
                 )}
                 
-                {isMenuVisible && (
+                
                     <Button variant="primary" onClick={() => this.toggleMenu()} >
                         <List /> 
                     </Button>
-                )}
+                
                 {noData ? (
                     <div className="divAcordeon" style={{ marginTop: '5px' }}>
                         <Accordion defaultActiveKey="0" >
