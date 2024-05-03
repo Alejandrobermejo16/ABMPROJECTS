@@ -1,6 +1,37 @@
 .ReservasHipica{
     background-color: green;
     display: 'flex'; 
+    justify-content: center;
     flex-direction: 'row';
-    flex-wrap: 'wrap'
+    flex-wrap: 'wrap';
+    height: 100%;
+    width: 100vw;
 }
+
+.ReservasHipica > * {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Espacio hacia abajo entre elementos */
+  text-align: center;
+}
+
+
+
+@media (max-width: 767px) {
+
+    .ReservasHipica {
+        display: block;
+        width: 100%;
+        height: 100%;
+        background-color: green;
+        margin: 0 auto; /* Centrado horizontal */
+        text-align: center; /* Centra horizontalmente los elementos hijos */
+    }
+    
+    .ReservasHipica > * {
+        display: inline-block; /* Para que los elementos se centren horizontalmente */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        max-width: 100vw; /* No excede el ancho de la ventana gráfica (viewport) */
+        box-sizing: border-box; /* Incluye el padding y border en el ancho total */
+    }
+    }

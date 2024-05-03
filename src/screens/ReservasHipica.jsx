@@ -49,16 +49,16 @@ class ReservasHipica extends React.Component {
         const { openModal, selectedDate, nombre, apellidos, correo } = this.state;
 
         return (
-            <div className='ReservasHipica' style={{ height: '100vh', width: '100vw' }}>
+            <div className='ReservasHipica'>
                 <Clock formato="horayfecha" />
-                <h1 style={{ paddingTop: '30px', paddingLeft: '600px' }}>HIPICA  DON FAUSTINO</h1>
-                <GaleriaImagenes imagenes={GALERIARESERVASHIPICA} />
-                <div style={{ width: '1500px', height: '100px', paddingLeft: '200px', paddingTop: '20px', textAlign: "center", fontSize: '26px' }}>
+                <h1 >HIPICA  DON FAUSTINO</h1>
+                <GaleriaImagenes className='Galeria' imagenes={GALERIARESERVASHIPICA} />
+                <div>
                     <p>¡Experimenta la emoción de montar a caballo en nuestra hípica! <br></br> Descubre la belleza de un paseo a caballo mientras exploras nuestros impresionantes senderos naturales. <br></br> Desde principiantes hasta jinetes experimentados, ¡todos son bienvenidos! Para reservar esta increíble experiencia ecuestre, simplemente pulsa en el siguiente botón</p>
                 </div>
-                <div style={{ paddingLeft: '700px', paddingTop: '100px' }}>
+                <div>
                     <Button variant="primary" onClick={this.openModalReserve}>
-                        <CalendarDateFill color="black" size={50} style={{ paddingRight: '10px' }} />
+                        <CalendarDateFill color="black" size={50}/>
                         RESERVAR
                     </Button>
                 </div>
@@ -89,14 +89,14 @@ class ReservasHipica extends React.Component {
                             <h3 className="text-body-4 md:text-body-2 font-semibold text-metal-900">
                                 Introduce la fecha de la reserva
                             </h3>
-                            <div style={{ display: 'flex', alignItems: 'center' }}>
-                                <CalendarDateFill color="black" size={40} style={{ paddingRight: '10px' }} />
+                            <div>
+                                <CalendarDateFill color="black" size={40}  />
                                 <Datetime
                                     value={selectedDate}
                                     onChange={this.handleDateChange}
                                 />
                             </div>
-                            <InputGroup className="mb-3" style={{ paddingTop: '10px' }}>
+                            <InputGroup className="mb-3">
                                 <InputGroup.Text id="basic-addon1">@</InputGroup.Text>
                                 <Form.Control
                                     placeholder="Direccion de correo"
