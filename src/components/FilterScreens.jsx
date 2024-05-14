@@ -10,7 +10,7 @@ import Jira from '../screens/Jira.jsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
 import { List } from 'react-bootstrap-icons';
-import { FolderFill, Translate, CalendarDate,  PersonRaisedHand } from 'react-bootstrap-icons';
+import { FolderFill, Translate, CalendarDate, PersonRaisedHand } from 'react-bootstrap-icons';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
 
@@ -63,13 +63,17 @@ class FilterScreens extends React.Component {
                     <div className="sidebar">
                         <div className='initialFilterHeader'><p> Explorador de Componentes y Proyectos</p></div>
                         <Nav className="flex-column">
-                            <Nav.Link onClick={() => this.handlePantallaClick('GridDashboard')}> <FolderFill /> Agenda de Tareas</Nav.Link>
-                            <Nav.Link onClick={() => this.handlePantallaClick('GridDataAlejandro')}>
+                            <Nav.Link className="nav-links"
+                                onClick={() => this.handlePantallaClick('GridDashboard')}> <FolderFill /> Agenda de Tareas</Nav.Link>
+                            <Nav.Link className="nav-links"
+                                onClick={() => this.handlePantallaClick('GridDataAlejandro')}>
                                 <Translate />
                                 Traductor
                             </Nav.Link>
-                            <Nav.Link onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate/> ReservasHipica</Nav.Link>
-                            <Nav.Link onClick={() => this.handlePantallaClick('Jira')}><PersonRaisedHand/> Entorno colaborativo Tareas</Nav.Link>
+                            <Nav.Link className="nav-links"
+                                onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> ReservasHipica</Nav.Link>
+                            <Nav.Link className="nav-links"
+                                onClick={() => this.handlePantallaClick('Jira')}><PersonRaisedHand /> Entorno colaborativo Tareas</Nav.Link>
                         </Nav>
                         <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                     </div>

@@ -15,6 +15,15 @@
   font-size: 20px;
 }
 
+.nav-links:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(221, 220, 205);
+  text-decoration-style: solid;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 10px;
+}
+
+
 .initialFilterFooter {
   border-top: solid 1px white;
   text-align: center;
@@ -31,7 +40,7 @@
 
 .divaviso {
   padding-Top: '60px';
-  padding-Left: '300px'; 
+  padding-Left: '300px';
 }
 
 @media (min-width: 1400px) {
