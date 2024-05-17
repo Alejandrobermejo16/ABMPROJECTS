@@ -70,7 +70,7 @@ class GaleriaImagenes extends Component {
               className={imagen.volteada ? 'tarjeta volteada' : 'tarjeta'}
               onMouseEnter={() => this.handleMouseEnter(index)}
               onMouseLeave={this.handleMouseLeave}
-              onClick={() => this.handleClick(index)} // Asigna handleClick para dispositivos móviles
+              onClick={() => this.handleClick(index)}
             >
               {imagen.volteada && hoveredIndex === index ? (
                 <div className="espacio-imagen">
@@ -80,7 +80,7 @@ class GaleriaImagenes extends Component {
                 <Card.Img variant="top" src={imagen.src} alt={imagen.descripcion} style={{ width: '100%', height: 'auto' }} />
               )}
 
-              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable && !isMobile && this.renderTexto(imagen.texto)}
+              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable  && this.renderTexto(imagen.texto)}
             </Card>
           </Col>
         ))}
