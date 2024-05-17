@@ -56,9 +56,12 @@ class GaleriaImagenes extends Component {
   };
 
   renderTexto(texto) {
+    const lineas = texto.split('\n');
     return (
       <Card.Body>
-        <Card.Text>{texto}</Card.Text>
+        {lineas.map((linea, index) => (
+          <Card.Text key={index}>{linea}</Card.Text>
+        ))}
       </Card.Body>
     );
   }

@@ -54,7 +54,9 @@ const GALERIARESERVASHIPICA2 = [
       texto: 'Actividades y Horarios', 
       textoPosicion: 'derecha',
       volteada: true,
-      textoVolteada: `Lunes a viernes de 9:00-22:00  ☎️ tlf: 642034521`   },
+      textoVolteada: `Lunes a viernes de 9:00-22:00 \n☎️ tlf: 642034521\n Actividades Encuestres:\nPaseo Ladera Real => 09:00-12:00\nTaller Conocimiento del Caballo => 13:00-15:00\n
+      Sesion de Fotos => 15:15-15:45\n Juegos para niños => 17:30-20:00   
+      `},
     {
       src: caballo6, 
       descripcion: 'Descripción de la imagen 2', 
