@@ -25,14 +25,19 @@ class GaleriaImagenes extends Component {
     this.setState({ isMobile: window.innerWidth <= 767 });
   };
 
+  //para los moviles
   handleClick = (index) => {
     const { imagenes } = this.props;
-    const imagen = imagenes[index];
     const { isMobile } = this.state;
     if (isMobile) {
-      this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagen.volteada });
+      const newImagenes = imagenes.map((imagen, i) => ({
+        ...imagen,
+        imagenvolteadadisable: i === index ? !imagen.volteada : true,
+      }));
+      this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagenes[index].volteada, imagenes: newImagenes });
     }
   };
+  
 
   handleMouseEnter = (index) => {
     const { imagenes } = this.props;
@@ -60,7 +65,7 @@ class GaleriaImagenes extends Component {
 
   render() {
     const { imagenes } = this.props;
-    const { hoveredIndex, imagenvolteadadisable, isMobile } = this.state;
+    const { hoveredIndex, imagenvolteadadisable } = this.state;
 
     return (
       <Row>
