@@ -45,22 +45,26 @@ const GALERIARESERVASHIPICA = [
 const caballo5 = require('../src/img/5.jpg');
 const caballo6 = require('../src/img/6.jpg');
 
+
+
 const GALERIARESERVASHIPICA2 = [
     { 
       src: caballo5, 
       descripcion: 'Descripción de la imagen 1', 
       texto: 'Actividades y Horarios', 
       textoPosicion: 'derecha',
-    },
-    { 
+      volteada: true,
+      textoVolteada: `Lunes a viernes de 9:00-22:00  ☎️ tlf: 642034521`   },
+    {
       src: caballo6, 
       descripcion: 'Descripción de la imagen 2', 
       texto: 'Sobre Nosotros', 
       textoPosicion: 'derecha',
       volteada: true, // Esta tarjeta estará volteada por defecto
-      textoVolteada: 'Texto personalizado en la tarjeta volteada' // Texto personalizado en la tarjeta volteada
-    
+      textoVolteada: 'Hípica Don Faustino\n\nUbicada en San Sebastián de los Reyes, en Camino Llano, la Hípica Don Faustino ha estado haciendo felices a experimentados jinetes desde 1961.\n\nCon más de seis décadas de tradición y excelencia, nuestra escuela ecuestre es un lugar donde la pasión por los caballos y la dedicación al arte de la equitación se unen para ofrecer una experiencia inolvidable' // Texto personalizado en la tarjeta volteada
     }
+    
+    
   ];
   
 
