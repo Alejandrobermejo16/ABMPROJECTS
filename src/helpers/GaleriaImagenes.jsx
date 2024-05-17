@@ -9,25 +9,16 @@ class GaleriaImagenes extends Component {
     this.state = {
       hoveredIndex: -1,
       imagenvolteadadisable: true,
-      isMobile: window.innerWidth <= 767,
+      isMobile: window.innerWidth <= 767, // Verifica si es un dispositivo móvil al cargar el componente
     };
-    this.handleClickOutside = this.handleClickOutside.bind(this); //  para que handleClickOutside tenga acceso al contexto del componente
   }
 
   componentDidMount() {
     window.addEventListener('resize', this.handleResize);
-    document.addEventListener('click', this.handleClickOutside); // para los clics fuera de la tarjeta en movil
   }
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.handleResize);
-    document.removeEventListener('click', this.handleClickOutside);
-  }
-// Restablece el estado de la tarjeta
-  handleClickOutside(event) {
-    if (!this.cardRef.contains(event.target)) { 
-      this.setState({ hoveredIndex: -1, imagenvolteadadisable: true }); 
-    }
   }
 
   handleResize = () => {
@@ -80,7 +71,6 @@ class GaleriaImagenes extends Component {
               onMouseEnter={() => this.handleMouseEnter(index)}
               onMouseLeave={this.handleMouseLeave}
               onClick={() => this.handleClick(index)}
-              ref={(ref) => { this.cardRef = ref; }} // Añade una referencia a la tarjeta para poder comprobar si el clic fue dentro o fuera de ella
             >
               {imagen.volteada && hoveredIndex === index ? (
                 <div className="espacio-imagen">
@@ -90,7 +80,7 @@ class GaleriaImagenes extends Component {
                 <Card.Img variant="top" src={imagen.src} alt={imagen.descripcion} style={{ width: '100%', height: 'auto' }} />
               )}
 
-              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable && this.renderTexto(imagen.texto)}
+              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable  && this.renderTexto(imagen.texto)}
             </Card>
           </Col>
         ))}
