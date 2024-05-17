@@ -34,7 +34,7 @@ class GaleriaImagenes extends Component {
         ...imagen,
         imagenvolteadadisable: i === index ? !imagen.volteada : true,
       }));
-      this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagenes[index].volteada, imagenes: newImagenes });
+      this.setState({ hoveredIndex: index, imagenes: newImagenes });
     }
   };
   
