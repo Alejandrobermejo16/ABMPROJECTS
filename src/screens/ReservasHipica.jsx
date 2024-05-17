@@ -120,11 +120,6 @@ class ReservasHipica extends React.Component {
                 <div className='galeria2'>
                     <GaleriaImagenes className='galeria3' 
                          imagenes={GALERIARESERVASHIPICA2} />
-                    <div className='divParrafo'>
-                        <p> prueba</p>
-                        <p >prueba</p>
-                        <p >prueba</p>
-                    </div>
                 </div>
 
             </div>

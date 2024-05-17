@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'; // Importa PropTypes desde 'prop-types'
+import PropTypes from 'prop-types';
 import { Row, Col, Card } from 'react-bootstrap';
-import '../styles/GaleriaImagenes.css'; // Asegúrate de importar el archivo CSS donde definiste las clases
+import '../styles/GaleriaImagenes.css';
 
 class GaleriaImagenes extends Component {
   constructor(props) {
@@ -9,17 +9,45 @@ class GaleriaImagenes extends Component {
     this.state = {
       hoveredIndex: -1,
       imagenvolteadadisable: true,
+      isMobile: window.innerWidth <= 767, // Verifica si es un dispositivo móvil al cargar el componente
     };
   }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize);
+  }
+
+  handleResize = () => {
+    this.setState({ isMobile: window.innerWidth <= 767 });
+  };
+
+  handleClick = (index) => {
+    const { imagenes } = this.props;
+    const imagen = imagenes[index];
+    const { isMobile } = this.state;
+    if (isMobile) {
+      this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagen.volteada });
+    }
+  };
 
   handleMouseEnter = (index) => {
     const { imagenes } = this.props;
     const imagen = imagenes[index];
-    this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagen.volteada });
+    const { isMobile } = this.state;
+    if (!isMobile) {
+      this.setState({ hoveredIndex: index, imagenvolteadadisable: !imagen.volteada });
+    }
   };
 
   handleMouseLeave = () => {
-    this.setState({ hoveredIndex: -1, imagenvolteadadisable: true });
+    const { isMobile } = this.state;
+    if (!isMobile) {
+      this.setState({ hoveredIndex: -1, imagenvolteadadisable: true });
+    }
   };
 
   renderTexto(texto) {
@@ -32,7 +60,7 @@ class GaleriaImagenes extends Component {
 
   render() {
     const { imagenes } = this.props;
-    const { hoveredIndex, imagenvolteadadisable } = this.state;
+    const { hoveredIndex, imagenvolteadadisable, isMobile } = this.state;
 
     return (
       <Row>
@@ -42,6 +70,7 @@ class GaleriaImagenes extends Component {
               className={imagen.volteada ? 'tarjeta volteada' : 'tarjeta'}
               onMouseEnter={() => this.handleMouseEnter(index)}
               onMouseLeave={this.handleMouseLeave}
+              onClick={() => this.handleClick(index)} // Asigna handleClick para dispositivos móviles
             >
               {imagen.volteada && hoveredIndex === index ? (
                 <div className="espacio-imagen">
@@ -51,7 +80,7 @@ class GaleriaImagenes extends Component {
                 <Card.Img variant="top" src={imagen.src} alt={imagen.descripcion} style={{ width: '100%', height: 'auto' }} />
               )}
 
-              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable && this.renderTexto(imagen.texto)}
+              {imagen.texto && imagen.textoPosicion === 'derecha' && imagenvolteadadisable && !isMobile && this.renderTexto(imagen.texto)}
             </Card>
           </Col>
         ))}
@@ -60,19 +89,17 @@ class GaleriaImagenes extends Component {
   }
 }
 
-// Define los PropTypes para el componente GaleriaImagenes
 GaleriaImagenes.propTypes = {
   imagenes: PropTypes.arrayOf(PropTypes.shape({
-    src: PropTypes.string.isRequired, //se debe de indicar la ruta donde se tiene la imagen como se hace en archivo Constants
-    descripcion: PropTypes.string,  //alt de la imagen
-    volteada: PropTypes.bool,  //si queremos que se voltee la imagen para ponerle una descripcion detras, false por defecto
-    textoVolteada: PropTypes.string, //texto que le ponemos a la imagen que queremos volteada
-    texto: PropTypes.string, //texto normal que ponemos a la imagen de principio
-    textoPosicion: PropTypes.oneOf(['derecha', 'izquierda']),  //donde queremos que aparezca el texto, por defecto der para que aparezca debajo izq no funciona
+    src: PropTypes.string.isRequired,
+    descripcion: PropTypes.string,
+    volteada: PropTypes.bool,
+    textoVolteada: PropTypes.string,
+    texto: PropTypes.string,
+    textoPosicion: PropTypes.oneOf(['derecha', 'izquierda']),
   })).isRequired,
 };
 
-// Definir valores por defecto para props que son opcionales
 GaleriaImagenes.defaultProps = {
   imagenes: [],
 };
