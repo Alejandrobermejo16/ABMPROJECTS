@@ -2,7 +2,7 @@ import React from 'react';
 import '../styles/ReservasHipica.css';
 import GaleriaImagenes from '../helpers/GaleriaImagenes';
 import Clock from '../helpers/Clock';
-import { GALERIARESERVASHIPICA } from '../Constants';
+import { GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 } from '../Constants';
 import { CalendarDateFill } from 'react-bootstrap-icons';
 import { Button, Modal, InputGroup, Form } from 'react-bootstrap';
 import Datetime from 'react-datetime'; // Importa Datetime
@@ -58,7 +58,7 @@ class ReservasHipica extends React.Component {
                 </div>
                 <div>
                     <Button variant="primary" onClick={this.openModalReserve}>
-                        <CalendarDateFill color="black" size={50}/>
+                        <CalendarDateFill color="black" size={50} />
                         RESERVAR
                     </Button>
                 </div>
@@ -90,7 +90,7 @@ class ReservasHipica extends React.Component {
                                 Introduce la fecha de la reserva
                             </h3>
                             <div>
-                                <CalendarDateFill color="black" size={40}  />
+                                <CalendarDateFill color="black" size={40} />
                                 <Datetime
                                     value={selectedDate}
                                     onChange={this.handleDateChange}
@@ -114,13 +114,26 @@ class ReservasHipica extends React.Component {
                         <Button variant="primary" onClick={this.handleEnviarCorreo}>Enviar</Button>
                     </Modal.Footer>
                 </Modal>
+                
+
+ 
+                <div className='galeria2'>
+                    <GaleriaImagenes className='galeria3' 
+                         imagenes={GALERIARESERVASHIPICA2} />
+                    <div className='divParrafo'>
+                        <p> prueba</p>
+                        <p >prueba</p>
+                        <p >prueba</p>
+                    </div>
+                </div>
+
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => ({
-    
+
 });
 
 const mapDispatchToProps = (dispatch) => ({

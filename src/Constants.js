@@ -12,7 +12,7 @@ const FRAMEWORKS = [
     { name: 'React', nivel_FrameWork: 20, color: '#0000FF' },
     { name: 'Angular', nivel_FrameWork: 7, color: '#FF0000' },
     { name: 'Android SDK', nivel_FrameWork: 4, color: '#00FF00' },
-   
+
 ];
 
 const OTROS = [
@@ -42,7 +42,28 @@ const GALERIARESERVASHIPICA = [
     { src: caballo3, descripcion: 'Descripción de la imagen 3' }
 ];
 
-module.exports = {
-    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA
-};
+const caballo5 = require('../src/img/5.jpg');
+const caballo6 = require('../src/img/6.jpg');
+
+const GALERIARESERVASHIPICA2 = [
+    { 
+      src: caballo5, 
+      descripcion: 'Descripción de la imagen 1', 
+      texto: 'Actividades y Horarios', 
+      textoPosicion: 'derecha',
+    },
+    { 
+      src: caballo6, 
+      descripcion: 'Descripción de la imagen 2', 
+      texto: 'Sobre Nosotros', 
+      textoPosicion: 'derecha',
+      volteada: true, // Esta tarjeta estará volteada por defecto
+      textoVolteada: 'Texto personalizado en la tarjeta volteada' // Texto personalizado en la tarjeta volteada
+    
+    }
+  ];
+  
+
+
+module.exports = {    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
 

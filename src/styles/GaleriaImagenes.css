@@ -1,0 +1,8 @@
+
+.espacio-imagen {
+  /* Otros estilos... */
+  text-decoration: none; /* Evita que el texto aparezca tachado */
+}
+.tarjeta.volteada .espacio-imagen {
+  opacity: 1; /* Muestra el contenido cuando la tarjeta está volteada */
+}
