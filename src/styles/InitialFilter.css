@@ -70,7 +70,7 @@
   .padrepantallafiltro {
     display: block !important;
     width: 100% !important;
-    max-width: 500px !important;
+    max-width: 767px !important;
   }
 
   .divaviso { 

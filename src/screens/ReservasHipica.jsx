@@ -89,7 +89,7 @@ class ReservasHipica extends React.Component {
                             <h3 className="text-body-4 md:text-body-2 font-semibold text-metal-900">
                                 Introduce la fecha de la reserva
                             </h3>
-                            <div>
+                            <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
                                 <CalendarDateFill color="black" size={40} />
                                 <Datetime
                                     value={selectedDate}
