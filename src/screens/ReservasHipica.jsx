@@ -1,6 +1,7 @@
 import React from 'react';
 import '../styles/ReservasHipica.css';
 import GaleriaImagenes from '../helpers/GaleriaImagenes';
+import Map from '../components/Map'
 import Clock from '../helpers/Clock';
 import { GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 } from '../Constants';
 import { CalendarDateFill } from 'react-bootstrap-icons';
@@ -114,12 +115,19 @@ class ReservasHipica extends React.Component {
                         <Button variant="primary" onClick={this.handleEnviarCorreo}>Enviar</Button>
                     </Modal.Footer>
                 </Modal>
-                
 
- 
+
+
                 <div className='galeria2'>
-                    <GaleriaImagenes className='galeria3' 
-                         imagenes={GALERIARESERVASHIPICA2} />
+                    <GaleriaImagenes className='galeria3'
+                        imagenes={GALERIARESERVASHIPICA2} />
+                </div>
+
+
+
+                <div className='MapContainer'>
+                    <h1 style={{ marginBottom: '20px' }}>¿DÓNDE NOS ENCONTRAMOS?</h1>
+                        <Map style={{ width: '100%' }} />
                 </div>
 
             </div>
