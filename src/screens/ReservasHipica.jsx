@@ -127,7 +127,10 @@ class ReservasHipica extends React.Component {
 
                 <div className='MapContainer'>
                     <h1 style={{ marginBottom: '20px' }}>¿DÓNDE NOS ENCONTRAMOS?</h1>
-                        <Map style={{ width: '100%' }} />
+                    <Map style={{ width: '100%' }} />
+                    <p style={{ paddingTop: '10px', color: 'black' }}>
+                        Madrid- San Sebastián de los Reyes  Camino Llano nº9, <span role="img" aria-label="Teléfono">☎️</span> tlf: 642034521 Alejandro
+                    </p>
                 </div>
 
             </div>

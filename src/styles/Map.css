@@ -3,3 +3,9 @@
     height: 400px;
     width: 70%; 
   }
+
+  @media (max-width: 768px) {
+    #map {
+        width: 100%;
+    }
+}
