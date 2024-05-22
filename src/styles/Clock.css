@@ -1,0 +1,17 @@
+.clock-container {
+    padding: 10px; /* Espacio alrededor del reloj */
+}
+
+.clock-text {
+    font-size: 18px; /* Tamaño de fuente predeterminado */
+}
+
+/* Media query para pantallas pequeñas */
+@media screen and (max-width: 768px) {
+    .clock-container {
+        text-align: center; /* Alinear a la derecha en pantallas pequeñas */
+    }
+    .clock-text {
+        font-size: 14px; /* Reducir tamaño de fuente para pantallas pequeñas */
+    }
+}

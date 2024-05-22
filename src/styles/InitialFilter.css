@@ -97,9 +97,13 @@
 
   .sidebar {
     height: 15em;
-    background-color: #ffeb3b;
-    
-  }
+    background: linear-gradient(to bottom, #1a237e, #5f6841); /* Degradado de azul oscuro a azul más claro */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid #ccc; /* Borde gris */
+    color: #fff; /* Texto blanco */
+}
+
 
   .divAcordeon {
     display: flex;

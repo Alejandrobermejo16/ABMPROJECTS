@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Clock.css'; 
 
 class Clock extends React.Component {
     constructor() {
@@ -54,18 +55,16 @@ class Clock extends React.Component {
         }
     }
 
-
     render() {
         const { formato } = this.props;
 
         return (
-            <div>
-                <span style={{ paddingLeft: '1350px' }}>
+            <div className="clock-container">
+                <span className="clock-text">
                     {formato === 'hora' && this.formatearFecha('hora')}
                     {formato === 'fecha' && this.formatearFecha('fecha')}
                     {formato === 'horayfecha' && `${this.formatearFecha('hora')} - ${this.formatearFecha('fecha')}`}
                 </span>
-
             </div>
         );
     }
