@@ -6,7 +6,7 @@ import '../styles/InitialFilter.css';
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
 import ReservasHipica from '../screens/ReservasHipica.jsx';
-import Jira from '../screens/Jira.jsx';
+import Fit from '../screens/Fit.jsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
 import { List } from 'react-bootstrap-icons';
@@ -73,7 +73,7 @@ class FilterScreens extends React.Component {
                             <Nav.Link className="nav-links"
                                 onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> ReservasHipica</Nav.Link>
                             <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('Jira')}><PersonRaisedHand /> Entorno colaborativo Tareas</Nav.Link>
+                                onClick={() => this.handlePantallaClick('Fit')}><PersonRaisedHand /> Entorno colaborativo Tareas</Nav.Link>
                         </Nav>
                         <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                     </div>
@@ -225,7 +225,7 @@ class FilterScreens extends React.Component {
                             {pantallaActual === 'GridDashboard' && <GridDashboard />}
                             {pantallaActual === 'GridDataAlejandro' && <GridDataAlejandro />}
                             {pantallaActual === 'ReservasHipica' && <ReservasHipica />}
-                            {pantallaActual === 'Jira' && <Jira />}
+                            {pantallaActual === 'Fit' && <Fit />}
                         </div>
                     )
                 )}

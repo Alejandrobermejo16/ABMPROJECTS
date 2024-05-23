@@ -1,0 +1,59 @@
+import React, { Component } from 'react';
+import { Calendar, dayjsLocalizer } from 'react-big-calendar';
+import "react-big-calendar/lib/css/react-big-calendar.css";
+import dayjs from 'dayjs';
+import "dayjs/locale/es";
+
+dayjs.locale("es");  //aparece el calendario en español, necesitamos el import de arriba locale
+
+class CalendarioPrincipal extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            events: [
+                {
+                    start: dayjs('2024-05-23T12:00:00').toDate(),
+                    end: dayjs('2024-05-23T13:00:00').toDate(),
+                    title: "Ir al Gimnasio"
+                }
+            ]
+        };
+        this.localizer = dayjsLocalizer(dayjs);
+    }
+
+    cambioEstiloDiaActual = (date) => {
+       const today = dayjs().startOf('day');
+       const isToday = dayjs(date).startOf('day').isSame(today);
+       return isToday ? { style: { backgroundColor: 'lightblue' } } : {};
+    }
+
+    render() {
+        return (
+            <div style={{ height: "95vh", width: "70vw" }}>
+                <Calendar style={{ backgroundColor: 'white', color: 'black' }}
+                    localizer={this.localizer}
+                    events={this.state.events}
+                    defaultView='month'
+                    dayPropGetter={this.cambioEstiloDiaActual}
+                // views={["month","day"]}  esta prop es para controlar las vistas que se quieren ver de las tareas en el calendario
+                // view='month' sirve como value, por ejemplo por si queremos cambiar a ver el dia cuando se pincha en algun lugar
+                // date = {dayjs('2024-05-23T13:00:00').toDate(),} si queremos que empiece el calendario en un dia concreto
+                //toolbar, si lo pongo en false no se muestra lo de arriba, por ejemplo si lo pongo en false y pongo  defaultView='month' el usuario solo puede ver el mes 
+                // min dayjs('2024-05-23T12:00:00').toDate(), si quiero poner en el dia del calendario un horario comercial por ejemplo y no todas las horas
+                // max dayjs('2024-05-23T12:00:00').toDate(), si quiero poner en el dia del calendario un horario comercial por ejemplo y no todas las horas
+                //poner el formato de fecha que nosotros queramos
+                /*formats = {{
+              dayHeaderFromat: date => {
+                  console.log(date)
+                  returns dayjs(date).format("DD//MM/YYYY")
+              }
+              }}
+              */
+
+                />
+            </div>
+        );
+    }
+}
+
+export default CalendarioPrincipal;
