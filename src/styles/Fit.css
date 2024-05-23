@@ -3,8 +3,8 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 70vw; /* Ancho del contenedor */
-    height: 95vh; /* Alto del contenedor */
+    width: 100%; /* Ancho del contenedor */
+    height: 100%; /* Alto del contenedor */
     text-align: center; /* Centra el texto horizontalmente */
 
 }
