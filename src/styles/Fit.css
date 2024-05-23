@@ -1,0 +1,9 @@
+.abmfitprincipal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70vw; /* Ancho del contenedor */
+    height: 95vh; /* Alto del contenedor */
+    text-align: center; /* Centra el texto horizontalmente */
+    padding-top: 5%;
+}

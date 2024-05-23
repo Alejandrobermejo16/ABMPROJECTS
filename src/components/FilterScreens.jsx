@@ -71,7 +71,7 @@ class FilterScreens extends React.Component {
                                 Traductor
                             </Nav.Link>
                             <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> ReservasHipica</Nav.Link>
+                                onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> Reservas Hipica</Nav.Link>
                             <Nav.Link className="nav-links"
                                 onClick={() => this.handlePantallaClick('Fit')}><PersonRaisedHand /> Entorno colaborativo Tareas</Nav.Link>
                         </Nav>

@@ -4,7 +4,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from 'dayjs';
 import "dayjs/locale/es";
 
-dayjs.locale("es");  //aparece el calendario en español, necesitamos el import de arriba locale
+dayjs.locale("es");
 
 class CalendarioPrincipal extends Component {
     constructor(props) {
@@ -22,14 +22,15 @@ class CalendarioPrincipal extends Component {
     }
 
     cambioEstiloDiaActual = (date) => {
-       const today = dayjs().startOf('day');
-       const isToday = dayjs(date).startOf('day').isSame(today);
-       return isToday ? { style: { backgroundColor: 'lightblue' } } : {};
+        const today = dayjs().startOf('day');
+        const isToday = dayjs(date).startOf('day').isSame(today);
+        return isToday ? { style: { backgroundColor: 'lightblue' } } : {};
     }
 
     render() {
+        const { width, height } = this.props; 
         return (
-            <div style={{ height: "95vh", width: "70vw" }}>
+            <div style={{ height: height, width: width }}>
                 <Calendar style={{ backgroundColor: 'white', color: 'black' }}
                     localizer={this.localizer}
                     events={this.state.events}
@@ -49,11 +50,16 @@ class CalendarioPrincipal extends Component {
               }
               }}
               */
-
                 />
             </div>
         );
     }
 }
 
+CalendarioPrincipal.defaultProps = {
+    width: "70vw", // Valor por defecto para el ancho del calendario
+    height: "95vh" // Valor por defecto para el alto del calendario
+};
+
 export default CalendarioPrincipal;
+
