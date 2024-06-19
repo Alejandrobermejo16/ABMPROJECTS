@@ -21,7 +21,7 @@ function KalCalculator(props) {
       if (!response.ok) {
         throw new Error("Error al obtener los alimentos");
       }
-
+  
       const data = await response.json();
       console.log(data.foods);
     } catch (error) {
