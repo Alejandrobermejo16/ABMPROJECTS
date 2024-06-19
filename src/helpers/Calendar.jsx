@@ -30,13 +30,14 @@ class CalendarioPrincipal extends Component {
     render() {
         const { width, height } = this.props; 
         return (
-            <div style={{ height: height, width: width }}>
-                <Calendar style={{ backgroundColor: 'white', color: 'black' }}
+            <div className="calendario-container" style={{ width: width, height: height }}>
+                <Calendar
+                    style={{ backgroundColor: 'white', color: 'black', width: '100%', height: '100%' }}
                     localizer={this.localizer}
                     events={this.state.events}
                     defaultView='month'
                     dayPropGetter={this.cambioEstiloDiaActual}
-                // views={["month","day"]}  esta prop es para controlar las vistas que se quieren ver de las tareas en el calendario
+  // views={["month","day"]}  esta prop es para controlar las vistas que se quieren ver de las tareas en el calendario
                 // view='month' sirve como value, por ejemplo por si queremos cambiar a ver el dia cuando se pincha en algun lugar
                 // date = {dayjs('2024-05-23T13:00:00').toDate(),} si queremos que empiece el calendario en un dia concreto
                 //toolbar, si lo pongo en false no se muestra lo de arriba, por ejemplo si lo pongo en false y pongo  defaultView='month' el usuario solo puede ver el mes 
@@ -49,17 +50,15 @@ class CalendarioPrincipal extends Component {
                   returns dayjs(date).format("DD//MM/YYYY")
               }
               }}
-              */
-                />
+              */                
+              />
             </div>
         );
     }
 }
-
 CalendarioPrincipal.defaultProps = {
-    width: "70vw", // Valor por defecto para el ancho del calendario
-    height: "95vh" // Valor por defecto para el alto del calendario
+    width: "90vw", // Valor por defecto para el ancho del calendario
+    height: "40vh" // Valor por defecto para el alto del calendario
 };
 
 export default CalendarioPrincipal;
-
