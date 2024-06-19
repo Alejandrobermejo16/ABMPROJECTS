@@ -1,3 +1,11 @@
+## Requisitos
+
+Para poder cargar y ejecutar este proyecto, asegúrate de tener las siguientes versiones de las herramientas instaladas:
+
+- **Node.js**: v18.17.0
+- **NVM**: v0.39.1
+- **NPM**: v9.6.7
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
