@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import CalendarioPrincipal from '../helpers/Calendar';
 import KalCalculator from '../components/KalCalculator';
+import AddUserForm from '../components/AddUserForm';
 import '../styles/Fit.css';
 
 class Fit extends Component {
@@ -10,6 +11,7 @@ class Fit extends Component {
         <h1>¡Bienvenido a ABM FIT!</h1>
         <CalendarioPrincipal />
         <KalCalculator cal= {70} />
+        <AddUserForm/>
       </div>
     );
   }

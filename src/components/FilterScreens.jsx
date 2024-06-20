@@ -73,7 +73,7 @@ class FilterScreens extends React.Component {
                             <Nav.Link className="nav-links"
                                 onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> Reservas Hipica</Nav.Link>
                             <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('Fit')}><PersonRaisedHand /> Entorno colaborativo Tareas</Nav.Link>
+                                onClick={() => this.handlePantallaClick('Fit')}><PersonRaisedHand /> Espacio Fit</Nav.Link>
                         </Nav>
                         <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                     </div>
