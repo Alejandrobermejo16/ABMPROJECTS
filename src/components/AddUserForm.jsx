@@ -11,7 +11,7 @@ const AddUserForm = () => {
     event.preventDefault();
     
     try {
-      const response = await axios.post('https://backendabmprojects.vercel.app/', {
+      const response = await axios.post('/api/users', {
         name,
         email,
         password
