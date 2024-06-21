@@ -11,7 +11,7 @@ const AddUserForm = () => {
     event.preventDefault();
 
 // Middleware para permitir solicitudes CORS desde un origen específico
-app.use((req, res, next) =>  {
+app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://abmprojects-7kay.vercel.app/api/users');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
