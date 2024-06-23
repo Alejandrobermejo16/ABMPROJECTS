@@ -24,6 +24,7 @@ const AddUserForm = () => {
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
+      console.error('Respuesta del servidor:', error.response); // Mostrar detalles de la respuesta del servidor en la consola
       setMessage('Error al enviar el formulario');
     }
   };
