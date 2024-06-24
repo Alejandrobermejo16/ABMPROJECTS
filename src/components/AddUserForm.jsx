@@ -9,14 +9,19 @@ const AddUserForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-  
+
     try {
-      const response = await axios.post('https://backendabmprojects.vercel.app/api/users', {
-        name,
-        email,
-        password
-      });
-  
+      const response = await axios.post(
+        'https://backendabmprojects.vercel.app/api/users',
+        { name, email, password },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Custom-Header': 'valor-personalizado' // Cabecera personalizada
+          }
+        }
+      );
+
       if (response.status === 201) {
         setMessage('Usuario añadido correctamente');
       } else {
@@ -24,11 +29,11 @@ const AddUserForm = () => {
       }
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
-      console.error('Respuesta del servidor:', error.response); // Mostrar detalles de la respuesta del servidor en la consola
+      console.error('Respuesta del servidor:', error.response);
       setMessage('Error al enviar el formulario');
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit}>
       <input
