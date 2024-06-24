@@ -14,7 +14,7 @@ const AddUserForm = () => {
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
-        `${apiUrl}/api/users`,
+        `${apiUrl}/api/users/create`,
         { name, email },
         {
           headers: {
