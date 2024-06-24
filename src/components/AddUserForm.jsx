@@ -11,9 +11,11 @@ const AddUserForm = () => {
     event.preventDefault();
 
     try {
+      const apiUrl = process.env.REACT_APP_API_URL;
+
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
-        'https://backendabmprojects.vercel.app/api/users',
+        `${apiUrl}/users`,
         { name, email, password },
         {
           headers: {
@@ -25,12 +27,13 @@ const AddUserForm = () => {
 
       // Endpoint para obtener todos los usuarios
       const getUsersResponse = await axios.get(
-        'https://backendabmprojects.vercel.app/api/users'
+        `${apiUrl}/users`
       );
 
       // Endpoint para obtener un usuario por ID (ejemplo con ID = 123)
+      const userId = '123'; // Reemplaza con el ID deseado
       const getUserByIdResponse = await axios.get(
-        'https://backendabmprojects.vercel.app/api/users/123'
+        `${apiUrl}/users/${userId}`
       );
 
       // Mostrar mensajes según las respuestas de cada endpoint
