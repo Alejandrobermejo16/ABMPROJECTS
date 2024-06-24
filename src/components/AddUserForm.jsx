@@ -11,7 +11,8 @@ const AddUserForm = () => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
+      // Endpoint para crear usuario
+      const createUserResponse = await axios.post(
         'https://backendabmprojects.vercel.app/api/users',
         { name, email, password },
         {
@@ -22,11 +23,27 @@ const AddUserForm = () => {
         }
       );
 
-      if (response.status === 201) {
+      // Endpoint para obtener todos los usuarios
+      const getUsersResponse = await axios.get(
+        'https://backendabmprojects.vercel.app/api/users'
+      );
+
+      // Endpoint para obtener un usuario por ID (ejemplo con ID = 123)
+      const getUserByIdResponse = await axios.get(
+        'https://backendabmprojects.vercel.app/api/users/123'
+      );
+
+      // Mostrar mensajes según las respuestas de cada endpoint
+      if (createUserResponse.status === 201) {
         setMessage('Usuario añadido correctamente');
       } else {
         setMessage('Error al añadir usuario');
       }
+
+      console.log('Respuesta de crear usuario:', createUserResponse.data);
+      console.log('Respuesta de obtener usuarios:', getUsersResponse.data);
+      console.log('Respuesta de obtener usuario por ID:', getUserByIdResponse.data);
+
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
       console.error('Respuesta del servidor:', error.response);
@@ -35,28 +52,30 @@ const AddUserForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Nombre"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-      <input
-        type="email"
-        placeholder="Correo electrónico"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Contraseña"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button type="submit">Añadir Usuario</button>
-      <p>{message}</p>
-    </form>
+    <div>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Nombre"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <input
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Contraseña"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Añadir Usuario</button>
+        <p>{message}</p>
+      </form>
+    </div>
   );
 };
 
