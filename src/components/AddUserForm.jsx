@@ -15,37 +15,30 @@ const AddUserForm = () => {
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
-        `${apiUrl}/users`,
+        `${apiUrl}/api/users`,
         { name, email, password },
         {
           headers: {
             'Content-Type': 'application/json',
-            'X-Custom-Header': 'valor-personalizado' // Cabecera personalizada
+            'X-Custom-Header': 'valor-personalizado'
           }
         }
       );
 
-      // Endpoint para obtener todos los usuarios
-      const getUsersResponse = await axios.get(
-        `${apiUrl}/users`
-      );
-
-      // Endpoint para obtener un usuario por ID (ejemplo con ID = 123)
-      const userId = '123'; // Reemplaza con el ID deseado
-      const getUserByIdResponse = await axios.get(
-        `${apiUrl}/users/${userId}`
-      );
-
-      // Mostrar mensajes según las respuestas de cada endpoint
+      // Manejar la respuesta del servidor
       if (createUserResponse.status === 201) {
         setMessage('Usuario añadido correctamente');
+        // Aquí podrías realizar más acciones, como limpiar los campos del formulario
+        setName('');
+        setEmail('');
+        setPassword('');
       } else {
         setMessage('Error al añadir usuario');
       }
 
-      console.log('Respuesta de crear usuario:', createUserResponse.data);
+      // Ejemplo: Obtener todos los usuarios después de crear uno
+      const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
       console.log('Respuesta de obtener usuarios:', getUsersResponse.data);
-      console.log('Respuesta de obtener usuario por ID:', getUserByIdResponse.data);
 
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
@@ -76,7 +69,7 @@ const AddUserForm = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Añadir Usuario</button>
-        <p>{message}</p>
+        <p>{message}</p> {/* Mostrar mensaje al usuario */}
       </form>
     </div>
   );
