@@ -67,7 +67,7 @@ const AddUserForm = () => {
           type="password"
           placeholder="password"
           value={password}
-          onChange={(e) => setEmail(e.target.value)}
+          onChange={(e) => setPassword(e.target.value)}
         />
         <button type="submit">Añadir Usuario</button>
         <p>{message}</p> {/* Mostrar mensaje al usuario */}
