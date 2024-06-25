@@ -5,6 +5,8 @@ const AddUserForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -30,6 +32,7 @@ const AddUserForm = () => {
         // Aquí podrías realizar más acciones, como limpiar los campos del formulario
         setName('');
         setEmail('');
+        setPassword('')
       } else {
         setMessage('Error al añadir usuario');
       }
@@ -58,6 +61,12 @@ const AddUserForm = () => {
           type="email"
           placeholder="Correo electrónico"
           value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="password"
+          value={password}
           onChange={(e) => setEmail(e.target.value)}
         />
         <button type="submit">Añadir Usuario</button>
