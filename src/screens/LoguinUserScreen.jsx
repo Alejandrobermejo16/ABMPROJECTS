@@ -4,7 +4,7 @@ import "../styles/abmLoggingScreen.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
-import Fit from "../components/Fit"; // Asegúrate de importar el componente Fit desde la ruta correcta
+import Fit from "../screens/Fit";
 
 const LoginUserScreen = () => {
   const [openModal, setOpenModal] = useState(false);
