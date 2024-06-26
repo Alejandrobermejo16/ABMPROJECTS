@@ -3,14 +3,14 @@ import AddUserForm from "../components/AddUserForm";
 import "../styles/abmLoggingScreen.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import axios from 'axios';
+import axios from "axios";
 
 const LoginUserScreen = () => {
   const [openModal, setOpenModal] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
-
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [loadUser, setLoadUser] = useState("false");
 
   const handleLoginClick = () => {
     setOpenModal(true);
@@ -20,13 +20,13 @@ const LoginUserScreen = () => {
     setOpenModal(false);
   };
 
-
-
   const sendDataUser = async (event) => {
     event.preventDefault();
 
     try {
-      const apiUrl = process.env.REACT_APP_API_URL || 'https://backendabmprojects.vercel.app';
+      const apiUrl =
+        process.env.REACT_APP_API_URL ||
+        "https://backendabmprojects.vercel.app";
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
@@ -34,30 +34,29 @@ const LoginUserScreen = () => {
         { email, password },
         {
           headers: {
-            'Content-Type': 'application/json',
-            'X-Custom-Header': 'valor-personalizado'
-          }
+            "Content-Type": "application/json",
+            "X-Custom-Header": "valor-personalizado",
+          },
         }
       );
 
       // Manejar la respuesta del servidor
       if (createUserResponse.status === 201) {
-        setMessage('Usuario añadido correctamente');
+        setMessage("Usuario añadido correctamente");
         // Aquí podrías realizar más acciones, como limpiar los campos del formulario
-        setEmail('');
-        setPassword('')
+        setEmail("");
+        setPassword("");
       } else {
-        setMessage('Error al añadir usuario');
+        setMessage("Error al añadir usuario");
       }
 
       // Ejemplo: Obtener todos los usuarios después de crear uno
       const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
-      console.log('Respuesta de obtener usuarios:', getUsersResponse.data);
-
+      console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
     } catch (error) {
-      console.error('Error al enviar el formulario:', error);
-      console.error('Respuesta del servidor:', error.response);
-      setMessage('Error al enviar el formulario');
+      console.error("Error al enviar el formulario:", error);
+      console.error("Respuesta del servidor:", error.response);
+      setMessage("Error al enviar el formulario");
     }
   };
 
@@ -76,26 +75,29 @@ const LoginUserScreen = () => {
           <Modal.Title>Modal title</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <form>
-        <input
-          type="email"
-          placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <p>{message}</p> {/* Mostrar mensaje al usuario */}
-      </form>        </Modal.Body>
+          <form>
+            <input
+              type="email"
+              placeholder="Correo electrónico"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p>{message}</p> {/* Mostrar mensaje al usuario */}
+          </form>{" "}
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
             Cerrar
           </Button>
-          <Button variant="primary" onSubmit={sendDataUser}>Iniciar Sesión</Button>
+          <Button variant="primary" onClick={sendDataUser}>
+            Iniciar Sesión
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>
