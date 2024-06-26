@@ -26,8 +26,7 @@ const LoginUserScreen = () => {
 
     try {
       const apiUrl =
-        process.env.REACT_APP_API_URL ||
-        "https://backendabmprojects.vercel.app";
+        process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
@@ -35,25 +34,22 @@ const LoginUserScreen = () => {
         { email, password },
         {
           headers: {
-            "Content-Type": "application/json",
-            "X-Custom-Header": "valor-personalizado",
+            "Content-Type": "application/json"
           },
         }
       );
 
-     
-    // Manejar la respuesta del servidor
-    if (createUserResponse.status === 200) {
+      // Manejar la respuesta del servidor
+      if (createUserResponse.status === 200) {
         setMessage("Accediendo a los datos del usuario...");
-        // No actualizar loadUser para mantener el modal abierto
         setLoadUser(true);
       } else {
         setMessage(
-          "El usuario o contraseña no existen en la base de datos cierra la pestaña y crea un usuario"
+          "El usuario o contraseña no existen en la base de datos. Cierra la pestaña y crea un usuario."
         );
       }
-  
-      // Ejemplo: Obtener todos los usuarios después de crear uno
+
+      // Obtener todos los usuarios después de crear uno
       const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
       console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
     } catch (error) {
@@ -79,7 +75,7 @@ const LoginUserScreen = () => {
 
         <Modal show={openModal} onHide={handleCloseModal} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Modal title</Modal.Title>
+            <Modal.Title>Iniciar Sesión</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <form>
@@ -91,12 +87,12 @@ const LoginUserScreen = () => {
               />
               <input
                 type="password"
-                placeholder="password"
+                placeholder="Contraseña"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
               <p>{message}</p> {/* Mostrar mensaje al usuario */}
-            </form>{" "}
+            </form>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
