@@ -41,17 +41,17 @@ const LoginUserScreen = () => {
         }
       );
 
-      // Manejar la respuesta del servidor
-      if (createUserResponse.status === 400) {
-        setLoadUser(true);
-        setEmail("");
-        setPassword("");
+     
+    // Manejar la respuesta del servidor
+    if (createUserResponse.status === 400) {
+        setMessage("El usuario ya existe. Inicie sesión o cree una nueva cuenta.");
+        // No actualizar loadUser para mantener el modal abierto
       } else {
         setMessage(
           "El usuario o contraseña no existen en la base de datos cierra la pestaña y crea un usuario"
         );
       }
-
+  
       // Ejemplo: Obtener todos los usuarios después de crear uno
       const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
       console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
