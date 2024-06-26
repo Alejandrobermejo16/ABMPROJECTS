@@ -6,11 +6,11 @@ import '../styles/InitialFilter.css';
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
 import ReservasHipica from '../screens/ReservasHipica.jsx';
-import Fit from '../screens/Fit.jsx';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from 'recharts';
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from '../Constants.js';
 import { List } from 'react-bootstrap-icons';
 import { FolderFill, Translate, CalendarDate, PersonRaisedHand } from 'react-bootstrap-icons';
+import LoginUserScreen from '../screens/LoguinUserScreen.jsx';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
 
@@ -225,7 +225,7 @@ class FilterScreens extends React.Component {
                             {pantallaActual === 'GridDashboard' && <GridDashboard />}
                             {pantallaActual === 'GridDataAlejandro' && <GridDataAlejandro />}
                             {pantallaActual === 'ReservasHipica' && <ReservasHipica />}
-                            {pantallaActual === 'Fit' && <Fit />}
+                            {pantallaActual === 'Fit' && <LoginUserScreen />}
                         </div>
                     )
                 )}
