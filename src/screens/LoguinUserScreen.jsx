@@ -31,7 +31,7 @@ const LoginUserScreen = () => {
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
-        `${apiUrl}/api/users/create`,
+        `${apiUrl}/api/users/loggin`,
         { email, password },
         {
           headers: {
