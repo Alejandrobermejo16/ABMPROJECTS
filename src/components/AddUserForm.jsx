@@ -7,6 +7,7 @@ const AddUserForm = () => {
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -28,7 +29,6 @@ const AddUserForm = () => {
       // Manejar la respuesta del servidor
       if (createUserResponse.status === 201) {
         setMessage('Usuario añadido correctamente');
-        // Aquí podrías realizar más acciones, como limpiar los campos del formulario
         setName('');
         setEmail('');
         setPassword('');
@@ -71,6 +71,7 @@ const AddUserForm = () => {
         <button type="submit">Añadir Usuario</button>
         <p>{message}</p> {/* Mostrar mensaje al usuario */}
       </form>
+    
     </div>
   );
 };
