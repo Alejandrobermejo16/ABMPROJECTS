@@ -43,9 +43,10 @@ const LoginUserScreen = () => {
 
      
     // Manejar la respuesta del servidor
-    if (createUserResponse.status === 400) {
-        setMessage("El usuario ya existe. Inicie sesión o cree una nueva cuenta.");
+    if (createUserResponse.status === 200) {
+        setMessage("Accediendo a los datos del usuario...");
         // No actualizar loadUser para mantener el modal abierto
+        setLoadUser(true);
       } else {
         setMessage(
           "El usuario o contraseña no existen en la base de datos cierra la pestaña y crea un usuario"
