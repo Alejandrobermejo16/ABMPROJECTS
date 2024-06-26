@@ -4,8 +4,9 @@ import axios from 'axios';
 const AddUserForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [password, setPassword] = useState('');
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -16,7 +17,7 @@ const AddUserForm = () => {
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
         `${apiUrl}/api/users/create`,
-        { name, email, password }, // Envía name, email y password
+        { name, email },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -31,7 +32,7 @@ const AddUserForm = () => {
         // Aquí podrías realizar más acciones, como limpiar los campos del formulario
         setName('');
         setEmail('');
-        setPassword('');
+        setPassword('')
       } else {
         setMessage('Error al añadir usuario');
       }
@@ -64,7 +65,7 @@ const AddUserForm = () => {
         />
         <input
           type="password"
-          placeholder="Contraseña"
+          placeholder="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
