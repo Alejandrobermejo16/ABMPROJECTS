@@ -4,13 +4,14 @@ import "../styles/abmLoggingScreen.css";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import axios from "axios";
+import Fit from "../components/Fit"; // Asegúrate de importar el componente Fit desde la ruta correcta
 
 const LoginUserScreen = () => {
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [loadUser, setLoadUser] = useState("false");
+  const [loadUser, setLoadUser] = useState(false);
 
   const handleLoginClick = () => {
     setOpenModal(true);
@@ -41,13 +42,14 @@ const LoginUserScreen = () => {
       );
 
       // Manejar la respuesta del servidor
-      if (createUserResponse.status === 201) {
-        setMessage("Usuario añadido correctamente");
-        // Aquí podrías realizar más acciones, como limpiar los campos del formulario
+      if (createUserResponse.status === 400) {
+        setLoadUser(true);
         setEmail("");
         setPassword("");
       } else {
-        setMessage("Error al añadir usuario");
+        setMessage(
+          "El usuario o contraseña no existen en la base de datos cierra la pestaña y crea un usuario"
+        );
       }
 
       // Ejemplo: Obtener todos los usuarios después de crear uno
@@ -60,48 +62,53 @@ const LoginUserScreen = () => {
     }
   };
 
-  return (
-    <div className="abmLoggingScreen">
-      <div className="abmLoggingScreen-content">
-        <h1>¡Bienvenido a ABM FIT!</h1>
-        <p>¿Ya tienes cuenta con nosotros? Inicia sesión con tus datos.</p>
-        <button onClick={handleLoginClick}>Iniciar Sesión</button>
-        <p>¿No tienes cuenta? Regístrate aquí.</p>
-        <AddUserForm />
-      </div>
+  // Renderizado condicional basado en loadUser
+  if (loadUser) {
+    return <Fit />;
+  } else {
+    return (
+      <div className="abmLoggingScreen">
+        <div className="abmLoggingScreen-content">
+          <h1>¡Bienvenido a ABM FIT!</h1>
+          <p>¿Ya tienes cuenta con nosotros? Inicia sesión con tus datos.</p>
+          <button onClick={handleLoginClick}>Iniciar Sesión</button>
+          <p>¿No tienes cuenta? Regístrate aquí.</p>
+          <AddUserForm />
+        </div>
 
-      <Modal show={openModal} onHide={handleCloseModal} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal title</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <form>
-            <input
-              type="email"
-              placeholder="Correo electrónico"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <input
-              type="password"
-              placeholder="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <p>{message}</p> {/* Mostrar mensaje al usuario */}
-          </form>{" "}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={sendDataUser}>
-            Iniciar Sesión
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  );
+        <Modal show={openModal} onHide={handleCloseModal} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Modal title</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <form>
+              <input
+                type="email"
+                placeholder="Correo electrónico"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <input
+                type="password"
+                placeholder="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+              <p>{message}</p> {/* Mostrar mensaje al usuario */}
+            </form>{" "}
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCloseModal}>
+              Cerrar
+            </Button>
+            <Button variant="primary" onClick={sendDataUser}>
+              Iniciar Sesión
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
+    );
+  }
 };
 
 export default LoginUserScreen;
