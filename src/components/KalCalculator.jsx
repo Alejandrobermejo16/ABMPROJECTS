@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import "../styles/KalCalculator.css";
 import axios from 'axios';
+import "../styles/KalCalculator.css";
 
 const generateHours = () => {
   const hours = [];
@@ -15,37 +15,40 @@ const generateHours = () => {
 };
 
 function KalCalculator(props) {
-  const { cal } = props;
-  const [searchQuery, setSearchQuery] = useState(''); // Estado para el término de búsqueda de alimentos
-  const [foodsList, setFoodsList] = useState([]); // Estado para la lista de alimentos
+  const { cal, onSubmit } = props;
+  const [foodValue, setFoodValue] = useState(''); // Estado para el término de búsqueda de alimentos
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
   const [exerciseQuery, setExerciseQuery] = useState(''); // Estado para el término de búsqueda de ejercicios
-  const [exerciseList, setExerciseList] = useState([]); // Estado para la lista de ejercicios
-  const [selectedExercise, setSelectedExercise] = useState(null); // Estado para el ejercicio seleccionado
   const [exerciseCalories, setExerciseCalories] = useState(null); // Estado para las calorías quemadas por el ejercicio
   const [exerciseDuration, setExerciseDuration] = useState(''); // Estado para la duración del ejercicio en minutos
-  const [hours, setHours] = useState(generateHours()); // Estado para las horas del día
+  const [hours] = useState(generateHours()); // Estado para las horas del día
+  const [hourFood, setHourFood] = useState('');
+  const [hourExercise, setHourExercise] = useState('');
 
   useEffect(() => {
-    if (searchQuery.length > 2) {
+    if (foodValue.length > 2) {
       const fetchFoodsList = async () => {
         try {
           const usdaApiKey = 'qt4TrBnYKdqE4BOtmvYPV7lMMIz645Hs67tHNvMP';
-          const usdaUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${usdaApiKey}&query=${searchQuery}&pageSize=10`;
+          const usdaUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${usdaApiKey}&query=${foodValue}&pageSize=10`;
 
           const response = await axios.get(usdaUrl);
           const foods = response.data.foods;
-          setFoodsList(foods);
+          if (foods.length > 0) {
+            // Obtener el primer alimento y sus calorías
+            const firstFood = foods[0];
+            const calories = obtenerCalorias(firstFood);
+            setSelectedFood({ ...firstFood, calories });
+            setFoodValue(firstFood.description);
+          }
         } catch (error) {
           console.error('Error al obtener la lista de alimentos:', error);
         }
       };
 
       fetchFoodsList();
-    } else {
-      setFoodsList([]);
     }
-  }, [searchQuery]);
+  }, [foodValue]);
 
   useEffect(() => {
     if (exerciseQuery.length > 2 && exerciseDuration > 0) {
@@ -70,58 +73,65 @@ function KalCalculator(props) {
           });
 
           const exercises = response.data.exercises;
-          setExerciseList(exercises);
+          if (exercises.length > 0) {
+            const firstExercise = exercises[0];
+            setExerciseCalories(firstExercise.nf_calories);
+          }
         } catch (error) {
           console.error('Error al obtener la lista de ejercicios:', error);
         }
       };
 
       fetchExerciseList();
-    } else {
-      setExerciseList([]);
     }
   }, [exerciseQuery, exerciseDuration]);
 
-  const handleSearchChange = (event) => {
-    setSearchQuery(event.target.value);
+  // Función para obtener las calorías de un alimento específico
+  const obtenerCalorias = (alimento) => {
+    // Buscar el nutriente 'Energy' dentro de foodNutrients
+    const nutrient = alimento.foodNutrients.find(nutriente => nutriente.nutrientName === 'Energy');
+    return nutrient ? nutrient.value : 'No disponible';
   };
 
-  const handleFoodClick = (food) => {
-    setSelectedFood(food);
-    setSearchQuery(food.description);
-    setFoodsList([]);
+  const handleFoodSearchChange = (event) => {
+    setFoodValue(event.target.value);
   };
 
-  const handleExerciseChange = (event) => {
+  const handleExerciseSearchChange = (event) => {
     setExerciseQuery(event.target.value);
   };
 
-  const handleExerciseClick = (exercise) => {
-    setSelectedExercise(exercise);
-    setExerciseQuery(exercise.name);
-    setExerciseList([]);
-    setExerciseCalories(exercise.nf_calories); // Guardar las calorías quemadas por el ejercicio
-  };
-
-  const handleDurationChange = (event) => {
+  const handleExerciseDurationChange = (event) => {
     setExerciseDuration(event.target.value);
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Aquí puedes manejar la lógica para enviar los datos del formulario
-    console.log('Datos del formulario:', {
-      selectedFood,
-      selectedExercise,
-      exerciseDuration
-    });
+  const handleFoodTimeChange = (event) => {
+    setHourFood(event.target.value);
+  };
+
+  const handleExerciseTimeChange = (event) => {
+    setHourExercise(event.target.value);
+  };
+
+  const sendDataFormKal = () => {
+    const data = {
+      exerciseDuration,
+      foodValue,
+      exerciseQuery,
+      hourFood,
+      hourExercise,
+      foodCalories: selectedFood ? selectedFood.calories : 0,
+      exerciseCalories: exerciseCalories ? exerciseCalories : 0
+    };
+    onSubmit(data); // Aquí asumimos que `onSubmit` es una prop recibida del componente padre
+    //se le pasa del padre la prop onSubmit y como valor una funcion que recoge los datos que le enviamos desde el hijo
   };
 
   return (
     <div>
       <h1>Actualmente has consumido {cal} calorías</h1>
       <div className="divFormFit">
-        <Form onSubmit={handleSubmit}>
+        <Form>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="foodSearch">
               Alimento Ingerido
@@ -129,8 +139,8 @@ function KalCalculator(props) {
             <Form.Control
               type="text"
               id="foodSearch"
-              value={searchQuery}
-              onChange={handleSearchChange}
+              value={foodValue}
+              onChange={handleFoodSearchChange}
               placeholder="Introduce el nombre de un alimento"
             />
           </Form.Group>
@@ -138,7 +148,7 @@ function KalCalculator(props) {
             <Form.Label htmlFor="ingestionTime">
               Hora en la que se ingiere
             </Form.Label>
-            <Form.Select id="ingestionTime">
+            <Form.Select id="ingestionTime" onChange={handleFoodTimeChange} value={hourFood}>
               <option value="">Selecciona la hora</option>
               {hours.map(hour => (
                 <option key={hour} value={hour}>{hour}</option>
@@ -153,18 +163,9 @@ function KalCalculator(props) {
               type="text"
               id="exerciseSearch"
               value={exerciseQuery}
-              onChange={handleExerciseChange}
+              onChange={handleExerciseSearchChange}
               placeholder="Introduce el nombre de un ejercicio"
             />
-            {exerciseList.length > 0 && (
-              <ul className="exerciseList">
-                {exerciseList.map(exercise => (
-                  <li key={exercise.tag_id} onClick={() => handleExerciseClick(exercise)}>
-                    {exercise.name} - {exercise.nf_calories} cal
-                  </li>
-                ))}
-              </ul>
-            )}
           </Form.Group>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="exerciseDuration">
@@ -174,7 +175,7 @@ function KalCalculator(props) {
               type="number"
               id="exerciseDuration"
               value={exerciseDuration}
-              onChange={handleDurationChange}
+              onChange={handleExerciseDurationChange}
               placeholder="Introduce la duración en minutos"
             />
           </Form.Group>
@@ -182,14 +183,14 @@ function KalCalculator(props) {
             <Form.Label htmlFor="activityTime">
               Hora en la que se realiza
             </Form.Label>
-            <Form.Select id="activityTime">
+            <Form.Select id="activityTime" onChange={handleExerciseTimeChange} value={hourExercise}>
               <option value="">Selecciona la hora</option>
               {hours.map(hour => (
                 <option key={hour} value={hour}>{hour}</option>
               ))}
             </Form.Select>
           </Form.Group>
-          <Button type="submit">Enviar</Button>
+          <Button type="button" onClick={sendDataFormKal}>Enviar</Button>
         </Form>
       </div>
     </div>
