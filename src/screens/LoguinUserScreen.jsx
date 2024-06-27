@@ -60,7 +60,7 @@ const LoginUserScreen = () => {
   };
 
   // Renderizado condicional basado en loadUser
-  if (!loadUser) {
+  if (loadUser) {
     return <Fit />;
   } else {
     return (
