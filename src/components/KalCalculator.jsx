@@ -23,7 +23,7 @@ function KalCalculator(props) {
   const [exerciseList, setExerciseList] = useState([]); // Estado para la lista de ejercicios
   const [selectedExercise, setSelectedExercise] = useState(null); // Estado para el ejercicio seleccionado
   const [exerciseCalories, setExerciseCalories] = useState(null); // Estado para las calorías quemadas por el ejercicio
-  const [exerciseDuration, setExerciseDuration] = useState(''); // Estado para la duración del ejercicio
+  const [exerciseDuration, setExerciseDuration] = useState(''); // Estado para la duración del ejercicio en minutos
   const [hours, setHours] = useState(generateHours()); // Estado para las horas del día
 
   useEffect(() => {
@@ -48,7 +48,7 @@ function KalCalculator(props) {
   }, [searchQuery]);
 
   useEffect(() => {
-    if (exerciseQuery.length > 2) {
+    if (exerciseQuery.length > 2 && exerciseDuration > 0) {
       const fetchExerciseList = async () => {
         try {
           const nutritionixApiId = '451a4b61';
@@ -56,12 +56,11 @@ function KalCalculator(props) {
           const nutritionixUrl = `https://trackapi.nutritionix.com/v2/natural/exercise`;
 
           const response = await axios.post(nutritionixUrl, {
-            query: exerciseQuery,
-            gender: "male", // Ajusta esto según el usuario
-            weight_kg: 70, // Ajusta esto según el usuario
-            height_cm: 175, // Ajusta esto según el usuario
-            age: 30, // Ajusta esto según el usuario
-            duration_min: exerciseDuration // Duración del ejercicio en minutos
+            query: `${exerciseQuery} for ${exerciseDuration} minutes`, // Incluir la duración en minutos en la consulta
+            gender: "male", // Ajustar esto según el usuario
+            weight_kg: 70, // Ajustar esto según el usuario
+            height_cm: 175, // Ajustar esto según el usuario
+            age: 30, // Ajustar esto según el usuario
           }, {
             headers: {
               'Content-Type': 'application/json',
@@ -108,11 +107,21 @@ function KalCalculator(props) {
     setExerciseDuration(event.target.value);
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // Aquí puedes manejar la lógica para enviar los datos del formulario
+    console.log('Datos del formulario:', {
+      selectedFood,
+      selectedExercise,
+      exerciseDuration
+    });
+  };
+
   return (
     <div>
       <h1>Actualmente has consumido {cal} calorías</h1>
       <div className="divFormFit">
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3">
             <Form.Label htmlFor="foodSearch">
               Alimento Ingerido
