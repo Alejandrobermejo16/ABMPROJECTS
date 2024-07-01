@@ -1,8 +1,7 @@
 import React from 'react';
 import { Nav, Accordion, Card, Button } from 'react-bootstrap';
-import { ExclamationTriangleFill } from 'react-bootstrap-icons';
+import { ExclamationTriangleFill, BoxArrowUpRight } from 'react-bootstrap-icons';  // Agrega BoxArrowUpRight para un enlace externo
 import '../styles/InitialFilter.css';
-// Importa los componentes de pantalla aquí
 import GridDashboard from './GridDashboard';
 import GridDataAlejandro from './GridDataAlejandro';
 import ReservasHipica from '../screens/ReservasHipica.jsx';
@@ -14,7 +13,6 @@ import LoginUserScreen from '../screens/LoguinUserScreen.jsx';
 
 const ImagenAlejandro = require('../img/Alejandro.jpeg');
 
-
 class FilterScreens extends React.Component {
     constructor(props) {
         super(props);
@@ -23,19 +21,15 @@ class FilterScreens extends React.Component {
             noData: true,
             loadingSkills: false,
             isMenuVisible: false,
-
         };
     }
 
     componentDidMount() {
-        //para mostrar el menu hamburguesa
+        // Para mostrar el menú hamburguesa
         var ancho = document.querySelector('.padrepantallafiltro').clientWidth;
-        console.log(ancho);
         if (ancho <= 754) {
-            this.setState({ isMenuVisible: true })
+            this.setState({ isMenuVisible: true });
         }
-
-
     }
 
     handlePantallaClick = (pantalla) => {
@@ -45,14 +39,12 @@ class FilterScreens extends React.Component {
     cargarSkillsButton = () => {
         this.setState({ loadingSkills: true });
     };
+
     toggleMenu = () => {
         this.setState(prevState => ({
             isMenuVisible: !prevState.isMenuVisible
         }));
     };
-
-
-
 
     render() {
         const { pantallaActual, noData, loadingSkills, isMenuVisible } = this.state;
@@ -63,31 +55,36 @@ class FilterScreens extends React.Component {
                     <div className="sidebar">
                         <div className='initialFilterHeader'><p> Explorador de Componentes y Proyectos</p></div>
                         <Nav className="flex-column">
-                            <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('GridDashboard')}> <FolderFill /> Agenda de Tareas</Nav.Link>
-                            <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('GridDataAlejandro')}>
+                            <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick('GridDashboard')}>
+                                <FolderFill /> Agenda de Tareas
+                            </Nav.Link>
+                            <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick('GridDataAlejandro')}>
                                 <Translate />
                                 Traductor
                             </Nav.Link>
-                            <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('ReservasHipica')}><CalendarDate /> Reservas Hipica</Nav.Link>
-                            <Nav.Link className="nav-links"
-                                onClick={() => this.handlePantallaClick('Fit')}><PersonRaisedHand /> Espacio Fit</Nav.Link>
+                            <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick('ReservasHipica')}>
+                                <CalendarDate /> Reservas Hipica
+                            </Nav.Link>
+                            <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick('Fit')}>
+                                <PersonRaisedHand /> Espacio Fit
+                            </Nav.Link>
+                            <Nav.Link className="nav-links" href="https://abm-survey-lit-element.vercel.app/" target="_blank" rel="noopener noreferrer">
+                                <BoxArrowUpRight /> Creacion Componentes Propios Lit element
+                            </Nav.Link>
                         </Nav>
                         <footer className='initialFilterFooter'>ABM PROJECTS</footer>
                     </div>
                 )}
 
-
                 {isMenuVisible && (
-                    <Button variant="primary" onClick={() => this.toggleMenu()} >
+                    <Button variant="primary" onClick={() => this.toggleMenu()}>
                         <List />
                     </Button>
                 )}
+
                 {noData ? (
                     <div className="divAcordeon" style={{ marginTop: '5px' }}>
-                        <Accordion defaultActiveKey="0" >
+                        <Accordion defaultActiveKey="0">
                             <Accordion.Item eventKey="0">
                                 <Accordion.Header>ALEJANDRO BERMEJO MENDEZ</Accordion.Header>
                                 <Accordion.Body className="narrowAccordionBody">
@@ -124,9 +121,7 @@ class FilterScreens extends React.Component {
                             ) : ''}
 
                             {loadingSkills ? (
-                                <div className='divSkills'
-
-                                >
+                                <div className='divSkills'>
                                     <BarChart
                                         width={600}
                                         height={300}
@@ -138,13 +133,10 @@ class FilterScreens extends React.Component {
                                         <YAxis />
                                         <Tooltip />
                                         <Legend />
-                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
                                         <Bar dataKey="nivel_Lenguaje">
-                                            {
-                                                LENGUAJESDEPROGRAMACION.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                                ))
-                                            }
+                                            {LENGUAJESDEPROGRAMACION.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
                                         </Bar>
                                     </BarChart>
 
@@ -159,16 +151,12 @@ class FilterScreens extends React.Component {
                                         <YAxis />
                                         <Tooltip />
                                         <Legend />
-                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
                                         <Bar dataKey="nivel_FrameWork">
-                                            {
-                                                FRAMEWORKS.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                                ))
-                                            }
+                                            {FRAMEWORKS.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
                                         </Bar>
                                     </BarChart>
-
 
                                     <BarChart
                                         width={600}
@@ -181,13 +169,10 @@ class FilterScreens extends React.Component {
                                         <YAxis />
                                         <Tooltip />
                                         <Legend />
-                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
                                         <Bar dataKey="otros">
-                                            {
-                                                OTROS.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                                ))
-                                            }
+                                            {OTROS.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
                                         </Bar>
                                     </BarChart>
 
@@ -202,20 +187,14 @@ class FilterScreens extends React.Component {
                                         <YAxis />
                                         <Tooltip />
                                         <Legend />
-                                        {/* Map para las barras */}{/*CELL se aplica para cada barra*/}
                                         <Bar dataKey="nivel_Libreria">
-                                            {
-                                                LIBRERIAS.map((entry, index) => (
-                                                    <Cell key={`cell-${index}`} fill={entry.color} />
-                                                ))
-                                            }
+                                            {LIBRERIAS.map((entry, index) => (
+                                                <Cell key={`cell-${index}`} fill={entry.color} />
+                                            ))}
                                         </Bar>
                                     </BarChart>
-
                                 </div>
-
                             ) : null}
-
                         </div>
                     </div>
                 ) : (
@@ -229,7 +208,6 @@ class FilterScreens extends React.Component {
                         </div>
                     )
                 )}
-
             </div>
         );
     }
