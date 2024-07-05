@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const AddUserForm = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
+  const [loading, setLoading] = useState(false); // Estado para el loader
 
-  
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setLoading(true); // Mostrar loader al iniciar la petición
 
     try {
       const apiUrl = process.env.REACT_APP_API_URL || 'https://backendabmprojects.vercel.app';
@@ -44,6 +47,8 @@ const AddUserForm = () => {
       console.error('Error al enviar el formulario:', error);
       console.error('Respuesta del servidor:', error.response);
       setMessage('Error al enviar el formulario');
+    } finally {
+      setLoading(false); // Ocultar loader al finalizar la petición
     }
   };
 
@@ -71,7 +76,9 @@ const AddUserForm = () => {
         <button type="submit">Añadir Usuario</button>
         <p>{message}</p> {/* Mostrar mensaje al usuario */}
       </form>
-    
+      {loading && <Spinner animation="border" role="status">
+      <span className="visually-hidden">Loading...</span>
+    </Spinner>} {/* Mostrar loader */}
     </div>
   );
 };

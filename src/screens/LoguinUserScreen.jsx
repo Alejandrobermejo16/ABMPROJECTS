@@ -12,6 +12,7 @@ const LoginUserScreen = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loadUser, setLoadUser] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Añadir estado para el loader
 
   const handleLoginClick = () => {
     setOpenModal(true);
@@ -23,6 +24,7 @@ const LoginUserScreen = () => {
 
   const sendDataUser = async (event) => {
     event.preventDefault();
+    setIsLoading(true); // Inicia el loader
 
     try {
       const apiUrl =
@@ -34,7 +36,7 @@ const LoginUserScreen = () => {
         { email, password },
         {
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
         }
       );
@@ -56,6 +58,8 @@ const LoginUserScreen = () => {
       console.error("Error al enviar el formulario:", error);
       console.error("Respuesta del servidor:", error.response);
       setMessage("Error al enviar el formulario");
+    } finally {
+      setIsLoading(false); // Detiene el loader
     }
   };
 
@@ -98,9 +102,15 @@ const LoginUserScreen = () => {
             <Button variant="secondary" onClick={handleCloseModal}>
               Cerrar
             </Button>
-            <Button variant="primary" onClick={sendDataUser}>
-              Iniciar Sesión
-            </Button>
+            {isLoading ? (
+              <Button variant="primary" disabled>
+                Cargando...
+              </Button>
+            ) : (
+              <Button variant="primary" onClick={sendDataUser}>
+                Iniciar Sesión
+              </Button>
+            )}
           </Modal.Footer>
         </Modal>
       </div>
