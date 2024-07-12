@@ -102,6 +102,7 @@
     border-radius: 8px; /* Bordes redondeados */
     border: 1px solid #ccc; /* Borde gris */
     color: #fff; /* Texto blanco */
+    overflow: scroll;
 }
 
 
