@@ -118,7 +118,7 @@ class FilterScreens extends React.Component {
               </Nav.Link>
               <Nav.Link
                 className="nav-links"
-                href="https://abm-angular-projects-geo7d765w-alejandros-projects-8450958c.vercel.app/Screen-Money"
+                href="https://abm-angular-projects.vercel.app/Screen-Money"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "red" }}
