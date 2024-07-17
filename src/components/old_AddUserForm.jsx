@@ -37,9 +37,9 @@ const AddUserForm = () => {
         setMessage('Error al añadir usuario');
       }
 
-      // Ejemplo: Obtener todos los usuarios después de crear uno
-      const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
-      console.log('Respuesta de obtener usuarios:', getUsersResponse.data);
+      // // Ejemplo: Obtener todos los usuarios después de crear uno
+      // const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
+      // console.log('Respuesta de obtener usuarios:', getUsersResponse.data);
 
     } catch (error) {
       console.error('Error al enviar el formulario:', error);
