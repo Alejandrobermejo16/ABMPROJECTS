@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { connect } from 'react-redux'; // Importar connect
+import { loginUser } from '../store/actions/common'; // Importar la acción loginUser
 import AddUserForm from "../components/AddUserForm";
 import "../styles/abmLoggingScreen.css";
 import Button from "react-bootstrap/Button";
@@ -6,13 +8,14 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import Fit from "../screens/Fit";
 
-const LoginUserScreen = () => {
+const LoginUserScreen = ({ dispatch, user }) => { // Recibir user del estado global
+
   const [openModal, setOpenModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loadUser, setLoadUser] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Añadir estado para el loader
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLoginClick = () => {
     setOpenModal(true);
@@ -24,13 +27,12 @@ const LoginUserScreen = () => {
 
   const sendDataUser = async (event) => {
     event.preventDefault();
-    setIsLoading(true); // Inicia el loader
+    setIsLoading(true);
 
     try {
       const apiUrl =
         process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
 
-      // Endpoint para crear usuario
       const createUserResponse = await axios.post(
         `${apiUrl}/api/users/loggin`,
         { email, password },
@@ -41,30 +43,29 @@ const LoginUserScreen = () => {
         }
       );
 
-      // Manejar la respuesta del servidor
+      
+
       if (createUserResponse.status === 200) {
+        const userData = createUserResponse.data.userData;
         setMessage("Accediendo a los datos del usuario...");
-        setLoadUser(true);
+        dispatch(loginUser(userData)); // Dispatch de la acción loginUser
+        setLoadUser(true); // Actualizar estado local
       } else {
         setMessage(
           "El usuario o contraseña no existen en la base de datos. Cierra la pestaña y crea un usuario."
         );
       }
-
-      // // Obtener todos los usuarios después de crear uno
-      // const getUsersResponse = await axios.get(`${apiUrl}/api/users`);
-      // console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
       console.error("Respuesta del servidor:", error.response);
       setMessage("Error al enviar el formulario");
     } finally {
-      setIsLoading(false); // Detiene el loader
+      setIsLoading(false);
     }
   };
 
-  // Renderizado condicional basado en loadUser
-  if (loadUser) {
+  // Renderizado condicional basado en loadUser y user del estado global
+  if (loadUser || user) {
     return <Fit />;
   } else {
     return (
@@ -118,4 +119,10 @@ const LoginUserScreen = () => {
   }
 };
 
-export default LoginUserScreen;
+// Mapear parte del estado global a las props del componente
+const mapStateToProps = (state) => ({
+  user: state.user.user // Acceder al estado del usuario
+});
+
+// Conectar el componente con Redux
+export default connect(mapStateToProps)(LoginUserScreen);
