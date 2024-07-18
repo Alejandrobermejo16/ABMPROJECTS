@@ -15,7 +15,7 @@ const generateHours = () => {
 };
 
 function KalCalculator(props) {
-  const { cal, onSubmit, handleCalories } = props;
+  const { cal, onSubmit } = props;
   const [foodValue, setFoodValue] = useState(''); // Estado para el término de búsqueda de alimentos
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
   const [exerciseQuery, setExerciseQuery] = useState(''); // Estado para el término de búsqueda de ejercicios
@@ -126,8 +126,6 @@ function KalCalculator(props) {
   };
 
   const sendDataFormKal = () => {
-
-     
     const data = {
       exerciseDuration,
       foodValue,
@@ -139,15 +137,6 @@ function KalCalculator(props) {
     };
     onSubmit(data); // Aquí asumimos que `onSubmit` es una prop recibida del componente padre
     //se le pasa del padre la prop onSubmit y como valor una funcion que recoge los datos que le enviamos desde el hijo
-    const userEmail = sessionStorage.getItem('userEmail');
-
-    const dataform = {
-      userEmail,
-      cal,
-    }
-    console.log('prueba', userEmail, cal );
-
-    handleCalories(dataform);
 
     setFoodValue(''); // Estado para el término de búsqueda de alimentos
     setExerciseQuery(''); // Estado para el término de búsqueda de ejercicios
