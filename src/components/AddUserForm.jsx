@@ -52,9 +52,48 @@ const AddUserForm = () => {
     }
   };
 
+  const handleCalories = async (event) => {
+    event.preventDefault();
+    setLoading(true); // Mostrar loader al iniciar la petición
+
+    try {
+      const apiUrl =
+        process.env.REACT_APP_API_URL ||
+        "https://backendabmprojects.vercel.app";
+
+      // Endpoint para crear usuario
+      const createUserResponse = await axios.post(
+        `${apiUrl}/api/users/cal`,
+        { email, cal }, 
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "X-Custom-Header": "valor-personalizado",
+          },
+        }
+      );
+
+      // Manejar la respuesta del servidor
+      if (createUserResponse.status === 201) {
+        setMessage("Se han registrado los datos correctamente");
+       
+      } else {
+        setMessage("Error al registrar los datos del formulario");
+      }
+
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
+      console.error("Respuesta del servidor:", error.response);
+      setMessage("Error al enviar el formulario");
+    } finally {
+      setLoading(false); // Ocultar loader al finalizar la petición
+    }
+  };
+
+
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} onCalories={handleCalories}>
         <input
           type="text"
           placeholder="Nombre"
