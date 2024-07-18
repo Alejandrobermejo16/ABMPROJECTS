@@ -45,6 +45,8 @@ const LoginUserScreen = () => {
       if (createUserResponse.status === 200) {
         setMessage("Accediendo a los datos del usuario...");
         setLoadUser(true);
+        sessionStorage.setItem('userEmail', email);
+        console.log("usuario guardado en session storage")
       } else {
         setMessage(
           "El usuario o contraseña no existen en la base de datos. Cierra la pestaña y crea un usuario."
