@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { connect } from 'react-redux'; // Importar connect
-import { loginUser } from '../store/actions/'; // Importar la acción loginUser
+import { loginUser } from '../store/actions/common'; // Importar la acción loginUser
 import AddUserForm from "../components/AddUserForm";
 import "../styles/abmLoggingScreen.css";
 import Button from "react-bootstrap/Button";
