@@ -8,6 +8,7 @@ const AddUserForm = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false); // Estado para el loader
+  const [cal, setCal] = useState(0);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
