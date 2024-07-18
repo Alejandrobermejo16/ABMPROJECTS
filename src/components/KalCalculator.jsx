@@ -127,7 +127,6 @@ function KalCalculator(props) {
 
   const sendDataFormKal = () => {
 
-    const {cal} = this.props;
      
     const data = {
       exerciseDuration,
