@@ -12,6 +12,7 @@ class CalendarioPrincipal extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      cal: 0,
       events: [
         {
           start: dayjs('2024-05-23T12:00:00').toDate(),
@@ -31,6 +32,13 @@ class CalendarioPrincipal extends Component {
 
   //funcion para incluir las comidas, ejercicios y horas de cada uno.
   handleDataSubmit = (data) => {
+
+    const { 
+      foodCalories,
+      exerciseCalories,
+     } = data;
+
+
     console.log('Datos recibidos del hijo:', data);
     const today = dayjs().startOf('day');
 
@@ -61,7 +69,27 @@ class CalendarioPrincipal extends Component {
     //en esa misma funcion puedo coger y meterle un post para que envie esos datos a mi bd y asi los tenga guardados en cada usuario,
     // y cuando se loguee el usuario que recupere lo que ya tiene haciendo un get a los datos y poniendoselo al estado del calendario 
 
-  }
+    
+
+
+    //Actualizacion de las calorias que se muestran en Las calorias actualmente consumidas y se pasan a Kalculator
+    this.setState(prevState => {
+      let newCal = prevState.cal;
+      if (exerciseCalories > 0 && foodCalories === 0) {
+        newCal -= exerciseCalories;
+      } else if (foodCalories > 0 && exerciseCalories === 0) {
+        newCal += foodCalories;
+      } else if (exerciseCalories > 0 && foodCalories > 0) {
+        const netCalories = foodCalories - exerciseCalories; 
+        newCal += netCalories;
+      }
+      return { cal: newCal };
+    });
+    
+    
+     
+    };
+    
 
   render() {
     const { width, height } = this.props;
@@ -74,7 +102,7 @@ class CalendarioPrincipal extends Component {
           defaultView='month'
           dayPropGetter={this.cambioEstiloDiaActual}
         />
-        <KalCalculator onSubmit={this.handleDataSubmit} cal={70} />
+        <KalCalculator onSubmit={this.handleDataSubmit} cal={this.state.cal} />
       </div>
     );
   }

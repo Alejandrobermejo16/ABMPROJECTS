@@ -125,6 +125,12 @@ function KalCalculator(props) {
     };
     onSubmit(data); // Aquí asumimos que `onSubmit` es una prop recibida del componente padre
     //se le pasa del padre la prop onSubmit y como valor una funcion que recoge los datos que le enviamos desde el hijo
+
+    setFoodValue(''); // Estado para el término de búsqueda de alimentos
+    setExerciseQuery(''); // Estado para el término de búsqueda de ejercicios
+    setExerciseDuration(''); // Estado para la duración del ejercicio en minutos
+    setHourFood('');
+    setHourExercise('');
   };
 
   return (
