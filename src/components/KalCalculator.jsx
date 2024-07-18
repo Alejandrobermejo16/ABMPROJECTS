@@ -51,14 +51,6 @@ function KalCalculator(props) {
   }, [foodValue]);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      const userData = JSON.parse(storedUser);
-      console.log('Usuario almacenado en localStorage:', userData);
-      // Aquí puedes realizar acciones adicionales con userData si es necesario
-    } else {
-      console.log('No hay usuario almacenado en localStorage');
-    }
     if (exerciseQuery.length > 2 && exerciseDuration > 0) {
       const fetchExerciseList = async () => {
         try {
