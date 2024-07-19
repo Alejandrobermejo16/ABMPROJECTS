@@ -13,7 +13,7 @@ class CalendarioPrincipal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cal: 0,
+      cal: 1,
       events: [
         {
           start: dayjs('2024-05-23T12:00:00').toDate(),
@@ -81,8 +81,7 @@ class CalendarioPrincipal extends Component {
     });
 
     try {
-
-      console.log("prueba de resultado de calorias",cal, this.cal,newCal, this.state.cal);
+      const {newCal} = this.state;
 
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
@@ -90,7 +89,8 @@ class CalendarioPrincipal extends Component {
       console.log("API URL:", `${apiUrl}/api/users/cal`);
       console.log("Payload:", {
         userEmail: userEmail,
-        calories: this.state.cal
+        calories: this.state.cal,
+        newCal
       });
 
       const response = await axios.post(
