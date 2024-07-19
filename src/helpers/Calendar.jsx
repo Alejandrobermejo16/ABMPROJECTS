@@ -1,4 +1,3 @@
-// CalendarioPrincipal.jsx
 import React, { Component } from 'react';
 import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -24,6 +23,33 @@ class CalendarioPrincipal extends Component {
     };
     this.localizer = dayjsLocalizer(dayjs);
   }
+
+  async componentDidMount() {
+    await this.fetchUserCalories();
+  }
+
+  fetchUserCalories = async () => {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
+      const userEmail = sessionStorage.getItem('userEmail');
+
+      if (!userEmail) {
+        console.error("No user email found in session storage");
+        return;
+      }
+
+      const response = await axios.get(`${apiUrl}/api/users/cal`, {
+        params: { userEmail: userEmail }
+      });
+
+      if (response.status === 200 && response.data.calories.length > 0) {
+        const latestCaloriesEntry = response.data.calories[response.data.calories.length - 1];
+        this.setState({ cal: latestCaloriesEntry.value });
+      }
+    } catch (error) {
+      console.error("Error fetching user calories:", error);
+    }
+  };
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
