@@ -25,31 +25,21 @@ class CalendarioPrincipal extends Component {
   }
 
   async componentDidMount() {
-    await this.fetchUserCalories();
-  }
-
-  fetchUserCalories = async () => {
+    const userEmail = sessionStorage.getItem('userEmail');
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
-      const userEmail = sessionStorage.getItem('userEmail');
-
-      if (!userEmail) {
-        console.error("No user email found in session storage");
-        return;
-      }
-
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
 
       if (response.status === 200 && response.data.calories.length > 0) {
-        const latestCaloriesEntry = response.data.calories[response.data.calories.length - 1];
-        this.setState({ cal: latestCaloriesEntry.value });
+        const totalCalories = response.data.calories.reduce((acc, cal) => acc + cal.value, 0);
+        this.setState({ cal: totalCalories });
       }
     } catch (error) {
-      console.error("Error fetching user calories:", error);
+      console.error("Error al recuperar las calorías:", error);
     }
-  };
+  }
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
