@@ -31,7 +31,6 @@ class CalendarioPrincipal extends Component {
     return isToday ? { style: { backgroundColor: 'lightblue' } } : {};
   }
 
-  //funcion para incluir las comidas, ejercicios y horas de cada uno.
   handleDataSubmit = async (data) => {
     const { 
       foodCalories,
@@ -46,7 +45,6 @@ class CalendarioPrincipal extends Component {
     console.log('Datos recibidos del hijo:', data);
     const today = dayjs().startOf('day');
 
-    // Procesar los datos para crear eventos
     const newEvents = [];
 
     if (foodValue && hourFood) {
@@ -69,7 +67,6 @@ class CalendarioPrincipal extends Component {
       events: [...prevState.events, ...newEvents]
     }));
 
-    // Actualización de las calorías que se muestran en Las calorías actualmente consumidas y se pasan a KalCalculator
     this.setState(prevState => {
       let newCal = prevState.cal;
       if (exerciseCalories > 0 && foodCalories === 0) {
@@ -83,15 +80,13 @@ class CalendarioPrincipal extends Component {
       return { cal: newCal };
     });
 
-    // Post para incluir las calorías en la BD
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
 
-      // Verificar URL y Payload
       console.log("API URL:", `${apiUrl}/api/users/cal`);
       console.log("Payload:", {
-        email: userEmail,
+        userEmail: userEmail,
         calories: this.state.cal
       });
 
