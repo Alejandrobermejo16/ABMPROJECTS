@@ -30,8 +30,6 @@ function KalCalculator(props) {
     // Obtener correo electrónico desde sessionStorage
     const userEmail = sessionStorage.getItem('userEmail');
     if (userEmail) {
-      console.log('Correo electrónico almacenado en sessionStorage:', userEmail);
-      // Puedes usar userEmail como sea necesario en este componente
     } else {
       console.log('No hay correo electrónico almacenado en sessionStorage');
     }
