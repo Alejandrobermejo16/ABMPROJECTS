@@ -85,16 +85,19 @@ class CalendarioPrincipal extends Component {
 
     this.setState(prevState => {
       let newCal = prevState.cal;
-      if (exerciseCalories > 0 && foodCalories === 0) {
+      
+      // Restar las calorías de ejercicio
+      if (exerciseCalories > 0) {
         newCal -= exerciseCalories;
-      } else if (foodCalories > 0 && exerciseCalories === 0) {
-        newCal += foodCalories;
-      } else if (exerciseCalories > 0 && foodCalories > 0) {
-        const netCalories = foodCalories - exerciseCalories; 
-        newCal += netCalories;
       }
+      
+      // Sumar las calorías de comida
+      if (foodCalories > 0) {
+        newCal += foodCalories;
+      }
+      
       return { cal: newCal };
-    }, this.saveCalories); // Utilizamos una callback para guardar las calorías después de actualizar el estado
+    }, this.saveCalories);
   };
 
   checkCaloriesExists = async (userEmail) => {
