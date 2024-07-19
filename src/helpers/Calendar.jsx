@@ -81,6 +81,9 @@ class CalendarioPrincipal extends Component {
     });
 
     try {
+
+      console.log("prueba de resultado de calorias",cal, this.cal,newCal, this.state.cal);
+
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
 
