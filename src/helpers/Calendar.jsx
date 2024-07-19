@@ -89,14 +89,14 @@ class CalendarioPrincipal extends Component {
       // Verificar URL y Payload
       console.log("API URL:", `${apiUrl}/api/users/cal`);
       console.log("Payload:", {
-        email: userEmail,
+        userEmail: userEmail,
         calories: this.state.cal
       });
 
       const response = await axios.post(
         `${apiUrl}/api/users/cal`,
         {
-          email: userEmail, 
+          userEmail: userEmail, 
           calories: this.state.cal
         },
         {
