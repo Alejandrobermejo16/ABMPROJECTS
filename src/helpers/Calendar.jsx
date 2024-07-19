@@ -13,7 +13,7 @@ class CalendarioPrincipal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cal: 1,
+      cal: 0,
       events: [
         {
           start: dayjs('2024-05-23T12:00:00').toDate(),
@@ -31,7 +31,7 @@ class CalendarioPrincipal extends Component {
     return isToday ? { style: { backgroundColor: 'lightblue' } } : {};
   }
 
-  handleDataSubmit = async (data) => {
+  handleDataSubmit = (data) => {
     const { 
       foodCalories,
       exerciseCalories,
@@ -78,25 +78,25 @@ class CalendarioPrincipal extends Component {
         newCal += netCalories;
       }
       return { cal: newCal };
-    });
+    }, this.saveCalories); // Utilizamos una callback para guardar las calorías después de actualizar el estado
+  };
 
+  saveCalories = async () => {
     try {
-      const {newCal} = this.state;
-
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
 
+      // Verificar URL y Payload
       console.log("API URL:", `${apiUrl}/api/users/cal`);
       console.log("Payload:", {
-        userEmail: userEmail,
-        calories: this.state.cal,
-        newCal
+        email: userEmail,
+        calories: this.state.cal
       });
 
       const response = await axios.post(
         `${apiUrl}/api/users/cal`,
         {
-          userEmail: userEmail, 
+          email: userEmail, 
           calories: this.state.cal
         },
         {
