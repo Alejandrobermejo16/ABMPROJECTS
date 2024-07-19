@@ -98,7 +98,7 @@ class CalendarioPrincipal extends Component {
       const response = await axios.post(
         `${apiUrl}/api/users/cal`,
         {
-          email: userEmail, 
+          userEmail: userEmail, 
           calories: this.state.cal
         },
         {
