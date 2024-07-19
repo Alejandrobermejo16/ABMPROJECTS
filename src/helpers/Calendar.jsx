@@ -4,6 +4,7 @@ import { Calendar, dayjsLocalizer } from 'react-big-calendar';
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import dayjs from 'dayjs';
 import "dayjs/locale/es";
+import axios from 'axios';
 import KalCalculator from '../components/KalCalculator';
 
 dayjs.locale("es");
@@ -31,13 +32,16 @@ class CalendarioPrincipal extends Component {
   }
 
   //funcion para incluir las comidas, ejercicios y horas de cada uno.
-  handleDataSubmit = (data) => {
-
+  handleDataSubmit = async (data) => {
     const { 
       foodCalories,
       exerciseCalories,
-     } = data;
-
+      foodValue,
+      exerciseQuery,
+      hourFood,
+      hourExercise,
+      exerciseDuration
+    } = data;
 
     console.log('Datos recibidos del hijo:', data);
     const today = dayjs().startOf('day');
@@ -45,19 +49,19 @@ class CalendarioPrincipal extends Component {
     // Procesar los datos para crear eventos
     const newEvents = [];
 
-    if (data.foodValue && data.hourFood) {
+    if (foodValue && hourFood) {
       newEvents.push({
-        start: dayjs(today).hour(parseInt(data.hourFood.split(':')[0])).minute(parseInt(data.hourFood.split(':')[1])).toDate(),
-        end: dayjs(today).hour(parseInt(data.hourFood.split(':')[0])).minute(parseInt(data.hourFood.split(':')[1])).add(30, 'minute').toDate(),
-        title: `Comida: ${data.foodValue}`
+        start: dayjs(today).hour(parseInt(hourFood.split(':')[0])).minute(parseInt(hourFood.split(':')[1])).toDate(),
+        end: dayjs(today).hour(parseInt(hourFood.split(':')[0])).minute(parseInt(hourFood.split(':')[1])).add(30, 'minute').toDate(),
+        title: `Comida: ${foodValue}`
       });
     }
 
-    if (data.exerciseQuery && data.hourExercise) {
+    if (exerciseQuery && hourExercise) {
       newEvents.push({
-        start: dayjs(today).hour(parseInt(data.hourExercise.split(':')[0])).minute(parseInt(data.hourExercise.split(':')[1])).toDate(),
-        end: dayjs(today).hour(parseInt(data.hourExercise.split(':')[0])).minute(parseInt(data.hourExercise.split(':')[1])).add(parseInt(data.exerciseDuration), 'minute').toDate(),
-        title: `Ejercicio: ${data.exerciseQuery}`
+        start: dayjs(today).hour(parseInt(hourExercise.split(':')[0])).minute(parseInt(hourExercise.split(':')[1])).toDate(),
+        end: dayjs(today).hour(parseInt(hourExercise.split(':')[0])).minute(parseInt(hourExercise.split(':')[1])).add(parseInt(exerciseDuration), 'minute').toDate(),
+        title: `Ejercicio: ${exerciseQuery}`
       });
     }
 
@@ -65,14 +69,7 @@ class CalendarioPrincipal extends Component {
       events: [...prevState.events, ...newEvents]
     }));
 
-
-    //en esa misma funcion puedo coger y meterle un post para que envie esos datos a mi bd y asi los tenga guardados en cada usuario,
-    // y cuando se loguee el usuario que recupere lo que ya tiene haciendo un get a los datos y poniendoselo al estado del calendario 
-
-    
-
-
-    //Actualizacion de las calorias que se muestran en Las calorias actualmente consumidas y se pasan a Kalculator
+    // Actualización de las calorías que se muestran en Las calorías actualmente consumidas y se pasan a KalCalculator
     this.setState(prevState => {
       let newCal = prevState.cal;
       if (exerciseCalories > 0 && foodCalories === 0) {
@@ -85,11 +82,44 @@ class CalendarioPrincipal extends Component {
       }
       return { cal: newCal };
     });
-    
-    
-     
-    };
-    
+
+    // Post para incluir las calorías en la BD
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
+      const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
+
+      // Verificar URL y Payload
+      console.log("API URL:", `${apiUrl}/api/users/cal`);
+      console.log("Payload:", {
+        email: userEmail,
+        calories: this.state.cal
+      });
+
+      const response = await axios.post(
+        `${apiUrl}/api/users/cal`,
+        {
+          email: userEmail, 
+          calories: this.state.cal
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.status === 201) {
+        console.log("Datos de calorías guardados correctamente");
+      } else {
+        console.error("Error al guardar los datos de calorías");
+      }
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+      if (error.response) {
+        console.error("Respuesta del servidor:", error.response.data);
+      }
+    }
+  };
 
   render() {
     const { width, height } = this.props;
