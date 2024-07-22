@@ -24,7 +24,9 @@ class CalendarioPrincipal extends Component {
     this.localizer = dayjsLocalizer(dayjs);
   }
 
-  async componentDidMount() {
+  async componentDidMount() 
+  //se obtiene el ultimo registro de las calorias del usuario al iniciar el componente para mostrar las calorias actuales
+  {
     const userEmail = sessionStorage.getItem('userEmail');
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
