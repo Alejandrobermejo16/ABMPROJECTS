@@ -15,7 +15,8 @@ const generateHours = () => {
 };
 
 function KalCalculator(props) {
-  const { cal, onSubmit } = props;
+  const { onSubmit } = props;
+  const [cal, setCal] = useState(0); // Estado para las calorías actuales del usuario
   const [foodValue, setFoodValue] = useState(''); // Estado para el término de búsqueda de alimentos
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
   const [exerciseQuery, setExerciseQuery] = useState(''); // Estado para el término de búsqueda de ejercicios
@@ -29,10 +30,22 @@ function KalCalculator(props) {
     // Obtener correo electrónico desde sessionStorage
     const userEmail = sessionStorage.getItem('userEmail');
     if (userEmail) {
+      // Aquí llamamos a la función para obtener las calorías del usuario
+      fetchUserCalories(userEmail);
     } else {
       console.log('No hay correo electrónico almacenado en sessionStorage');
     }
   }, []);
+
+  const fetchUserCalories = async (email) => {
+    try {
+      const response = await axios.get(`/api/userCalories?email=${email}`);
+      const { calories } = response.data;
+      setCal(calories);
+    } catch (error) {
+      console.error('Error al obtener las calorías del usuario:', error);
+    }
+  };
 
   useEffect(() => {
     if (foodValue.length > 2) {
