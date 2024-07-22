@@ -31,15 +31,17 @@ class CalendarioPrincipal extends Component {
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-
+  
       if (response.status === 200 && response.data.calories.length > 0) {
-        const totalCalories = response.data.calories.reduce((acc, cal) => acc + cal.value, 0);
-        this.setState({ cal: totalCalories });
+        // Obtener solo el primer valor de calorías
+        const firstCalorie = response.data.calories[0].value;
+        this.setState({ cal: firstCalorie });
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
     }
   }
+  
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
