@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import axios from "axios";
 import "../styles/KalCalculator.css";
 
+// Función para generar horas
 const generateHours = () => {
   const hours = [];
   for (let i = 0; i < 24; i++) {
@@ -14,9 +15,23 @@ const generateHours = () => {
   return hours;
 };
 
+// Función debounce para retrasar la ejecución de llamadas
+function debounce(func, delay) {
+  let timeoutId;
+  return (...args) => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    timeoutId = setTimeout(() => {
+      func.apply(null, args);
+    }, delay);
+  };
+}
+
 function KalCalculator(props) {
   const { cal, onSubmit } = props;
-  const [foodValue, setFoodValue] = useState(""); // Estado para el término de búsqueda de alimentos
+  const [foodValue, setFoodValue] = useState(""); // Estado para el valor del input de alimentos
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda de alimentos (con debounce)
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
   const [exerciseQuery, setExerciseQuery] = useState(""); // Estado para el término de búsqueda de ejercicios
   const [exerciseCalories, setExerciseCalories] = useState(null); // Estado para las calorías quemadas por el ejercicio
@@ -25,21 +40,20 @@ function KalCalculator(props) {
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
 
-  useEffect(() => {
-    // Obtener correo electrónico desde sessionStorage
-    const userEmail = sessionStorage.getItem("userEmail");
-    if (userEmail) {
-    } else {
-      console.log("No hay correo electrónico almacenado en sessionStorage");
-    }
-  }, []);
+  // Función debounce para actualizar el término de búsqueda
+  const debouncedSetSearchTerm = useCallback(
+    debounce((value) => {
+      setSearchTerm(value);
+    }, 500), // Retraso de 500 ms
+    []
+  );
 
   useEffect(() => {
-    if (foodValue.length > 2) {
+    if (searchTerm.length > 2) {
       const fetchFoodsList = async () => {
         try {
           const usdaApiKey = "qt4TrBnYKdqE4BOtmvYPV7lMMIz645Hs67tHNvMP";
-          const usdaUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${usdaApiKey}&query=${foodValue}&pageSize=10`;
+          const usdaUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${usdaApiKey}&query=${searchTerm}&pageSize=10`;
 
           const response = await axios.get(usdaUrl);
           const foods = response.data.foods;
@@ -57,7 +71,7 @@ function KalCalculator(props) {
 
       fetchFoodsList();
     }
-  }, [foodValue]);
+  }, [searchTerm]);
 
   useEffect(() => {
     if (exerciseQuery.length > 2 && exerciseDuration > 0) {
@@ -110,6 +124,7 @@ function KalCalculator(props) {
 
   const handleFoodSearchChange = (event) => {
     setFoodValue(event.target.value);
+    debouncedSetSearchTerm(event.target.value);
   };
 
   const handleExerciseSearchChange = (event) => {
@@ -285,8 +300,7 @@ function KalCalculator(props) {
               </div>
             </div>
           ))}
-        </div>
-      </div>
+        </div>      </div>
     </div>
   );
 }
