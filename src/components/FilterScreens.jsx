@@ -55,6 +55,9 @@ class FilterScreens extends React.Component {
     }
   };
 
+  cargarSkillsButton = () => {
+    this.setState({ loadingSkills: true })};
+
   toggleMenu = () => {
     this.setState((prevState) => ({
       isMenuVisible: !prevState.isMenuVisible,
