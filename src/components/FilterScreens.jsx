@@ -74,7 +74,7 @@ class FilterScreens extends React.Component {
         
         {(isMenuVisible || !isMobile) && (
           <div className="sidebar">
-            <div className="initialFilterHeader">
+            <div className="initialFilterHeader" style={{overflowX: 'hidden'}}>
               <p> Explorador de Componentes y Proyectos</p>
             </div>
             <Nav className="flex-column">
@@ -182,8 +182,8 @@ class FilterScreens extends React.Component {
                 ""
               )}
               {!loadingSkills ? (
-                <div className="divaviso">
-                  <ExclamationTriangleFill className="aviso" /> Para poder ver
+                <div className="divaviso" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: '25px'  }}>
+                  <ExclamationTriangleFill className="aviso" style={{marginRight: '10px', fontSize: '30px' }}/> Para poder ver
                   todas las habilidades laborales pulsa el botón de Skills
                   Profesionales
                 </div>
