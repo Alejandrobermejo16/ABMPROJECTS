@@ -185,7 +185,7 @@ class FilterScreens extends React.Component {
                 <div className="divaviso" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: '25px'  }}>
                   <ExclamationTriangleFill className="aviso" style={{marginRight: '10px', fontSize: '30px' }}/> Para poder ver
                   todas las habilidades laborales pulsa el botón de Skills
-                  Profesionales
+                  Profesionales (la aplicacion tambien funcionará en dispositivos moviles)
                 </div>
               ) : (
                 ""
