@@ -58,7 +58,7 @@ class FilterScreens extends React.Component {
   }
 
   handlePantallaClick = (pantalla) => {
-    this.setState({ pantallaActual: pantalla, noData: false });
+    this.setState({ pantallaActual: pantalla, noData: false, isMenuVisible: true, });
   };
 
   cargarSkillsButton = () => {
