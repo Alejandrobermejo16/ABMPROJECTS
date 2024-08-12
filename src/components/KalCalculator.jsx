@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import axios from 'axios';
+import axios from "axios";
 import "../styles/KalCalculator.css";
 
 const generateHours = () => {
   const hours = [];
   for (let i = 0; i < 24; i++) {
-    const hourString = i.toString().padStart(2, '0');
+    const hourString = i.toString().padStart(2, "0");
     hours.push(`${hourString}:00`);
     hours.push(`${hourString}:30`);
   }
@@ -16,21 +16,21 @@ const generateHours = () => {
 
 function KalCalculator(props) {
   const { cal, onSubmit } = props;
-  const [foodValue, setFoodValue] = useState(''); // Estado para el término de búsqueda de alimentos
+  const [foodValue, setFoodValue] = useState(""); // Estado para el término de búsqueda de alimentos
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
-  const [exerciseQuery, setExerciseQuery] = useState(''); // Estado para el término de búsqueda de ejercicios
+  const [exerciseQuery, setExerciseQuery] = useState(""); // Estado para el término de búsqueda de ejercicios
   const [exerciseCalories, setExerciseCalories] = useState(null); // Estado para las calorías quemadas por el ejercicio
-  const [exerciseDuration, setExerciseDuration] = useState(''); // Estado para la duración del ejercicio en minutos
+  const [exerciseDuration, setExerciseDuration] = useState(""); // Estado para la duración del ejercicio en minutos
   const [hours] = useState(generateHours()); // Estado para las horas del día
-  const [hourFood, setHourFood] = useState('');
-  const [hourExercise, setHourExercise] = useState('');
+  const [hourFood, setHourFood] = useState("");
+  const [hourExercise, setHourExercise] = useState("");
 
   useEffect(() => {
     // Obtener correo electrónico desde sessionStorage
-    const userEmail = sessionStorage.getItem('userEmail');
+    const userEmail = sessionStorage.getItem("userEmail");
     if (userEmail) {
     } else {
-      console.log('No hay correo electrónico almacenado en sessionStorage');
+      console.log("No hay correo electrónico almacenado en sessionStorage");
     }
   }, []);
 
@@ -38,7 +38,7 @@ function KalCalculator(props) {
     if (foodValue.length > 2) {
       const fetchFoodsList = async () => {
         try {
-          const usdaApiKey = 'qt4TrBnYKdqE4BOtmvYPV7lMMIz645Hs67tHNvMP';
+          const usdaApiKey = "qt4TrBnYKdqE4BOtmvYPV7lMMIz645Hs67tHNvMP";
           const usdaUrl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${usdaApiKey}&query=${foodValue}&pageSize=10`;
 
           const response = await axios.get(usdaUrl);
@@ -51,7 +51,7 @@ function KalCalculator(props) {
             setFoodValue(firstFood.description);
           }
         } catch (error) {
-          console.error('Error al obtener la lista de alimentos:', error);
+          console.error("Error al obtener la lista de alimentos:", error);
         }
       };
 
@@ -63,23 +63,27 @@ function KalCalculator(props) {
     if (exerciseQuery.length > 2 && exerciseDuration > 0) {
       const fetchExerciseList = async () => {
         try {
-          const nutritionixApiId = '451a4b61';
-          const nutritionixApiKey = '1e9525aaccfe868e361a397b673e852f';
+          const nutritionixApiId = "451a4b61";
+          const nutritionixApiKey = "1e9525aaccfe868e361a397b673e852f";
           const nutritionixUrl = `https://trackapi.nutritionix.com/v2/natural/exercise`;
 
-          const response = await axios.post(nutritionixUrl, {
-            query: `${exerciseQuery} for ${exerciseDuration} minutes`, // Incluir la duración en minutos en la consulta
-            gender: "male", // Ajustar esto según el usuario
-            weight_kg: 70, // Ajustar esto según el usuario
-            height_cm: 175, // Ajustar esto según el usuario
-            age: 30, // Ajustar esto según el usuario
-          }, {
-            headers: {
-              'Content-Type': 'application/json',
-              'x-app-id': nutritionixApiId,
-              'x-app-key': nutritionixApiKey
+          const response = await axios.post(
+            nutritionixUrl,
+            {
+              query: `${exerciseQuery} for ${exerciseDuration} minutes`, // Incluir la duración en minutos en la consulta
+              gender: "male", // Ajustar esto según el usuario
+              weight_kg: 70, // Ajustar esto según el usuario
+              height_cm: 175, // Ajustar esto según el usuario
+              age: 30, // Ajustar esto según el usuario
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+                "x-app-id": nutritionixApiId,
+                "x-app-key": nutritionixApiKey,
+              },
             }
-          });
+          );
 
           const exercises = response.data.exercises;
           if (exercises.length > 0) {
@@ -87,7 +91,7 @@ function KalCalculator(props) {
             setExerciseCalories(firstExercise.nf_calories);
           }
         } catch (error) {
-          console.error('Error al obtener la lista de ejercicios:', error);
+          console.error("Error al obtener la lista de ejercicios:", error);
         }
       };
 
@@ -98,8 +102,10 @@ function KalCalculator(props) {
   // Función para obtener las calorías de un alimento específico
   const obtenerCalorias = (alimento) => {
     // Buscar el nutriente 'Energy' dentro de foodNutrients
-    const nutrient = alimento.foodNutrients.find(nutriente => nutriente.nutrientName === 'Energy');
-    return nutrient ? nutrient.value : 'No disponible';
+    const nutrient = alimento.foodNutrients.find(
+      (nutriente) => nutriente.nutrientName === "Energy"
+    );
+    return nutrient ? nutrient.value : "No disponible";
   };
 
   const handleFoodSearchChange = (event) => {
@@ -130,18 +136,17 @@ function KalCalculator(props) {
       hourFood,
       hourExercise,
       foodCalories: selectedFood ? selectedFood.calories : 0,
-      exerciseCalories: exerciseCalories ? exerciseCalories : 0
+      exerciseCalories: exerciseCalories ? exerciseCalories : 0,
     };
     onSubmit(data); // Aquí asumimos que `onSubmit` es una prop recibida del componente padre
-    //se le pasa del padre la prop onSubmit y como valor una funcion que recoge los datos que le enviamos desde el hijo
 
-    setFoodValue(''); // Estado para el término de búsqueda de alimentos
+    setFoodValue(""); // Estado para el término de búsqueda de alimentos
     setSelectedFood(null); // Limpiar el alimento seleccionado
-    setExerciseQuery(''); // Estado para el término de búsqueda de ejercicios
+    setExerciseQuery(""); // Estado para el término de búsqueda de ejercicios
     setExerciseCalories(null); // Limpiar las calorías del ejercicio
-    setExerciseDuration(''); // Estado para la duración del ejercicio en minutos
-    setHourFood('');
-    setHourExercise('');
+    setExerciseDuration(""); // Estado para la duración del ejercicio en minutos
+    setHourFood("");
+    setHourExercise("");
   };
 
   return (
@@ -150,9 +155,7 @@ function KalCalculator(props) {
       <div className="divFormFit">
         <Form>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="foodSearch">
-              Alimento Ingerido
-            </Form.Label>
+            <Form.Label htmlFor="foodSearch">Alimento Ingerido</Form.Label>
             <Form.Control
               type="text"
               id="foodSearch"
@@ -165,10 +168,16 @@ function KalCalculator(props) {
             <Form.Label htmlFor="ingestionTime">
               Hora en la que se ingiere
             </Form.Label>
-            <Form.Select id="ingestionTime" onChange={handleFoodTimeChange} value={hourFood}>
+            <Form.Select
+              id="ingestionTime"
+              onChange={handleFoodTimeChange}
+              value={hourFood}
+            >
               <option value="">Selecciona la hora</option>
-              {hours.map(hour => (
-                <option key={hour} value={hour}>{hour}</option>
+              {hours.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
@@ -200,15 +209,83 @@ function KalCalculator(props) {
             <Form.Label htmlFor="activityTime">
               Hora en la que se realiza
             </Form.Label>
-            <Form.Select id="activityTime" onChange={handleExerciseTimeChange} value={hourExercise}>
+            <Form.Select
+              id="activityTime"
+              onChange={handleExerciseTimeChange}
+              value={hourExercise}
+            >
               <option value="">Selecciona la hora</option>
-              {hours.map(hour => (
-                <option key={hour} value={hour}>{hour}</option>
+              {hours.map((hour) => (
+                <option key={hour} value={hour}>
+                  {hour}
+                </option>
               ))}
             </Form.Select>
           </Form.Group>
-          <Button type="button" onClick={sendDataFormKal}>Enviar</Button>
+          <Button type="button" onClick={sendDataFormKal}>
+            Enviar
+          </Button>
         </Form>
+      </div>
+      <h1 style={{ marginTop: "3%"}}>TABLA DE CALORIAS MENSUALES</h1>
+      <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: '#50595C' }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>MES ACTUAL</div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            CALORÍAS MENSUALES TOTALES
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            ÍNDICE
+          </div>
+        </div>
+
+        <div
+          style={{
+            maxHeight: "400px",
+            overflowY: "auto",
+            padding: "10px",
+          }}
+        >
+          {[
+            { day: "Enero", calories: "-2500", index: 'positivo' },
+            { day: "Febrero", calories: "2200", index: 'positivo' },
+            { day: "Marzo", calories: "2300", index: 3 },
+            { day: "Abril", calories: "2100", index: 4 },
+            { day: "Mayo", calories: "2400", index: 5 },
+            { day: "Junio", calories: "2000", index: 6 },
+            { day: "Julio", calories: "2100", index: 7 },
+            { day: "Agosto", calories: "2500", index: 1 },
+            { day: "Septiembre", calories: "2200", index: 2 },
+            { day: "Octubre", calories: "-20", index: 3 },
+            { day: "Noviembre", calories: "2100", index: 4 },
+            { day: "Diciembre", calories: "2400", index: 5 },
+          ].map((item, index) => (
+            <div
+              key={index}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+              }}
+            >
+              <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                {item.day}
+              </div>
+              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", }}>
+                {item.calories}
+              </div>
+              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green" }}>
+              {parseInt(item.calories) > 0 ? "negativo" : "positivo"} {/* Condición para el índice */}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
