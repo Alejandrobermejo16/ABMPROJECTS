@@ -1,40 +1,17 @@
 import React from "react";
 import { Nav, Accordion, Card, Button } from "react-bootstrap";
-import {
-  ExclamationTriangleFill,
-  BoxArrowUpRight,
-} from "react-bootstrap-icons"; // Agrega BoxArrowUpRight para un enlace externo
+import { ExclamationTriangleFill, BoxArrowUpRight } from "react-bootstrap-icons";
 import "../styles/InitialFilter.css";
 import GridDashboard from "./GridDashboard";
 import GridDataAlejandro from "./GridDataAlejandro";
 import ReservasHipica from "../screens/ReservasHipica.jsx";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  Cell,
-} from "recharts";
-import {
-  LENGUAJESDEPROGRAMACION,
-  FRAMEWORKS,
-  OTROS,
-  LIBRERIAS,
-} from "../Constants.js";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from "recharts";
+import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from "../Constants.js";
 import { List } from "react-bootstrap-icons";
-import {
-  FolderFill,
-  Translate,
-  CalendarDate,
-  PersonRaisedHand,
-} from "react-bootstrap-icons";
+import { FolderFill, Translate, CalendarDate, PersonRaisedHand } from "react-bootstrap-icons";
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
 import { faAngular } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 const ImagenAlejandro = require("../img/Alejandro.jpeg");
 
@@ -45,24 +22,37 @@ class FilterScreens extends React.Component {
       pantallaActual: null,
       noData: true,
       loadingSkills: false,
-      isMenuVisible: false,
+      isMenuVisible: false, // Valor inicial del menú hamburguesa
+      isMobile: false, // Estado para saber si es móvil
     };
+    this.pantallaFiltroRef = React.createRef();
   }
 
   componentDidMount() {
-    // Para mostrar el menú hamburguesa
-    var ancho = document.querySelector(".padrepantallafiltro").clientWidth;
-    if (ancho <= 754) {
-      this.setState({ isMenuVisible: true });
-    }
+    this.updateMenuVisibility();
+    window.addEventListener('resize', this.updateMenuVisibility);
   }
 
-  handlePantallaClick = (pantalla) => {
-    this.setState({ pantallaActual: pantalla, noData: false, isMenuVisible: true, });
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateMenuVisibility);
+  }
+
+  updateMenuVisibility = () => {
+    if (this.pantallaFiltroRef.current) {
+      const isMobile = this.pantallaFiltroRef.current.clientWidth <= 754;
+      this.setState({ 
+        isMenuVisible: isMobile ? this.state.isMenuVisible : true, // Muestra el menú si es grande
+        isMobile: isMobile 
+      });
+    }
   };
 
-  cargarSkillsButton = () => {
-    this.setState({ loadingSkills: true });
+  handlePantallaClick = (pantalla) => {
+    this.setState({ pantallaActual: pantalla, noData: false });
+
+    if (this.state.isMobile) {
+      this.setState({ isMenuVisible: false });
+    }
   };
 
   toggleMenu = () => {
@@ -72,39 +62,32 @@ class FilterScreens extends React.Component {
   };
 
   render() {
-    const { pantallaActual, noData, loadingSkills, isMenuVisible } = this.state;
+    const { pantallaActual, noData, loadingSkills, isMenuVisible, isMobile } = this.state;
 
     return (
-      <div className="padrepantallafiltro">
-        {!isMenuVisible && (
+      <div className="padrepantallafiltro" ref={this.pantallaFiltroRef}>
+        {isMobile && !isMenuVisible && (
+          <Button variant="primary" onClick={() => this.toggleMenu()}>
+            <List />
+          </Button>
+        )}
+        
+        {(isMenuVisible || !isMobile) && (
           <div className="sidebar">
             <div className="initialFilterHeader">
               <p> Explorador de Componentes y Proyectos</p>
             </div>
             <Nav className="flex-column">
-              <Nav.Link
-                className="nav-links"
-                onClick={() => this.handlePantallaClick("GridDashboard")}
-              >
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDashboard")}>
                 <FolderFill /> Agenda de Tareas
               </Nav.Link>
-              <Nav.Link
-                className="nav-links"
-                onClick={() => this.handlePantallaClick("GridDataAlejandro")}
-              >
-                <Translate />
-                Traductor
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDataAlejandro")}>
+                <Translate /> Traductor
               </Nav.Link>
-              <Nav.Link
-                className="nav-links"
-                onClick={() => this.handlePantallaClick("ReservasHipica")}
-              >
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("ReservasHipica")}>
                 <CalendarDate /> Reservas Hipica
               </Nav.Link>
-              <Nav.Link
-                className="nav-links"
-                onClick={() => this.handlePantallaClick("Fit")}
-              >
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Fit")}>
                 <PersonRaisedHand /> Espacio Fit
               </Nav.Link>
               <Nav.Link
@@ -112,7 +95,7 @@ class FilterScreens extends React.Component {
                 href="https://abm-survey-lit-element.vercel.app/"
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{color: "#05B1F5"}}
+                style={{ color: "#05B1F5" }}
               >
                 <BoxArrowUpRight /> Creacion Componentes Propios Lit element
               </Nav.Link>
@@ -130,12 +113,6 @@ class FilterScreens extends React.Component {
           </div>
         )}
 
-        {isMenuVisible && (
-          <Button variant="primary" onClick={() => this.toggleMenu()}>
-            <List />
-          </Button>
-        )}
-
         {noData ? (
           <div className="divAcordeon" style={{ marginTop: "5px" }}>
             <Accordion defaultActiveKey="0">
@@ -150,7 +127,6 @@ class FilterScreens extends React.Component {
                     priorizando una experiencia del usuario excepcional desde el
                     primer clic.
                   </p>
-
                   <p>
                     Además de mis habilidades técnicas, tengo una fuerte ética
                     de trabajo y un compromiso continuo con el crecimiento
