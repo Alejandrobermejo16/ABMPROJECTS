@@ -143,6 +143,16 @@ function KalCalculator(props) {
     setHourExercise(event.target.value);
   };
 
+  const cleanData = () => {
+    setFoodValue(""); 
+    setSelectedFood(null); 
+    setExerciseQuery(""); 
+    setExerciseCalories(null); 
+    setExerciseDuration(" "); 
+    setHourFood("");
+    setHourExercise("");
+  }
+
   const sendDataFormKal = () => {
     const data = {
       exerciseDuration,
@@ -243,6 +253,9 @@ function KalCalculator(props) {
           </Form.Group>
           <Button type="button" onClick={sendDataFormKal}>
             Enviar
+          </Button>
+          <Button style={{ marginLeft: "3%" }} type="button" onClick={cleanData}>
+            Limpiar
           </Button>
         </Form>
       </div>
