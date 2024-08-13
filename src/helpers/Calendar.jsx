@@ -24,15 +24,16 @@ class CalendarioPrincipal extends Component {
     this.localizer = dayjsLocalizer(dayjs);
   }
 
-  async componentDidMount() {
-    // Se obtiene el último registro de las calorías del usuario al iniciar el componente para mostrar las calorías actuales
+  async componentDidMount() 
+  //se obtiene el ultimo registro de las calorias del usuario al iniciar el componente para mostrar las calorias actuales
+  {
     const userEmail = sessionStorage.getItem('userEmail');
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-
+  
       if (response.status === 200 && response.data.calories.length > 0) {
         // Obtener solo el primer valor de calorías
         const firstCalorie = response.data.calories[0].value;
@@ -42,6 +43,7 @@ class CalendarioPrincipal extends Component {
       console.error("Error al recuperar las calorías:", error);
     }
   }
+  
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
@@ -109,14 +111,10 @@ class CalendarioPrincipal extends Component {
         params: { userEmail: userEmail }
       });
 
-      // Verificar la existencia de calorías y el campo CalMonth
-      const caloriesExist = response.status === 200 && response.data.calories.length > 0;
-      const calMonthExists = caloriesExist && response.data.CalMonth && Object.keys(response.data.CalMonth).length > 0;
-
-      return { caloriesExist, calMonthExists };
+      return response.status === 200 && response.data.calories.length > 0;
     } catch (error) {
       console.error("Error al verificar la existencia de las calorías:", error);
-      return { caloriesExist: false, calMonthExists: false };
+      return false;
     }
   };
 
@@ -150,28 +148,18 @@ class CalendarioPrincipal extends Component {
       };
   
       // Verificar si existen registros de calorías para este usuario
-      const { caloriesExist, calMonthExists } = await this.checkCaloriesExists(userEmail);
+      const exists = await this.checkCaloriesExists(userEmail);
   
       let response;
-      if (caloriesExist) {
-        if (calMonthExists) {
-          // Si existe CalMonth, se realiza una actualización (PUT)
-          response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        } else {
-          // Si no existe CalMonth, se realiza una adición de este campo y actualización general (PUT)
-          const fullPayload = { ...payload, CalMonth: payload.CalMonth };
-          response = await axios.put(`${apiUrl}/api/users/cal`, fullPayload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-        }
+      if (exists) {
+        // Enviar una solicitud PUT si ya existen registros
+        response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
       } else {
-        // Si no existen registros, se realiza una adición (POST)
+        // Enviar una solicitud POST si no existen registros
         response = await axios.post(`${apiUrl}/api/users/cal`, payload, {
           headers: {
             "Content-Type": "application/json",
@@ -191,6 +179,8 @@ class CalendarioPrincipal extends Component {
       }
     }
   };
+  
+  
 
   render() {
     const { width, height } = this.props;
