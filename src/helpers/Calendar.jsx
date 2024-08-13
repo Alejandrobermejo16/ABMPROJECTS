@@ -121,30 +121,39 @@ class CalendarioPrincipal extends Component {
   saveCalories = async () => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
-      const userEmail = sessionStorage.getItem('userEmail'); // Obtener el correo electrónico del usuario desde sessionStorage
-
-      // Verificar si las calorías ya existen
-      const exists = await this.checkCaloriesExists(userEmail);
-
-      // Preparar los datos
+      const userEmail = sessionStorage.getItem('userEmail');
+      const currentDate = dayjs();
+      const currentMonth = currentDate.format('MMMM');  // Nombre del mes
+      const currentDay = currentDate.date();  // Número del día
+  
+      // Redondear las calorías a enteros
+      const roundedCalories = Math.round(this.state.cal);
+  
+      // Preparar el payload con las calorías redondeadas
       const payload = {
         userEmail: userEmail,
-        calories: this.state.cal
+        calories: {
+          value: roundedCalories,
+          date: currentDate.toISOString()  // Fecha en formato ISO
+        },
+        CalMonth: {
+          [currentMonth]: {
+            days: {
+              [currentDay]: {
+                calories: roundedCalories
+              }
+            }
+          }
+        }
       };
-
-      // Elegir el método HTTP basado en la existencia del campo
-      const response = exists
-        ? await axios.put(`${apiUrl}/api/users/cal`, payload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-        : await axios.post(`${apiUrl}/api/users/cal`, payload, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-
+  
+      // Enviar la solicitud de actualización
+      const response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
       if (response.status === 200 || response.status === 201) {
         console.log("Datos de calorías guardados correctamente");
       } else {
@@ -157,6 +166,7 @@ class CalendarioPrincipal extends Component {
       }
     }
   };
+  
 
   render() {
     const { width, height } = this.props;
