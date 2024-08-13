@@ -125,10 +125,10 @@ class CalendarioPrincipal extends Component {
       const currentDate = dayjs();
       const currentMonth = currentDate.format('MMMM');  // Nombre del mes
       const currentDay = currentDate.date();  // Número del día
-  
+    
       // Redondear las calorías a enteros
       const roundedCalories = Math.round(this.state.cal);
-  
+    
       // Preparar el payload con las calorías redondeadas
       const payload = {
         userEmail: userEmail,
@@ -147,13 +147,26 @@ class CalendarioPrincipal extends Component {
         }
       };
   
-      // Enviar la solicitud de actualización
-      const response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      // Verificar si existen registros de calorías para este usuario
+      const exists = await this.checkCaloriesExists(userEmail);
   
+      let response;
+      if (exists) {
+        // Enviar una solicitud PUT si ya existen registros
+        response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      } else {
+        // Enviar una solicitud POST si no existen registros
+        response = await axios.post(`${apiUrl}/api/users/cal`, payload, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+      }
+    
       if (response.status === 200 || response.status === 201) {
         console.log("Datos de calorías guardados correctamente");
       } else {
@@ -166,6 +179,7 @@ class CalendarioPrincipal extends Component {
       }
     }
   };
+  
   
 
   render() {
