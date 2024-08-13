@@ -166,7 +166,11 @@ function KalCalculator(props) {
 
   return (
     <div>
-      <h1>Actualmente has consumido {cal} calorías</h1>
+      <h1>
+        Actualmente has consumido{" "}
+        <span style={{ color: cal >= 0 ? "red" : "green" }}>{cal}</span>{" "}
+        calorías
+      </h1>
       <div className="divFormFit">
         <Form>
           <Form.Group className="mb-3">
@@ -242,8 +246,11 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%"}}>TABLA DE CALORIAS MENSUALES</h1>
-      <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: '#50595C' }}>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
+      <div
+        className="caloriasMensuales"
+        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+      >
         <div
           style={{
             display: "grid",
@@ -252,7 +259,9 @@ function KalCalculator(props) {
             marginBottom: "10px",
           }}
         >
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>MES ACTUAL</div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            MES ACTUAL
+          </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
             CALORÍAS MENSUALES TOTALES
           </div>
@@ -260,7 +269,6 @@ function KalCalculator(props) {
             ÍNDICE
           </div>
         </div>
-
         <div
           style={{
             maxHeight: "400px",
@@ -269,8 +277,8 @@ function KalCalculator(props) {
           }}
         >
           {[
-            { month: "Enero", calories: "-2500", index: 'positivo' },
-            { month: "Febrero", calories: "2200", index: 'positivo' },
+            { month: "Enero", calories: "-2500", index: "positivo" },
+            { month: "Febrero", calories: "2200", index: "positivo" },
             { month: "Marzo", calories: "2300", index: 3 },
             { month: "Abril", calories: "2100", index: 4 },
             { month: "Mayo", calories: "2400", index: 5 },
@@ -292,15 +300,31 @@ function KalCalculator(props) {
               <div style={{ padding: "10px", border: "2px solid #fff" }}>
                 {item.month}
               </div>
-              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", fontSize: '20px' }}>
+              <div
+                style={{
+                  padding: "10px",
+                  border: "2px solid #fff",
+                  color: parseInt(item.calories) > 0 ? "red" : "green",
+                  fontSize: "20px",
+                }}
+              >
                 {item.calories}
               </div>
-              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", fontSize: '20px' }}>
-              {parseInt(item.calories) > 0 ? "negativo" : "positivo"} {/* Condición para el índice */}
+              <div
+                style={{
+                  padding: "10px",
+                  border: "2px solid #fff",
+                  color: parseInt(item.calories) > 0 ? "red" : "green",
+                  fontSize: "20px",
+                }}
+              >
+                {parseInt(item.calories) > 0 ? "negativo" : "positivo"}{" "}
+                {/* Condición para el índice */}
               </div>
             </div>
           ))}
-        </div>      </div>
+        </div>{" "}
+      </div>
     </div>
   );
 }
