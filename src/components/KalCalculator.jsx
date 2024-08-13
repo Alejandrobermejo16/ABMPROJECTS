@@ -269,18 +269,18 @@ function KalCalculator(props) {
           }}
         >
           {[
-            { day: "Enero", calories: "-2500", index: 'positivo' },
-            { day: "Febrero", calories: "2200", index: 'positivo' },
-            { day: "Marzo", calories: "2300", index: 3 },
-            { day: "Abril", calories: "2100", index: 4 },
-            { day: "Mayo", calories: "2400", index: 5 },
-            { day: "Junio", calories: "2000", index: 6 },
-            { day: "Julio", calories: "2100", index: 7 },
-            { day: "Agosto", calories: "2500", index: 1 },
-            { day: "Septiembre", calories: "2200", index: 2 },
-            { day: "Octubre", calories: "-20", index: 3 },
-            { day: "Noviembre", calories: "2100", index: 4 },
-            { day: "Diciembre", calories: "2400", index: 5 },
+            { month: "Enero", calories: "-2500", index: 'positivo' },
+            { month: "Febrero", calories: "2200", index: 'positivo' },
+            { month: "Marzo", calories: "2300", index: 3 },
+            { month: "Abril", calories: "2100", index: 4 },
+            { month: "Mayo", calories: "2400", index: 5 },
+            { month: "Junio", calories: "2000", index: 6 },
+            { month: "Julio", calories: "2100", index: 7 },
+            { month: "Agosto", calories: "2500", index: 1 },
+            { month: "Septiembre", calories: "2200", index: 2 },
+            { month: "Octubre", calories: "-20", index: 3 },
+            { month: "Noviembre", calories: "2100", index: 4 },
+            { month: "Diciembre", calories: "2400", index: 5 },
           ].map((item, index) => (
             <div
               key={index}
@@ -290,12 +290,12 @@ function KalCalculator(props) {
               }}
             >
               <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                {item.day}
+                {item.month}
               </div>
-              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", }}>
+              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", fontSize: '20px' }}>
                 {item.calories}
               </div>
-              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green" }}>
+              <div style={{ padding: "10px", border: "2px solid #fff", color: parseInt(item.calories) > 0 ? "red" : "green", fontSize: '20px' }}>
               {parseInt(item.calories) > 0 ? "negativo" : "positivo"} {/* Condición para el índice */}
               </div>
             </div>
