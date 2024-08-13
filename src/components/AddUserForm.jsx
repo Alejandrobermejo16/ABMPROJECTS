@@ -15,8 +15,7 @@ const AddUserForm = () => {
 
     try {
       const apiUrl =
-        process.env.REACT_APP_API_URL ||
-        "https://backendabmprojects.vercel.app";
+        process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
 
       // Endpoint para crear usuario
       const createUserResponse = await axios.post(
@@ -25,7 +24,6 @@ const AddUserForm = () => {
         {
           headers: {
             "Content-Type": "application/json",
-            "X-Custom-Header": "valor-personalizado",
           },
         }
       );
