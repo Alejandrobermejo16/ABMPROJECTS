@@ -62,7 +62,6 @@ class CalendarioPrincipal extends Component {
       exerciseDuration
     } = data;
 
-    console.log('Datos recibidos del hijo:', data);
     const today = dayjs().startOf('day');
 
     const newEvents = [];
