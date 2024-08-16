@@ -103,6 +103,7 @@ class CalendarioPrincipal extends Component {
     }, this.saveCalories);
   };
 
+  //confirmar si hay calorias o no para decidir si se hace el metodo put o el metodo post
   checkCaloriesExists = async (userEmail) => {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
