@@ -24,26 +24,71 @@ class CalendarioPrincipal extends Component {
     this.localizer = dayjsLocalizer(dayjs);
   }
 
-  async componentDidMount() 
-  //se obtiene el ultimo registro de las calorias del usuario al iniciar el componente para mostrar las calorias actuales
-  {
+  async componentDidMount() {
     const userEmail = sessionStorage.getItem('userEmail');
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-  
+
       if (response.status === 200 && response.data.calories.length > 0) {
-        // Obtener solo el primer valor de calorías
+        const today = dayjs().startOf('day');
+        const currentMonth = today.format('MMMM');
+        const currentDay = today.date();
+
+        // Obtener el primer registro de calorías
         const firstCalorie = response.data.calories[0].value;
         this.setState({ cal: firstCalorie });
+
+        // Verificar si CalMonth contiene el mes y día actuales
+        const calMonth = response.data.CalMonth;
+        if (!calMonth || !calMonth[currentMonth] || !calMonth[currentMonth].days[currentDay]) {
+          // Si no existe, agregar el día actual
+          await this.addMissingCalMonth(userEmail, firstCalorie, currentMonth, currentDay);
+        }
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
     }
   }
-  
+
+  async addMissingCalMonth(userEmail, calorieValue, month, day) {
+    try {
+      const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
+
+      const payload = {
+        userEmail: userEmail,
+        CalMonth: {
+          [month]: {
+            days: {
+              [day]: {
+                calories: calorieValue
+              }
+            }
+          }
+        }
+      };
+
+      // Actualizar CalMonth en el servidor
+      const response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.status === 200) {
+        console.log("CalMonth actualizado correctamente");
+      } else {
+        console.error("Error al actualizar CalMonth");
+      }
+    } catch (error) {
+      console.error("Error al enviar los datos:", error);
+      if (error.response) {
+        console.error("Respuesta del servidor:", error.response.data);
+      }
+    }
+  }
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
@@ -89,12 +134,10 @@ class CalendarioPrincipal extends Component {
     this.setState(prevState => {
       let newCal = prevState.cal;
       
-      // Restar las calorías de ejercicio
       if (exerciseCalories > 0) {
         newCal -= exerciseCalories;
       }
       
-      // Sumar las calorías de comida
       if (foodCalories > 0) {
         newCal += foodCalories;
       }
@@ -122,18 +165,16 @@ class CalendarioPrincipal extends Component {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail');
       const currentDate = dayjs();
-      const currentMonth = currentDate.format('MMMM');  // Nombre del mes
-      const currentDay = currentDate.date();  // Número del día
+      const currentMonth = currentDate.format('MMMM');
+      const currentDay = currentDate.date();
     
-      // Redondear las calorías a enteros
       const roundedCalories = Math.round(this.state.cal);
     
-      // Preparar el payload con las calorías redondeadas
       const payload = {
         userEmail: userEmail,
         calories: {
           value: roundedCalories,
-          date: currentDate.toISOString()  // Fecha en formato ISO
+          date: currentDate.toISOString()
         },
         CalMonth: {
           [currentMonth]: {
@@ -146,19 +187,16 @@ class CalendarioPrincipal extends Component {
         }
       };
   
-      // Verificar si existen registros de calorías para este usuario
       const exists = await this.checkCaloriesExists(userEmail);
   
       let response;
       if (exists) {
-        // Enviar una solicitud PUT si ya existen registros
         response = await axios.put(`${apiUrl}/api/users/cal`, payload, {
           headers: {
             "Content-Type": "application/json",
           },
         });
       } else {
-        // Enviar una solicitud POST si no existen registros
         response = await axios.post(`${apiUrl}/api/users/cal`, payload, {
           headers: {
             "Content-Type": "application/json",
@@ -178,8 +216,6 @@ class CalendarioPrincipal extends Component {
       }
     }
   };
-  
-  
 
   render() {
     const { width, height } = this.props;
