@@ -131,20 +131,19 @@ class CalendarioPrincipal extends Component {
     
       // Preparar el payload con las calorías redondeadas
       const payload = {
-        userEmail: userEmail, // Email del usuario
+        userEmail: userEmail,
+        calories: {
+          value: roundedCalories,
+          date: currentDate.toISOString()  // Fecha en formato ISO
+        },
         CalMonth: {
-          months: [
-            {
-              name: currentMonth, // Nombre del mes actual, e.g., 'August'
-              days: [
-                {
-                  day: currentDay, // Número del día actual, e.g., '12'
-                  calories: roundedCalories, // Calorías consumidas en ese día
-                  date: currentDate.toISOString() // Fecha completa en formato ISO, e.g., '2024-08-12T00:00:00.000Z'
-                }
-              ]
+          [currentMonth]: {
+            days: {
+              [currentDay]: {
+                calories: roundedCalories
+              }
             }
-          ]
+          }
         }
       };
   
