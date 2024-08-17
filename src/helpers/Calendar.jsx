@@ -122,7 +122,7 @@ class CalendarioPrincipal extends Component {
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
       const userEmail = sessionStorage.getItem('userEmail');
-      const currentDate = dayjs();
+      const currentDate = dayjs(); //fecha actual 
       const currentMonth = currentDate.format('MMMM');  // Nombre del mes
       const currentDay = currentDate.date();  // Número del día
     

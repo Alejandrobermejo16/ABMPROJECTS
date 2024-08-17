@@ -259,6 +259,85 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS DIARIAS</h1>
+      <div
+        className="caloriasMensuales"
+        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            DIA ACTUAL
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            CALORÍAS TOTALES DIA
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            ÍNDICE
+          </div>
+        </div>
+        <div
+          style={{
+            maxHeight: "400px",
+            overflowY: "auto",
+            padding: "10px",
+          }}
+        >
+          {[
+            { month: "Enero", calories: "-2500", index: "positivo" },
+            { month: "Febrero", calories: "2200", index: "positivo" },
+            { month: "Marzo", calories: "2300", index: 3 },
+            { month: "Abril", calories: "2100", index: 4 },
+            { month: "Mayo", calories: "2400", index: 5 },
+            { month: "Junio", calories: "2000", index: 6 },
+            { month: "Julio", calories: "2100", index: 7 },
+            { month: "Agosto", calories: "2500", index: 1 },
+            { month: "Septiembre", calories: "2200", index: 2 },
+            { month: "Octubre", calories: "-20", index: 3 },
+            { month: "Noviembre", calories: "2100", index: 4 },
+            { month: "Diciembre", calories: "2400", index: 5 },
+          ].map((item, index) => (
+            <div
+              key={index}
+              style={{
+                display: "grid",
+                gridTemplateColumns: "1fr 1fr 1fr",
+              }}
+            >
+              <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                {item.month}
+              </div>
+              <div
+                style={{
+                  padding: "10px",
+                  border: "2px solid #fff",
+                  color: parseInt(item.calories) > 0 ? "red" : "green",
+                  fontSize: "20px",
+                }}
+              >
+                {item.calories}
+              </div>
+              <div
+                style={{
+                  padding: "10px",
+                  border: "2px solid #fff",
+                  color: parseInt(item.calories) > 0 ? "red" : "green",
+                  fontSize: "20px",
+                }}
+              >
+                {parseInt(item.calories) > 0 ? "negativo" : "positivo"}{" "}
+                {/* Condición para el índice */}
+              </div>
+            </div>
+          ))}
+        </div>{" "}
+      </div>
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
         className="caloriasMensuales"
