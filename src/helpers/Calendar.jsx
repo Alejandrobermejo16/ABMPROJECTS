@@ -110,13 +110,18 @@ class CalendarioPrincipal extends Component {
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-
-      return response.status === 200 && response.data.calories.length > 0;
+  
+      // Verificar que al menos una de las dos propiedades exista en la respuesta
+      const hasCalories = response.data.hasOwnProperty('calories');
+      const hasMonthlyCalories = response.data.hasOwnProperty('CalMonth');
+  
+      return response.status === 200 && (hasCalories || hasMonthlyCalories);
     } catch (error) {
       console.error("Error al verificar la existencia de las calorías:", error);
       return false;
     }
   };
+  
 
   saveCalories = async () => {
     try {
