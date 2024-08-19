@@ -36,7 +36,7 @@ class CalendarioPrincipal extends Component {
       });
   
       if (response.status === 200) {
-        console.log("Respuesta de la API esperada:", response.data); // Imprime toda la respuesta
+        //primer registro de calorias y lo que haya en CalMonth
         const firstCalorie = response.data.calories.length > 0 ? response.data.calories[0].value : 0;
         const monthCalories = response.data.CalMonth || {};
   

@@ -40,7 +40,6 @@ function KalCalculator(props) {
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
 
-  console.log("que llega en ",monthCalories);
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
