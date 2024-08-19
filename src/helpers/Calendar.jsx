@@ -39,6 +39,7 @@ class CalendarioPrincipal extends Component {
         //primer registro de calorias y lo que haya en CalMonth
         const firstCalorie = response.data.calories.length > 0 ? response.data.calories[0].value : 0;
         const monthCalories = response.data.CalMonth || {};
+
         this.setState({ cal: firstCalorie, monthCalories: monthCalories });
       }
     } catch (error) {
