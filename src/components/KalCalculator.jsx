@@ -29,7 +29,7 @@ function debounce(func, delay) {
 }
 
 function KalCalculator(props) {
-  const { cal, onSubmit, monthCalories } = props;
+  const { cal, onSubmit, month } = props;
   const [foodValue, setFoodValue] = useState(""); // Estado para el valor del input de alimentos
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda de alimentos (con debounce)
   const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
@@ -41,7 +41,7 @@ function KalCalculator(props) {
   const [hourExercise, setHourExercise] = useState("");
 
 
-  console.log(monthCalories, "prueba datos");
+  console.log(month, "prueba datos");
 
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
