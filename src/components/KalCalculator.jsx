@@ -39,6 +39,7 @@ function KalCalculator(props) {
   const [hours] = useState(generateHours()); // Estado para las horas del día
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
+  const [selectedMonth, setSelectedMonth] = useState("agosto"); // Estado para el mes seleccionado en la tabla de calorías diarias
 
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
@@ -140,6 +141,10 @@ function KalCalculator(props) {
 
   const handleExerciseTimeChange = (event) => {
     setHourExercise(event.target.value);
+  };
+
+  const handleMonthChange = (event) => {
+    setSelectedMonth(event.target.value);
   };
 
   const cleanData = () => {
@@ -246,37 +251,51 @@ function KalCalculator(props) {
             </Form.Select>
           </Form.Group>
           <Button type="button" onClick={sendDataFormKal}>
-            Enviar Datos
+            Enviar
           </Button>
-          <Button type="button" onClick={cleanData}>
+          <Button style={{ marginLeft: "3%" }} type="button" onClick={cleanData}>
             Limpiar
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS DIARIAS</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS DIARIAS</h1>
       <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: "#50595C" }}>
+        <div style={{ marginBottom: "10px" }}>
+          <Form.Select id="monthSelect" onChange={handleMonthChange} value={selectedMonth}>
+            <option value="enero">Enero</option>
+            <option value="febrero">Febrero</option>
+            <option value="marzo">Marzo</option>
+            <option value="abril">Abril</option>
+            <option value="mayo">Mayo</option>
+            <option value="junio">Junio</option>
+            <option value="julio">Julio</option>
+            <option value="agosto">Agosto</option>
+            <option value="septiembre">Septiembre</option>
+            <option value="octubre">Octubre</option>
+            <option value="noviembre">Noviembre</option>
+            <option value="diciembre">Diciembre</option>
+          </Form.Select>
+        </div>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", fontWeight: "bold", marginBottom: "10px" }}>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>DÍA ACTUAL</div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>CALORÍAS TOTALES DÍA</div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>ÍNDICE</div>
         </div>
         <div style={{ maxHeight: "400px", overflowY: "auto", padding: "10px" }}>
-          {Object.entries(monthCalories).flatMap(([month, { days }]) =>
-            Object.entries(days).map(([day, { calories }]) => (
-              <div key={`${month}-${day}`} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-                <div style={{ padding: "10px", border: "2px solid #fff" }}>{`${day} ${month}`}</div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: calories > 0 ? "red" : "green", fontSize: "20px" }}>
-                  {calories}
-                </div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: calories > 0 ? "red" : "green", fontSize: "20px" }}>
-                  {calories > 0 ? "Negativo" : "Positivo"}
-                </div>
+          {Object.entries(monthCalories[selectedMonth]?.days || {}).map(([day, { calories }]) => (
+            <div key={day} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
+              <div style={{ padding: "10px", border: "2px solid #fff" }}>{day}</div>
+              <div style={{ padding: "10px", border: "2px solid #fff", color: calories > 0 ? "red" : "green", fontSize: "20px" }}>
+                {calories}
               </div>
-            ))
-          )}
+              <div style={{ padding: "10px", border: "2px solid #fff", color: calories > 0 ? "red" : "green", fontSize: "20px" }}>
+                {calories > 0 ? "Negativo" : "Positivo"}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS MENSUALES</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: "#50595C" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", fontWeight: "bold", marginBottom: "10px" }}>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>MES ACTUAL</div>
