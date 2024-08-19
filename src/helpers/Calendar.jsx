@@ -25,9 +25,8 @@ class CalendarioPrincipal extends Component {
     this.localizer = dayjsLocalizer(dayjs);
   }
 
-  async componentDidMount() 
-  //se obtiene el ultimo registro de las calorias del usuario al iniciar el componente para mostrar las calorias actuales
-  {
+  async componentDidMount() {
+    // Se obtiene el último registro de las calorías del usuario al iniciar el componente para mostrar las calorías actuales
     const userEmail = sessionStorage.getItem('userEmail');
     try {
       const apiUrl = process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
@@ -36,19 +35,40 @@ class CalendarioPrincipal extends Component {
       });
   
       if (response.status === 200) {
-        //primer registro de calorias y lo que haya en CalMonth
+        // Primer registro de calorías
         const firstCalorie = response.data.calories.length > 0 ? response.data.calories[0].value : 0;
-        const month = {
-          ...monthCalories
-        };
-        const monthCalories = response.data.CalMonth || {};
+        
+        // Datos crudos de CalMonth
+        const rawCalMonth = response.data.CalMonth || {};
   
+        // Inicializar month
+        const month = {};
+  
+        // Convertir los datos crudos de CalMonth a formato estructurado
+        for (const clave in rawCalMonth) {
+          if (rawCalMonth.hasOwnProperty(clave)) {
+            // Divide la clave en mes y día
+            const [mes, dia] = clave.split('_');
+            const calorias = rawCalMonth[clave];
+  
+            // Inicializa el mes si no existe en el objeto month
+            if (!month[mes]) {
+              month[mes] = {};
+            }
+  
+            // Asigna las calorías al día correspondiente
+            month[mes][dia] = { calories: calorias };
+          }
+        }
+  
+        // Actualizar el estado con las calorías y los datos estructurados
         this.setState({ cal: firstCalorie, monthCalories: month });
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
     }
   }
+  
   
 
   cambioEstiloDiaActual = (date) => {
