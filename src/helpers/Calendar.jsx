@@ -13,6 +13,7 @@ class CalendarioPrincipal extends Component {
     super(props);
     this.state = {
       cal: 0,
+      monthCalories: {},
       events: [
         {
           start: dayjs('2024-05-23T12:00:00').toDate(),
@@ -38,7 +39,8 @@ class CalendarioPrincipal extends Component {
         // Obtener solo el primer valor de calorías
         const firstCalorie = response.data.calories[0].value;
         this.setState({ cal: firstCalorie });
-        console.log("prueba en el montaje",response.data.CalMonth);
+        const monthCalories = response.data.CalMonth;
+        this.setState({ monthCalories: monthCalories });
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
@@ -199,7 +201,7 @@ class CalendarioPrincipal extends Component {
           defaultView='month'
           dayPropGetter={this.cambioEstiloDiaActual}
         />
-        <KalCalculator onSubmit={this.handleDataSubmit} cal={Math.trunc(this.state.cal)} />
+        <KalCalculator onSubmit={this.handleDataSubmit} cal={Math.trunc(this.state.cal)} monthCalories={this.state.monthCalories}/>
       </div>
     );
   }
