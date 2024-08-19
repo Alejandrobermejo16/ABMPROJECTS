@@ -259,7 +259,7 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS DIARIAS</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
       <div
         className="caloriasMensuales"
         style={{ marginTop: "3%", backgroundColor: "#50595C" }}
