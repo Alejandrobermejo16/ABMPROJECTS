@@ -38,6 +38,7 @@ class CalendarioPrincipal extends Component {
         // Obtener solo el primer valor de calorías
         const firstCalorie = response.data.calories[0].value;
         this.setState({ cal: firstCalorie });
+        console.log("prueba en el montaje",response.data.CalMonth);
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
