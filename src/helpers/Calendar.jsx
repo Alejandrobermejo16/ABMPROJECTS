@@ -35,12 +35,12 @@ class CalendarioPrincipal extends Component {
         params: { userEmail: userEmail }
       });
   
-      if (response.status === 200 && response.data.calories.length > 0) {
-        // Obtener solo el primer valor de calorías
-        const firstCalorie = response.data.calories[0].value;
-        this.setState({ cal: firstCalorie });
-        const monthCalories = response.data.CalMonth;
-        this.setState({ monthCalories: monthCalories });
+      if (response.status === 200) {
+        console.log("Respuesta de la API esperada:", response.data); // Imprime toda la respuesta
+        const firstCalorie = response.data.calories.length > 0 ? response.data.calories[0].value : 0;
+        const monthCalories = response.data.CalMonth || {};
+  
+        this.setState({ cal: firstCalorie, monthCalories: monthCalories });
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
