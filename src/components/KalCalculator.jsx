@@ -188,6 +188,8 @@ function KalCalculator(props) {
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ];
 
+  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
+
   return (
     <div>
       <h1>
@@ -273,7 +275,75 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
+      <div
+        className="caloriasMensuales"
+        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            MES ACTUAL
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            CALORÍAS MENSUALES TOTALES
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            ÍNDICE
+          </div>
+        </div>
+        <div
+          style={{
+            maxHeight: "400px",
+            overflowY: "auto",
+            padding: "10px",
+          }}
+        >
+          {dias.map((dia, index) => {
+            const calorias = calcularCaloriasTotales(dia);
+            const indice = calorias > 0 ? "negativo" : "positivo";
+            return (
+              <div
+                key={index}
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
+                }}
+              >
+                <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                  {dia.charAt(0).toUpperCase() + dia.slice(1)}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
+                  {calorias}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
+                  {indice}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
         className="caloriasMensuales"
@@ -343,6 +413,7 @@ function KalCalculator(props) {
           })}
         </div>
       </div>
+      
     </div>
   );
 }
