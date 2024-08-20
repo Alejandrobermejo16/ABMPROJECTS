@@ -151,6 +151,15 @@ function KalCalculator(props) {
     return caloriasTotales;
   };
 
+  const obtenerCaloriasUltimosCincoDias = () => {
+    const mesActual = meses[new Date().getMonth()]; // Obtener el mes actual en letras
+    const dias = CalMonth[mesActual]?.days || {}; // Obtener los días del mes actual o un objeto vacío
+    const numDias = Object.keys(dias).length; // Número total de días
+  
+    // Obtener las calorías de los últimos 5 días
+    return Array.from({ length: 5 }, (_, i) => dias[numDias - i]?.calories || 0);
+  };
+
   const cleanData = () => {
     setFoodValue(""); 
     setSelectedFood(null); 
@@ -189,6 +198,7 @@ function KalCalculator(props) {
   ];
 
   const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
+  const caloriasUltimosCincoDias = obtenerCaloriasUltimosCincoDias();
 
   return (
     <div>
@@ -275,7 +285,7 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS SEMANALES</h1>
       <div
         className="caloriasMensuales"
         style={{ marginTop: "3%", backgroundColor: "#50595C" }}
@@ -289,7 +299,7 @@ function KalCalculator(props) {
           }}
         >
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            DIA ACTUAL
+            DÍA ACTUAL
           </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
             CALORÍAS DIARIAS TOTALES
@@ -306,8 +316,9 @@ function KalCalculator(props) {
           }}
         >
           {dias.map((dia, index) => {
-            const calorias = calcularCaloriasTotales(dia);
-            const indice = calorias > 0 ? "negativo" : "positivo";
+            const calorias = caloriasUltimosCincoDias[index] || 0; // Obtener calorías correspondientes al día
+            const indice = calorias > 2000 ? "negativo" : "positivo"; // Cambiar el valor 2000 según tu criterio
+
             return (
               <div
                 key={index}
@@ -317,13 +328,13 @@ function KalCalculator(props) {
                 }}
               >
                 <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                  {dia.charAt(0).toUpperCase() + dia.slice(1)}
+                  {dia}
                 </div>
                 <div
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "#32CD32",
+                    color: calorias > 2000 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
@@ -333,7 +344,7 @@ function KalCalculator(props) {
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "#32CD32",
+                    color: calorias > 2000 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
