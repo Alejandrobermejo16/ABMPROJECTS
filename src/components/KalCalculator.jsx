@@ -143,7 +143,7 @@ function KalCalculator(props) {
     setHourExercise(event.target.value);
   };
 
-  // Función para calcular las calorías totales de un mes
+  // Función para calcular las calorías totales de un mes sumando la de los dias de cada mes
   const calcularCaloriasTotales = (mes) => {
     if (!CalMonth[mes]) return 0;
     const dias = CalMonth[mes].days;
@@ -192,7 +192,7 @@ function KalCalculator(props) {
     <div>
       <h1>
         Actualmente has consumido{" "}
-        <span style={{ color: cal >= 0 ? "red" : "green" }}>{cal}</span>{" "}
+        <span style={{ color: cal >= 0 ? "red" : "#32CD32" }}>{cal}</span>{" "}
         calorías
       </h1>
       <div className="divFormFit">
@@ -322,7 +322,7 @@ function KalCalculator(props) {
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "green",
+                    color: calorias > 0 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
@@ -332,7 +332,7 @@ function KalCalculator(props) {
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "green",
+                    color: calorias > 0 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
