@@ -58,7 +58,7 @@ function KalCalculator(props) {
           const response = await axios.get(usdaUrl);
           const foods = response.data.foods;
           if (foods.length > 0) {
-          // Obtener el primer alimento y sus calorías
+            // Obtener el primer alimento y sus calorías
             const firstFood = foods[0];
             const calories = obtenerCalorias(firstFood);
             setSelectedFood({ ...firstFood, calories });
@@ -84,11 +84,11 @@ function KalCalculator(props) {
           const response = await axios.post(
             nutritionixUrl,
             {
-              query: `${exerciseQuery} for ${exerciseDuration} minutes`,
-              gender: "male",
-              weight_kg: 70,
-              height_cm: 175,
-              age: 30,
+              query: `${exerciseQuery} for ${exerciseDuration} minutes`, // Incluir la duración en minutos en la consulta
+              gender: "male", // Ajustar esto según el usuario
+              weight_kg: 70, // Ajustar esto según el usuario
+              height_cm: 175, // Ajustar esto según el usuario
+              age: 30, // Ajustar esto según el usuario
             },
             {
               headers: {
@@ -143,37 +143,23 @@ function KalCalculator(props) {
     setHourExercise(event.target.value);
   };
 
-  // Función para calcular las calorías totales de una semana
-  const calcularCaloriasSemanales = () => {
-    const today = new Date();
-    const startOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 1)); // Primer día de la semana
-    const endOfWeek = new Date(today.setDate(today.getDate() - today.getDay() + 7)); // Último día de la semana
-
-    const caloriasSemanales = [];
-    const meses = Object.keys(CalMonth);
-
-    meses.forEach((mes) => {
-      const dias = CalMonth[mes]?.days || {};
-      Object.entries(dias).forEach(([dia, { calories }]) => {
-        const fechaDia = new Date(`${mes} ${dia}`);
-        if (fechaDia >= startOfWeek && fechaDia <= endOfWeek) {
-          caloriasSemanales.push({ fecha: fechaDia, calorias });
-        }
-      });
-    });
-
-    return caloriasSemanales;
+  // Función para calcular las calorías totales de un mes sumando la de los dias de cada mes
+  const calcularCaloriasTotales = (mes) => {
+    if (!CalMonth[mes]) return 0;
+    const dias = CalMonth[mes].days;
+    const caloriasTotales = Object.values(dias).reduce((acc, dia) => acc + dia.calories, 0);
+    return caloriasTotales;
   };
 
   const cleanData = () => {
-    setFoodValue("");
-    setSelectedFood(null);
-    setExerciseQuery("");
-    setExerciseCalories(null);
-    setExerciseDuration("");
+    setFoodValue(""); 
+    setSelectedFood(null); 
+    setExerciseQuery(""); 
+    setExerciseCalories(null); 
+    setExerciseDuration(""); 
     setHourFood("");
     setHourExercise("");
-  };
+  }
 
   const sendDataFormKal = () => {
     const data = {
@@ -202,10 +188,7 @@ function KalCalculator(props) {
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ];
 
-  const dias = ["Lunes", "Martes", "Miércoles","Jueves","Viernes","Sábado","Domingo"];
-
-  // Obtener las calorías semanales
-  const caloriasSemanales = calcularCaloriasSemanales();
+  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
 
   return (
     <div>
@@ -292,7 +275,7 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS SEMANALES</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
       <div
         className="caloriasMensuales"
         style={{ marginTop: "3%", backgroundColor: "#50595C" }}
@@ -306,10 +289,10 @@ function KalCalculator(props) {
           }}
         >
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            FECHA
+            DIA ACTUAL
           </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            CALORÍAS DIARIAS
+            CALORÍAS DIARIAS TOTALES
           </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
             ÍNDICE
@@ -322,8 +305,8 @@ function KalCalculator(props) {
             padding: "10px",
           }}
         >
-          {caloriasSemanales.map((data, index) => {
-            const { fecha, calorias } = data;
+          {dias.map((dia, index) => {
+            const calorias = calcularCaloriasTotales(dia);
             const indice = calorias > 0 ? "negativo" : "positivo";
             return (
               <div
@@ -334,7 +317,7 @@ function KalCalculator(props) {
                 }}
               >
                 <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                  {fecha.toLocaleDateString()}
+                  {dia.charAt(0).toUpperCase() + dia.slice(1)}
                 </div>
                 <div
                   style={{
@@ -361,7 +344,7 @@ function KalCalculator(props) {
           })}
         </div>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS MENSUALES</h1>
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
         className="caloriasMensuales"
         style={{ marginTop: "3%", backgroundColor: "#50595C" }}
@@ -430,6 +413,7 @@ function KalCalculator(props) {
           })}
         </div>
       </div>
+      
     </div>
   );
 }
