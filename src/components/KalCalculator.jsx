@@ -289,10 +289,10 @@ function KalCalculator(props) {
           }}
         >
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            MES ACTUAL
+            DIA ACTUAL
           </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            CALORÍAS MENSUALES TOTALES
+            CALORÍAS DIARIAS TOTALES
           </div>
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
             ÍNDICE
