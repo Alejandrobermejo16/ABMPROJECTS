@@ -42,6 +42,8 @@ function KalCalculator(props) {
 
 
   console.log(CalMonth, "prueba datos");
+  const meses = Object.keys(CalMonth);
+  console.log(meses,"prueba de meses");
 
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
