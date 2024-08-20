@@ -40,11 +40,6 @@ function KalCalculator(props) {
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
 
-
-  console.log(CalMonth, "prueba datos");
-  const meses = Object.keys(CalMonth);
-  console.log(meses,"prueba de meses");
-
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
@@ -148,12 +143,20 @@ function KalCalculator(props) {
     setHourExercise(event.target.value);
   };
 
+  // Función para calcular las calorías totales de un mes
+  const calcularCaloriasTotales = (mes) => {
+    if (!CalMonth[mes]) return 0;
+    const dias = CalMonth[mes].days;
+    const caloriasTotales = Object.values(dias).reduce((acc, dia) => acc + dia.calories, 0);
+    return caloriasTotales;
+  };
+
   const cleanData = () => {
     setFoodValue(""); 
     setSelectedFood(null); 
     setExerciseQuery(""); 
     setExerciseCalories(null); 
-    setExerciseDuration(" "); 
+    setExerciseDuration(""); 
     setHourFood("");
     setHourExercise("");
   }
@@ -178,6 +181,12 @@ function KalCalculator(props) {
     setHourFood("");
     setHourExercise("");
   };
+
+  // Meses del año
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio", 
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ];
 
   return (
     <div>
@@ -264,85 +273,7 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
-      <div
-        className="caloriasMensuales"
-        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
-      >
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr 1fr",
-            fontWeight: "bold",
-            marginBottom: "10px",
-          }}
-        >
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            DIA ACTUAL
-          </div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            CALORÍAS TOTALES DIA
-          </div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            ÍNDICE
-          </div>
-        </div>
-        <div
-          style={{
-            maxHeight: "400px",
-            overflowY: "auto",
-            padding: "10px",
-          }}
-        >
-          {[
-            { month: "Enero", calories: "-2500", index: "positivo" },
-            { month: "Febrero", calories: "2200", index: "positivo" },
-            { month: "Marzo", calories: "2300", index: 3 },
-            { month: "Abril", calories: "2100", index: 4 },
-            { month: "Mayo", calories: "2400", index: 5 },
-            { month: "Junio", calories: "2000", index: 6 },
-            { month: "Julio", calories: "2100", index: 7 },
-            { month: "Agosto", calories: "2500", index: 1 },
-            { month: "Septiembre", calories: "2200", index: 2 },
-            { month: "Octubre", calories: "-20", index: 3 },
-            { month: "Noviembre", calories: "2100", index: 4 },
-            { month: "Diciembre", calories: "2400", index: 5 },
-          ].map((item, index) => (
-            <div
-              key={index}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-              }}
-            >
-              <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                {item.month}
-              </div>
-              <div
-                style={{
-                  padding: "10px",
-                  border: "2px solid #fff",
-                  color: parseInt(item.calories) > 0 ? "red" : "green",
-                  fontSize: "20px",
-                }}
-              >
-                {item.calories}
-              </div>
-              <div
-                style={{
-                  padding: "10px",
-                  border: "2px solid #fff",
-                  color: parseInt(item.calories) > 0 ? "red" : "green",
-                  fontSize: "20px",
-                }}
-              >
-                {parseInt(item.calories) > 0 ? "negativo" : "positivo"}{" "}
-                {/* Condición para el índice */}
-              </div>
-            </div>
-          ))}
-        </div>{" "}
-      </div>
+
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
         className="caloriasMensuales"
@@ -373,54 +304,44 @@ function KalCalculator(props) {
             padding: "10px",
           }}
         >
-          {[
-            { month: "Enero", calories: "-2500", index: "positivo" },
-            { month: "Febrero", calories: "2200", index: "positivo" },
-            { month: "Marzo", calories: "2300", index: 3 },
-            { month: "Abril", calories: "2100", index: 4 },
-            { month: "Mayo", calories: "2400", index: 5 },
-            { month: "Junio", calories: "2000", index: 6 },
-            { month: "Julio", calories: "2100", index: 7 },
-            { month: "Agosto", calories: "2500", index: 1 },
-            { month: "Septiembre", calories: "2200", index: 2 },
-            { month: "Octubre", calories: "-20", index: 3 },
-            { month: "Noviembre", calories: "2100", index: 4 },
-            { month: "Diciembre", calories: "2400", index: 5 },
-          ].map((item, index) => (
-            <div
-              key={index}
-              style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr 1fr",
-              }}
-            >
-              <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                {item.month}
-              </div>
+          {meses.map((mes, index) => {
+            const calorias = calcularCaloriasTotales(mes);
+            const indice = calorias > 0 ? "negativo" : "positivo";
+            return (
               <div
+                key={index}
                 style={{
-                  padding: "10px",
-                  border: "2px solid #fff",
-                  color: parseInt(item.calories) > 0 ? "red" : "green",
-                  fontSize: "20px",
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr 1fr",
                 }}
               >
-                {item.calories}
+                <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                  {mes.charAt(0).toUpperCase() + mes.slice(1)}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "green",
+                    fontSize: "20px",
+                  }}
+                >
+                  {calorias}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "green",
+                    fontSize: "20px",
+                  }}
+                >
+                  {indice}
+                </div>
               </div>
-              <div
-                style={{
-                  padding: "10px",
-                  border: "2px solid #fff",
-                  color: parseInt(item.calories) > 0 ? "red" : "green",
-                  fontSize: "20px",
-                }}
-              >
-                {parseInt(item.calories) > 0 ? "negativo" : "positivo"}{" "}
-                {/* Condición para el índice */}
-              </div>
-            </div>
-          ))}
-        </div>{" "}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
