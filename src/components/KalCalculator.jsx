@@ -40,6 +40,13 @@ function KalCalculator(props) {
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
 
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio", 
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ];
+
+  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
+
   // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
@@ -151,13 +158,13 @@ function KalCalculator(props) {
     return caloriasTotales;
   };
 
-  const obtenerCaloriasUltimosCincoDias = () => {
+  const obtenerCaloriasUltimosSieteDias = () => {
     const mesActual = meses[new Date().getMonth()]; // Obtener el mes actual en letras
     const dias = CalMonth[mesActual]?.days || {}; // Obtener los días del mes actual o un objeto vacío
     const numDias = Object.keys(dias).length; // Número total de días
-  
-    // Obtener las calorías de los últimos 5 días
-    return Array.from({ length: 5 }, (_, i) => dias[numDias - i]?.calories || 0);
+    
+    // Obtener las calorías de los últimos 7 días
+    return Array.from({ length: 7 }, (_, i) => dias[numDias - i]?.calories || 0).reverse();
   };
 
   const cleanData = () => {
@@ -192,13 +199,7 @@ function KalCalculator(props) {
   };
 
   // Meses del año
-  const meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio", 
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
-  ];
 
-  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
-  const caloriasUltimosCincoDias = obtenerCaloriasUltimosCincoDias();
 
   return (
     <div>
@@ -285,75 +286,75 @@ function KalCalculator(props) {
           </Button>
         </Form>
       </div>
-      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORÍAS SEMANALES</h1>
-      <div
-        className="caloriasMensuales"
-        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
-      >
+      <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
+<div
+  className="caloriasMensuales"
+  style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+>
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr 1fr",
+      fontWeight: "bold",
+      marginBottom: "10px",
+    }}
+  >
+    <div style={{ padding: "10px", border: "2px solid #fff" }}>
+      DIA
+    </div>
+    <div style={{ padding: "10px", border: "2px solid #fff" }}>
+      CALORÍAS DIARIAS
+    </div>
+    <div style={{ padding: "10px", border: "2px solid #fff" }}>
+      ÍNDICE
+    </div>
+  </div>
+  <div
+    style={{
+      maxHeight: "400px",
+      overflowY: "auto",
+      padding: "10px",
+    }}
+  >
+    {dias.slice(0, 7).map((dia, index) => {
+      const calorias = obtenerCaloriasUltimosSieteDias()[index] || 0;
+      const indice = calorias > 0 ? "negativo" : "positivo";
+      return (
         <div
+          key={index}
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            fontWeight: "bold",
-            marginBottom: "10px",
           }}
         >
           <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            DÍA ACTUAL
+            {dia.charAt(0).toUpperCase() + dia.slice(1)}
           </div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            CALORÍAS DIARIAS TOTALES
+          <div
+            style={{
+              padding: "10px",
+              border: "2px solid #fff",
+              color: calorias > 0 ? "red" : "#32CD32",
+              fontSize: "20px",
+            }}
+          >
+            {calorias}
           </div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>
-            ÍNDICE
+          <div
+            style={{
+              padding: "10px",
+              border: "2px solid #fff",
+              color: calorias > 0 ? "red" : "#32CD32",
+              fontSize: "20px",
+            }}
+          >
+            {indice}
           </div>
         </div>
-        <div
-          style={{
-            maxHeight: "400px",
-            overflowY: "auto",
-            padding: "10px",
-          }}
-        >
-          {dias.map((dia, index) => {
-            const calorias = caloriasUltimosCincoDias[index] || 0; // Obtener calorías correspondientes al día
-            const indice = calorias > 2000 ? "negativo" : "positivo"; // Cambiar el valor 2000 según tu criterio
+      );
+    })}
+  </div>
 
-            return (
-              <div
-                key={index}
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "1fr 1fr 1fr",
-                }}
-              >
-                <div style={{ padding: "10px", border: "2px solid #fff" }}>
-                  {dia}
-                </div>
-                <div
-                  style={{
-                    padding: "10px",
-                    border: "2px solid #fff",
-                    color: calorias > 2000 ? "red" : "#32CD32",
-                    fontSize: "20px",
-                  }}
-                >
-                  {calorias}
-                </div>
-                <div
-                  style={{
-                    padding: "10px",
-                    border: "2px solid #fff",
-                    color: calorias > 2000 ? "red" : "#32CD32",
-                    fontSize: "20px",
-                  }}
-                >
-                  {indice}
-                </div>
-              </div>
-            );
-          })}
-        </div>
       </div>
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
