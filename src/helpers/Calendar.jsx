@@ -201,7 +201,7 @@ class CalendarioPrincipal extends Component {
           defaultView='month'
           dayPropGetter={this.cambioEstiloDiaActual}
         />
-        <KalCalculator onSubmit={this.handleDataSubmit} cal={Math.trunc(this.state.cal)} monthCalories={this.state.monthCalories}/>
+        <KalCalculator onSubmit={this.handleDataSubmit} cal={Math.trunc(this.state.cal)} CalMonth={this.state.monthCalories}/>
       </div>
     );
   }
