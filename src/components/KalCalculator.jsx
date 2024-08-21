@@ -407,8 +407,7 @@ function KalCalculator(props) {
               </div>
             );
           })}
-        </div>
-      </div>
+        
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
       <div
         className="caloriasMensuales"
