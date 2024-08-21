@@ -39,15 +39,15 @@ function KalCalculator(props) {
   const [hours] = useState(generateHours()); // Estado para las horas del día
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
+  const [caloriasSemanales, setCaloriasSemanales] = useState("");
 
   const meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio", 
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ];
 
-  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
+  const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
-  // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
       setSearchTerm(value);
@@ -120,7 +120,32 @@ function KalCalculator(props) {
     }
   }, [exerciseQuery, exerciseDuration]);
 
-  // Función para obtener las calorías de un alimento específico
+  useEffect(() => {
+    // Calcular las calorías semanales cuando el componente se monte
+    if (CalMonth) {
+      const calcularCaloriasSemanales = () => {
+        // Obtener el mes actual en español
+        const fechaActual = new Date();
+        const mesActual = fechaActual.toLocaleString('es-ES', { month: 'long' });
+
+        // Obtener las calorías del mes actual
+        const datos = CalMonth[mesActual] || { days: {} };
+
+        // Obtener las claves de los días y limitar a los primeros 5 días
+        const primerosCincoDias = Object.keys(datos.days).slice(0, 5);
+
+        // Construir un array de resultados
+        const resultados = primerosCincoDias.map(dia => {
+          return `Día: ${dia}, Calorías: ${datos.days[dia].calories}`;
+        });
+
+        return resultados.join(', ');
+      };
+
+      setCaloriasSemanales(calcularCaloriasSemanales());
+    }
+  }, [CalMonth]);
+
   const obtenerCalorias = (alimento) => {
     // Buscar el nutriente 'Energy' dentro de foodNutrients
     const nutrient = alimento.foodNutrients.find(
@@ -150,13 +175,12 @@ function KalCalculator(props) {
     setHourExercise(event.target.value);
   };
 
-
   const cleanData = () => {
-    setFoodValue(""); 
-    setSelectedFood(null); 
-    setExerciseQuery(""); 
-    setExerciseCalories(null); 
-    setExerciseDuration(""); 
+    setFoodValue("");
+    setSelectedFood(null);
+    setExerciseQuery("");
+    setExerciseCalories(null);
+    setExerciseDuration("");
     setHourFood("");
     setHourExercise("");
   }
@@ -409,7 +433,10 @@ function KalCalculator(props) {
           })}
         </div>
       </div>
-      
+      <div style={{ marginTop: "3%" }}>
+        <h2>Calorías Semanales</h2>
+        <p>{caloriasSemanales}</p>
+      </div>
     </div>
   );
 }
