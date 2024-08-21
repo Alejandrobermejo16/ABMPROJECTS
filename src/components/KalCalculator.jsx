@@ -30,28 +30,28 @@ function debounce(func, delay) {
 
 function KalCalculator(props) {
   const { cal, onSubmit, CalMonth } = props;
-  const [foodValue, setFoodValue] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedFood, setSelectedFood] = useState(null);
-  const [exerciseQuery, setExerciseQuery] = useState("");
-  const [exerciseCalories, setExerciseCalories] = useState(null);
-  const [exerciseDuration, setExerciseDuration] = useState("");
-  const [hours] = useState(generateHours());
+  const [foodValue, setFoodValue] = useState(""); // Estado para el valor del input de alimentos
+  const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda de alimentos (con debounce)
+  const [selectedFood, setSelectedFood] = useState(null); // Estado para el alimento seleccionado
+  const [exerciseQuery, setExerciseQuery] = useState(""); // Estado para el término de búsqueda de ejercicios
+  const [exerciseCalories, setExerciseCalories] = useState(null); // Estado para las calorías quemadas por el ejercicio
+  const [exerciseDuration, setExerciseDuration] = useState(""); // Estado para la duración del ejercicio en minutos
+  const [hours] = useState(generateHours()); // Estado para las horas del día
   const [hourFood, setHourFood] = useState("");
   const [hourExercise, setHourExercise] = useState("");
-  const [caloriasSemanales, setCaloriasSemanales] = useState("");
 
   const meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "enero", "febrero", "marzo", "abril", "mayo", "junio", 
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ];
 
-  const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
+  const dias = ["Lunes", "Martes", "Miercoles","Jueves","Viernes","Sabado","Domingo"];
 
+  // Función debounce para actualizar el término de búsqueda
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
       setSearchTerm(value);
-    }, 500),
+    }, 500), // Retraso de 500 ms
     []
   );
 
@@ -65,6 +65,7 @@ function KalCalculator(props) {
           const response = await axios.get(usdaUrl);
           const foods = response.data.foods;
           if (foods.length > 0) {
+            // Obtener el primer alimento y sus calorías
             const firstFood = foods[0];
             const calories = obtenerCalorias(firstFood);
             setSelectedFood({ ...firstFood, calories });
@@ -90,11 +91,11 @@ function KalCalculator(props) {
           const response = await axios.post(
             nutritionixUrl,
             {
-              query: `${exerciseQuery} for ${exerciseDuration} minutes`,
-              gender: "male",
-              weight_kg: 70,
-              height_cm: 175,
-              age: 30,
+              query: `${exerciseQuery} for ${exerciseDuration} minutes`, // Incluir la duración en minutos en la consulta
+              gender: "male", // Ajustar esto según el usuario
+              weight_kg: 70, // Ajustar esto según el usuario
+              height_cm: 175, // Ajustar esto según el usuario
+              age: 30, // Ajustar esto según el usuario
             },
             {
               headers: {
@@ -119,33 +120,9 @@ function KalCalculator(props) {
     }
   }, [exerciseQuery, exerciseDuration]);
 
-  useEffect(() => {
-    // Calcular las calorías semanales cuando el componente se monte
-    if (CalMonth) {
-      const calcularCaloriasSemanales = () => {
-        // Obtener el mes actual en español
-        const fechaActual = new Date();
-        const mesActual = fechaActual.toLocaleString('es-ES', { month: 'long' });
-
-        // Obtener las calorías del mes actual
-        const datos = CalMonth[mesActual] || { days: {} };
-
-        // Obtener las claves de los días y limitar a los primeros 5 días
-        const primerosCincoDias = Object.keys(datos.days).slice(0, 5);
-
-        // Construir un array de resultados
-        const resultados = primerosCincoDias.map(dia => {
-          return `Día: ${dia}, Calorías: ${datos.days[dia].calories}`;
-        });
-
-        return resultados.join(', ');
-      };
-
-      setCaloriasSemanales(calcularCaloriasSemanales());
-    }
-  }, [CalMonth]);
-
+  // Función para obtener las calorías de un alimento específico
   const obtenerCalorias = (alimento) => {
+    // Buscar el nutriente 'Energy' dentro de foodNutrients
     const nutrient = alimento.foodNutrients.find(
       (nutriente) => nutriente.nutrientName === "Energy"
     );
@@ -172,19 +149,14 @@ function KalCalculator(props) {
   const handleExerciseTimeChange = (event) => {
     setHourExercise(event.target.value);
   };
-// Función para calcular las calorías totales de un mes sumando la de los dias de cada mes
-const calcularCaloriasTotales = (mes) => {
-  if (!CalMonth[mes]) return 0;
-  const dias = CalMonth[mes].days;
-  const caloriasTotales = Object.values(dias).reduce((acc, dia) => acc + dia.calories, 0);
-  return caloriasTotales;
-};
+
+
   const cleanData = () => {
-    setFoodValue("");
-    setSelectedFood(null);
-    setExerciseQuery("");
-    setExerciseCalories(null);
-    setExerciseDuration("");
+    setFoodValue(""); 
+    setSelectedFood(null); 
+    setExerciseQuery(""); 
+    setExerciseCalories(null); 
+    setExerciseDuration(""); 
     setHourFood("");
     setHourExercise("");
   }
@@ -209,6 +181,10 @@ const calcularCaloriasTotales = (mes) => {
     setHourFood("");
     setHourExercise("");
   };
+
+  // Meses del año
+
+
 
   return (
     <div>
@@ -433,10 +409,7 @@ const calcularCaloriasTotales = (mes) => {
           })}
         </div>
       </div>
-      <div style={{ marginTop: "3%" }}>
-        <h2>Calorías Semanales</h2>
-        <p>{caloriasSemanales}</p>
-      </div>
+      
     </div>
   );
 }
