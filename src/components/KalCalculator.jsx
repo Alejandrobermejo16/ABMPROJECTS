@@ -46,7 +46,6 @@ function KalCalculator(props) {
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
   ];
 
-  const dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
 
   const debouncedSetSearchTerm = useCallback(
     debounce((value) => {
@@ -185,6 +184,13 @@ function KalCalculator(props) {
     setHourFood("");
     setHourExercise("");
   }
+
+  const calcularCaloriasTotales = (mes) => {
+    if (!CalMonth[mes]) return 0;
+    const dias = CalMonth[mes].days;
+    const caloriasTotales = Object.values(dias).reduce((acc, dia) => acc + dia.calories, 0);
+    return caloriasTotales;
+  };
 
   const sendDataFormKal = () => {
     const data = {
@@ -327,7 +333,7 @@ function KalCalculator(props) {
           }}
         >
           {caloriasSemanales.map((dia, index) => {
-            const indice = calorias > 0 ? "negativo" : "positivo";
+            // const indice = calorias > 0 ? "negativo" : "positivo";
             return (
               <div
                 key={index}
@@ -343,21 +349,21 @@ function KalCalculator(props) {
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "#32CD32",
+                    // color: calorias > 0 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
-                  {calorias}
+                  {/* {calorias} */}
                 </div>
                 <div
                   style={{
                     padding: "10px",
                     border: "2px solid #fff",
-                    color: calorias > 0 ? "red" : "#32CD32",
+                    // color: calorias > 0 ? "red" : "#32CD32",
                     fontSize: "20px",
                   }}
                 >
-                  {indice}
+                  {/* {indice} */}
                 </div>
               </div>
             );
