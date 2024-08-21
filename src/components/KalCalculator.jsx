@@ -193,7 +193,7 @@ function KalCalculator(props) {
 
   // Meses del año
 
-
+console.log(CalMonth, "prueba en kalculator");
   return (
     <div>
       <h1>
