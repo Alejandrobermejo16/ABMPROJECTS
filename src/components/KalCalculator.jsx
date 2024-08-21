@@ -42,8 +42,18 @@ function KalCalculator(props) {
   const [caloriasSemanales, setCaloriasSemanales] = useState([]);
 
   const meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+    "enero",
+    "febrero",
+    "marzo",
+    "abril",
+    "mayo",
+    "junio",
+    "julio",
+    "agosto",
+    "septiembre",
+    "octubre",
+    "noviembre",
+    "diciembre",
   ];
 
   const debouncedSetSearchTerm = useCallback(
@@ -123,23 +133,25 @@ function KalCalculator(props) {
       const calcularCaloriasSemanales = () => {
         // Obtener el mes actual en español
         const fechaActual = new Date();
-        const mesActual = fechaActual.toLocaleString('es-ES', { month: 'long' });
-  
+        const mesActual = fechaActual.toLocaleString("es-ES", {
+          month: "long",
+        });
+
         // Obtener las calorías del mes actual
         const datos = CalMonth[mesActual] || { days: {} };
-  
-        // Obtener las claves de los días y limitar a los primeros 5 días
-        const primerosCincoDias = Object.keys(datos.days).slice(0, 5);
-  
+
+        // Obtener las claves de los días y limitar a los primeros 7 días
+        const primerosSieteDias = Object.keys(datos.days).slice(0, 7);
+
         // Construir un array de resultados
-        const resultados = primerosCincoDias.map(dia => ({
+        const resultados = primerosSieteDias.map((dia) => ({
           dia: dia,
           calorias: datos.days[dia].calories,
         }));
-  
+
         return resultados;
       };
-  
+
       setCaloriasSemanales(calcularCaloriasSemanales());
     }
   }, [CalMonth]);
@@ -186,7 +198,10 @@ function KalCalculator(props) {
   const calcularCaloriasTotales = (mes) => {
     if (!CalMonth[mes]) return 0;
     const dias = CalMonth[mes].days;
-    const caloriasTotales = Object.values(dias).reduce((acc, dia) => acc + dia.calories, 0);
+    const caloriasTotales = Object.values(dias).reduce(
+      (acc, dia) => acc + dia.calories,
+      0
+    );
     return caloriasTotales;
   };
 
@@ -213,8 +228,6 @@ function KalCalculator(props) {
 
   // Meses del año
 
-
-
   return (
     <div>
       <h1>
@@ -235,7 +248,9 @@ function KalCalculator(props) {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="ingestionTime">Hora en la que se ingiere</Form.Label>
+            <Form.Label htmlFor="ingestionTime">
+              Hora en la que se ingiere
+            </Form.Label>
             <Form.Select
               id="ingestionTime"
               onChange={handleFoodTimeChange}
@@ -250,7 +265,9 @@ function KalCalculator(props) {
             </Form.Select>
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="exerciseSearch">Actividad Realizada</Form.Label>
+            <Form.Label htmlFor="exerciseSearch">
+              Actividad Realizada
+            </Form.Label>
             <Form.Control
               type="text"
               id="exerciseSearch"
@@ -260,7 +277,9 @@ function KalCalculator(props) {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="exerciseDuration">Duración del Ejercicio (en minutos)</Form.Label>
+            <Form.Label htmlFor="exerciseDuration">
+              Duración del Ejercicio (en minutos)
+            </Form.Label>
             <Form.Control
               type="number"
               id="exerciseDuration"
@@ -270,7 +289,9 @@ function KalCalculator(props) {
             />
           </Form.Group>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="activityTime">Hora en la que se realiza</Form.Label>
+            <Form.Label htmlFor="activityTime">
+              Hora en la que se realiza
+            </Form.Label>
             <Form.Select
               id="activityTime"
               onChange={handleExerciseTimeChange}
@@ -287,28 +308,67 @@ function KalCalculator(props) {
           <Button type="button" onClick={sendDataFormKal}>
             Enviar
           </Button>
-          <Button style={{ marginLeft: "3%" }} type="button" onClick={cleanData}>
+          <Button
+            style={{ marginLeft: "3%" }}
+            type="button"
+            onClick={cleanData}
+          >
             Limpiar
           </Button>
         </Form>
       </div>
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS SEMANALES</h1>
-      <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: "#50595C" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", fontWeight: "bold", marginBottom: "10px" }}>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>DIA ACTUAL</div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>CALORÍAS DIARIAS TOTALES</div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>ÍNDICE</div>
+      <div
+        className="caloriasMensuales"
+        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            DIA ACTUAL
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            CALORÍAS DIARIAS TOTALES
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            ÍNDICE
+          </div>
         </div>
         <div style={{ maxHeight: "400px", overflowY: "auto", padding: "10px" }}>
           {caloriasSemanales.map((item, index) => {
             const indice = item.calorias > 0 ? "negativo" : "positivo";
             return (
-              <div key={index} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-                <div style={{ padding: "10px", border: "2px solid #fff" }}>{item.dia}</div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: item.calorias > 0 ? "red" : "#32CD32", fontSize: "20px" }}>
+              <div
+                key={index}
+                style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
+              >
+                <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                  {item.dia}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: item.calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
                   {item.calorias}
                 </div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: item.calorias > 0 ? "red" : "#32CD32", fontSize: "20px" }}>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: item.calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
                   {indice}
                 </div>
               </div>
@@ -318,23 +378,58 @@ function KalCalculator(props) {
       </div>
 
       <h1 style={{ marginTop: "3%" }}>TABLA DE CALORIAS MENSUALES</h1>
-      <div className="caloriasMensuales" style={{ marginTop: "3%", backgroundColor: "#50595C" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", fontWeight: "bold", marginBottom: "10px" }}>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>MES ACTUAL</div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>CALORÍAS MENSUALES TOTALES</div>
-          <div style={{ padding: "10px", border: "2px solid #fff" }}>ÍNDICE</div>
+      <div
+        className="caloriasMensuales"
+        style={{ marginTop: "3%", backgroundColor: "#50595C" }}
+      >
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr 1fr",
+            fontWeight: "bold",
+            marginBottom: "10px",
+          }}
+        >
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            MES ACTUAL
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            CALORÍAS MENSUALES TOTALES
+          </div>
+          <div style={{ padding: "10px", border: "2px solid #fff" }}>
+            ÍNDICE
+          </div>
         </div>
         <div style={{ maxHeight: "400px", overflowY: "auto", padding: "10px" }}>
           {meses.map((mes, index) => {
             const calorias = calcularCaloriasTotales(mes);
             const indice = calorias > 0 ? "negativo" : "positivo";
             return (
-              <div key={index} style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}>
-                <div style={{ padding: "10px", border: "2px solid #fff" }}>{mes.charAt(0).toUpperCase() + mes.slice(1)}</div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: calorias > 0 ? "red" : "#32CD32", fontSize: "20px" }}>
+              <div
+                key={index}
+                style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr" }}
+              >
+                <div style={{ padding: "10px", border: "2px solid #fff" }}>
+                  {mes.charAt(0).toUpperCase() + mes.slice(1)}
+                </div>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
                   {calorias}
                 </div>
-                <div style={{ padding: "10px", border: "2px solid #fff", color: calorias > 0 ? "red" : "#32CD32", fontSize: "20px" }}>
+                <div
+                  style={{
+                    padding: "10px",
+                    border: "2px solid #fff",
+                    color: calorias > 0 ? "red" : "#32CD32",
+                    fontSize: "20px",
+                  }}
+                >
                   {indice}
                 </div>
               </div>
