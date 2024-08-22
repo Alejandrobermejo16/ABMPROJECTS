@@ -128,6 +128,7 @@ function KalCalculator(props) {
     }
   }, [exerciseQuery, exerciseDuration]);
 
+  console.log(CalMonth);
   useEffect(() => {
     if (CalMonth) {
       const calcularCaloriasSemanales = () => {
