@@ -5,7 +5,7 @@ import '../styles/Fit.css';
 const Fit = () => {
   return (
     <div className='abmfitprincipal'>
-      <h1>¡Bienvenido a ABM FIT!</h1>
+      <h1 >¡Bienvenido a ABM FIT!</h1>
       <CalendarioPrincipal />
     </div>
   );

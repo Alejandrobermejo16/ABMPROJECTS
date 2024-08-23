@@ -9,6 +9,10 @@
   text-align: center;
 }
 
-.abmLoggingScreen-content{
+.abmLoggingScreen-content {
   width: 100vw;
+  background-image: url('https://plus.unsplash.com/premium_photo-1661581883460-8f78fb34e2ca?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGhlJTIwZ3ltfGVufDB8fDB8fHww'); /* Reemplaza con la ruta de tu imagen */
+  background-size: cover; /* Ajusta el tamaño de la imagen para cubrir el contenedor */
+  background-position: center; /* Centra la imagen dentro del contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
