@@ -34,7 +34,7 @@ class CalendarioPrincipal extends Component {
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-  
+
       if (response.status === 200) {
         //primer registro de calorias y lo que haya en CalMonth
         const firstCalorie = response.data.calories.length > 0 ? response.data.calories[0].value : 0;
@@ -46,7 +46,6 @@ class CalendarioPrincipal extends Component {
       console.error("Error al recuperar las calorías:", error);
     }
   }
-  
 
   cambioEstiloDiaActual = (date) => {
     const today = dayjs().startOf('day');
@@ -66,7 +65,6 @@ class CalendarioPrincipal extends Component {
     } = data;
 
     const today = dayjs().startOf('day');
-
     const newEvents = [];
 
     if (foodValue && hourFood) {
@@ -113,18 +111,17 @@ class CalendarioPrincipal extends Component {
       const response = await axios.get(`${apiUrl}/api/users/cal`, {
         params: { userEmail: userEmail }
       });
-  
+
       // Verificar que al menos una de las dos propiedades exista en la respuesta
       const hasCalories = response.data.hasOwnProperty('calories');
       const hasMonthlyCalories = response.data.hasOwnProperty('CalMonth');
-  
+
       return response.status === 200 && (hasCalories || hasMonthlyCalories);
     } catch (error) {
       console.error("Error al verificar la existencia de las calorías:", error);
       return false;
     }
   };
-  
 
   saveCalories = async () => {
     try {
@@ -154,10 +151,10 @@ class CalendarioPrincipal extends Component {
           }
         }
       };
-  
+
       // Verificar si existen registros de calorías para este usuario
       const exists = await this.checkCaloriesExists(userEmail);
-  
+    
       let response;
       if (exists) {
         // Enviar una solicitud PUT si ya existen registros
@@ -177,6 +174,16 @@ class CalendarioPrincipal extends Component {
     
       if (response.status === 200 || response.status === 201) {
         console.log("Datos de calorías guardados correctamente");
+        
+        // Actualizar el estado con los datos más recientes del servidor
+        const updatedResponse = await axios.get(`${apiUrl}/api/users/cal`, {
+          params: { userEmail: userEmail }
+        });
+  
+        if (updatedResponse.status === 200) {
+          const monthCalories = updatedResponse.data.CalMonth || {};
+          this.setState({ monthCalories });
+        }
       } else {
         console.error("Error al guardar los datos de calorías");
       }
@@ -187,8 +194,6 @@ class CalendarioPrincipal extends Component {
       }
     }
   };
-  
-  
 
   render() {
     const { width, height } = this.props;
@@ -201,7 +206,11 @@ class CalendarioPrincipal extends Component {
           defaultView='month'
           dayPropGetter={this.cambioEstiloDiaActual}
         />
-        <KalCalculator onSubmit={this.handleDataSubmit} cal={Math.trunc(this.state.cal)} CalMonth={this.state.monthCalories}/>
+        <KalCalculator 
+          onSubmit={this.handleDataSubmit} 
+          cal={Math.trunc(this.state.cal)} 
+          CalMonth={this.state.monthCalories}
+        />
       </div>
     );
   }
