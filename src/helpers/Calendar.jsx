@@ -12,7 +12,6 @@ class CalendarioPrincipal extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cal: 0,
       monthCalories: {},
       events: [
         {
