@@ -36,11 +36,10 @@ class CalendarioPrincipal extends Component {
       });
 
       if (response.status === 200) {
-        //primer registro de calorias y lo que haya en CalMonth
-        const firstCalorie = response.data.calories.value > 0 ? response.data.calories.value : 0;
+        const responseCalories = response.data.calories.value > 0 ? response.data.calories.value : 0;
         const monthCalories = response.data.CalMonth || {};
 
-        this.setState({ cal: firstCalorie, monthCalories: monthCalories });
+        this.setState({ cal: responseCalories, monthCalories: monthCalories });
       }
     } catch (error) {
       console.error("Error al recuperar las calorías:", error);
