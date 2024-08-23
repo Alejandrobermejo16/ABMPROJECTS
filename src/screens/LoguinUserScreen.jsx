@@ -74,7 +74,7 @@ const LoginUserScreen = () => {
         <div className="abmLoggingScreen-content">
 
           <h1>¡Bienvenido a ABM FIT!</h1>
-          <p>¿Ya tienes cuenta con nosotros? Inicia sesión con tus datos.</p>
+          <p>¿Ya tienes cuenta con nosotros? Inicia sesión con tus datos?.</p>
           <button onClick={handleLoginClick}>Iniciar Sesión</button>
           <p >¿No tienes cuenta? Regístrate aquí.</p>
           <AddUserForm />
