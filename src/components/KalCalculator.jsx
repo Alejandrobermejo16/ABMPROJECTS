@@ -136,25 +136,29 @@ function KalCalculator(props) {
         const mesActual = fechaActual.toLocaleString("es-ES", {
           month: "long",
         });
-
+  
         // Obtener las calorías del mes actual
         const datos = CalMonth[mesActual] || { days: {} };
-
-        // Obtener las claves de los días y limitar a los primeros 7 días
-        const primerosSieteDias = Object.keys(datos.days).slice(0, 7);
-
+  
+        // Obtener las claves de los días
+        const dias = Object.keys(datos.days);
+  
+        // Obtener los últimos 7 días
+        const ultimosSieteDias = dias.slice(-7);  // Usa índices negativos para los últimos 7 días
+  
         // Construir un array de resultados
-        const resultados = primerosSieteDias.map((dia) => ({
+        const resultados = ultimosSieteDias.map((dia) => ({
           dia: dia,
           calorias: datos.days[dia].calories,
         }));
-
+  
         return resultados;
       };
-
+  
       setCaloriasSemanales(calcularCaloriasSemanales());
     }
   }, [CalMonth]);
+  
 
   const obtenerCalorias = (alimento) => {
     // Buscar el nutriente 'Energy' dentro de foodNutrients
