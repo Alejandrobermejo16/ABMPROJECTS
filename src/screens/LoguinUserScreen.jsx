@@ -78,7 +78,7 @@ const LoginUserScreen = () => {
         </Tooltip>
       }
     >
-      <Button variant="secondary" style={{float: 'left'}}>
+      <Button variant="primary" style={{float: 'left'}}>
         <FaInfoCircle /> 
       </Button>
       
