@@ -81,8 +81,11 @@ class FilterScreens extends React.Component {
               <p> Explorador de Componentes y Proyectos</p>
             </div>
             <Nav className="flex-column">
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDashboard")}>
+              {/* <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDashboard")}>
                 <FolderFill /> Agenda de Tareas
+              </Nav.Link> */}
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Fit")}>
+                <PersonRaisedHand /> Espacio Fit
               </Nav.Link>
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDataAlejandro")}>
                 <Translate /> Traductor
@@ -90,9 +93,7 @@ class FilterScreens extends React.Component {
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("ReservasHipica")}>
                 <CalendarDate /> Reservas Hipica
               </Nav.Link>
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Fit")}>
-                <PersonRaisedHand /> Espacio Fit
-              </Nav.Link>
+              
               <Nav.Link
                 className="nav-links"
                 href="https://abm-survey-lit-element.vercel.app/"
