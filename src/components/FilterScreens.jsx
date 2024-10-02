@@ -8,7 +8,7 @@ import ReservasHipica from "../screens/ReservasHipica.jsx";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from "recharts";
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from "../Constants.js";
 import { List } from "react-bootstrap-icons";
-import {  Translate, CalendarDate, PersonRaisedHand } from "react-bootstrap-icons";
+import {  Translate, CalendarDate, PersonRaisedHand,  CreditCard} from "react-bootstrap-icons";
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
 import { faAngular } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -95,7 +95,7 @@ class FilterScreens extends React.Component {
                 <CalendarDate /> Reservas Hipica
               </Nav.Link>
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Bank")}>
-                <CalendarDate /> Banco
+                <CreditCard /> Banco
               </Nav.Link>
               <Nav.Link
                 className="nav-links"
