@@ -3,12 +3,12 @@ import { Nav, Accordion, Card, Button } from "react-bootstrap";
 import { ExclamationTriangleFill, BoxArrowUpRight } from "react-bootstrap-icons";
 import "../styles/InitialFilter.css";
 import GridDashboard from "./GridDashboard";
-import GridDataAlejandro from "./GridDataAlejandro";
+import TranslateComponent from "./translateComponent.jsx";
 import ReservasHipica from "../screens/ReservasHipica.jsx";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from "recharts";
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from "../Constants.js";
 import { List } from "react-bootstrap-icons";
-import { FolderFill, Translate, CalendarDate, PersonRaisedHand } from "react-bootstrap-icons";
+import {  Translate, CalendarDate, PersonRaisedHand } from "react-bootstrap-icons";
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
 import { faAngular } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -87,7 +87,7 @@ class FilterScreens extends React.Component {
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Fit")}>
                 <PersonRaisedHand /> Espacio Fit
               </Nav.Link>
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDataAlejandro")}>
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("TranslateComponent")}>
                 <Translate /> Traductor
               </Nav.Link>
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("ReservasHipica")}>
@@ -277,7 +277,7 @@ class FilterScreens extends React.Component {
             <div>
               {/* Renderiza el componente de pantalla actual */}
               {pantallaActual === "GridDashboard" && <GridDashboard />}
-              {pantallaActual === "GridDataAlejandro" && <GridDataAlejandro />}
+              {pantallaActual === "TranslateComponent" && <TranslateComponent />}
               {pantallaActual === "ReservasHipica" && <ReservasHipica />}
               {pantallaActual === "Fit" && <LoginUserScreen />}
             </div>

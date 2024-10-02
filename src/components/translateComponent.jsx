@@ -4,7 +4,7 @@ import { Container, Button, Form } from 'react-bootstrap';
 import { fetchColumnRandomStart, fetchTraduccionStart } from '../store/actions/fetchColumnAleatorio';
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
 
-class GridDataAlejandro extends Component {
+class TranslateComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -139,4 +139,4 @@ const mapDispatchToProps = (dispatch) => ({
     fetchTraduccionAction: (palabraIngles, pais = '') => dispatch(fetchTraduccionStart(palabraIngles, pais)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(GridDataAlejandro);
+export default connect(mapStateToProps, mapDispatchToProps)(TranslateComponent);
