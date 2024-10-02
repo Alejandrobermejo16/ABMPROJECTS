@@ -1,6 +1,6 @@
 import React from "react";
-import { Nav, Accordion, Card, Button } from "react-bootstrap";
-import { ExclamationTriangleFill, BoxArrowUpRight } from "react-bootstrap-icons";
+import {  Accordion, Card, Button } from "react-bootstrap";
+import { ExclamationTriangleFill } from "react-bootstrap-icons";
 import "../styles/InitialFilter.css";
 import GridDashboard from "./GridDashboard";
 import TranslateComponent from "./translateComponent.jsx";
@@ -8,11 +8,9 @@ import ReservasHipica from "../screens/ReservasHipica.jsx";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from "recharts";
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from "../Constants.js";
 import { List } from "react-bootstrap-icons";
-import {  Translate, CalendarDate, PersonRaisedHand,  CreditCard} from "react-bootstrap-icons";
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
-import { faAngular } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Bank from "../screens/Bank.jsx";
+import Menu from "./menu.jsx";
 
 const ImagenAlejandro = require("../img/Alejandro.jpeg");
 
@@ -23,8 +21,8 @@ class FilterScreens extends React.Component {
       pantallaActual: null,
       noData: true,
       loadingSkills: false,
-      isMenuVisible: false, // Valor inicial del menú hamburguesa
-      isMobile: false, // Estado para saber si es móvil
+      isMenuVisible: false,
+      isMobile: false,
     };
     this.pantallaFiltroRef = React.createRef();
   }
@@ -42,7 +40,7 @@ class FilterScreens extends React.Component {
     if (this.pantallaFiltroRef.current) {
       const isMobile = this.pantallaFiltroRef.current.clientWidth <= 754;
       this.setState({ 
-        isMenuVisible: isMobile ? this.state.isMenuVisible : true, // Muestra el menú si es grande
+        isMenuVisible: isMobile ? this.state.isMenuVisible : true,
         isMobile: isMobile 
       });
     }
@@ -57,7 +55,8 @@ class FilterScreens extends React.Component {
   };
 
   cargarSkillsButton = () => {
-    this.setState({ loadingSkills: true })};
+    this.setState({ loadingSkills: true });
+  };
 
   toggleMenu = () => {
     this.setState((prevState) => ({
@@ -77,47 +76,7 @@ class FilterScreens extends React.Component {
         )}
         
         {(isMenuVisible || !isMobile) && (
-          <div className="sidebar">
-            <div className="initialFilterHeader" style={{overflowX: 'hidden'}}>
-              <p> Explorador de Componentes y Proyectos</p>
-            </div>
-            <Nav className="flex-column">
-              {/* <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("GridDashboard")}>
-                <FolderFill /> Agenda de Tareas
-              </Nav.Link> */}
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Fit")}>
-                <PersonRaisedHand /> Espacio Fit
-              </Nav.Link>
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("TranslateComponent")}>
-                <Translate /> Traductor
-              </Nav.Link>
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("ReservasHipica")}>
-                <CalendarDate /> Reservas Hipica
-              </Nav.Link>
-              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Bank")}>
-                <CreditCard /> Banco
-              </Nav.Link>
-              <Nav.Link
-                className="nav-links"
-                href="https://abm-survey-lit-element.vercel.app/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "#05B1F5" }}
-              >
-                <BoxArrowUpRight /> Creacion Componentes Propios Lit element
-              </Nav.Link>
-              <Nav.Link
-                className="nav-links"
-                href="https://abm-angular-projects.vercel.app"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "red" }}
-              >
-                <FontAwesomeIcon style={{ color: "red" }} icon={faAngular} /> Creacion Componentes
-                Angular
-              </Nav.Link>
-            </Nav>
-          </div>
+         <Menu/>
         )}
 
         {noData ? (
@@ -189,10 +148,10 @@ class FilterScreens extends React.Component {
                 ""
               )}
               {!loadingSkills ? (
-                <div className="divaviso" style={{display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: '25px'  }}>
-                  <ExclamationTriangleFill className="aviso" style={{marginRight: '10px', fontSize: '30px' }}/> Para poder ver
+                <div className="divaviso" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', fontSize: '25px' }}>
+                  <ExclamationTriangleFill className="aviso" style={{ marginRight: '10px', fontSize: '30px' }} /> Para poder ver
                   todas las habilidades laborales pulsa el botón de Skills
-                  Profesionales (la aplicacion tambien funcionará en dispositivos moviles)
+                  Profesionales (la aplicación también funcionará en dispositivos móviles)
                 </div>
               ) : (
                 ""
@@ -265,27 +224,26 @@ class FilterScreens extends React.Component {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="nivel_Libreria">
+                    <Bar dataKey="nivel_Lib">
                       {LIBRERIAS.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Bar>
                   </BarChart>
                 </div>
-              ) : null}
+              ) : (
+                ""
+              )}
             </div>
           </div>
         ) : (
-          pantallaActual && (
-            <div>
-              {/* Renderiza el componente de pantalla actual */}
-              {pantallaActual === "GridDashboard" && <GridDashboard />}
-              {pantallaActual === "TranslateComponent" && <TranslateComponent />}
-              {pantallaActual === "ReservasHipica" && <ReservasHipica />}
-              {pantallaActual === "Fit" && <LoginUserScreen />}
-              {pantallaActual === "Bank" && <Bank />}
-            </div>
-          )
+          <div>
+            {pantallaActual === "GridDashboard" && <GridDashboard />}
+            {pantallaActual === "TranslateComponent" && <TranslateComponent />}
+            {pantallaActual === "ReservasHipica" && <ReservasHipica />}
+            {pantallaActual === "Fit" && <LoginUserScreen />}
+            {pantallaActual === "Bank" && <Bank />}
+          </div>
         )}
       </div>
     );

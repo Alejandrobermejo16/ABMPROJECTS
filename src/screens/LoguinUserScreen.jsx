@@ -8,7 +8,8 @@ import Tooltip from 'react-bootstrap/Tooltip';
 import axios from 'axios';
 import Fit from '../screens/Fit';
 import { FaInfoCircle } from 'react-icons/fa'; 
-
+import { Arrow90degLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 
 const LoginUserScreen = () => {
@@ -63,7 +64,10 @@ const LoginUserScreen = () => {
     return <Fit />;
   } else {
     return (
-      <div className="abmLoggingScreen">     
+      <div className="abmLoggingScreen">  
+      <Link to="/" className="Salir"> 
+        <Arrow90degLeft />
+      </Link>   
         <div className="abmLoggingScreen-content">
         <div className='tooltip-class'>
            <OverlayTrigger

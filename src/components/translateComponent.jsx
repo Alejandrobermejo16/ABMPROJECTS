@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Container, Button, Form } from 'react-bootstrap';
 import { fetchColumnRandomStart, fetchTraduccionStart } from '../store/actions/fetchColumnAleatorio';
 import { ExclamationTriangleFill } from 'react-bootstrap-icons';
+import { Arrow90degLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+import '../styles/translateComponent.css';
 
 class TranslateComponent extends Component {
     constructor(props) {
@@ -23,7 +26,10 @@ class TranslateComponent extends Component {
         const { saveText, hiddenBoton } = this.state;
 
         return (
-            <Container>
+            <Container className='principal-container'>
+                <Link to="/" className="Salir"> 
+                     <Arrow90degLeft />
+                </Link>
                 <h3>Pincha en el botón para ver la palabra Aleatoria</h3>
                 <Button variant="dark" onClick={fetchColumnAleatorioAction}>Aleatorio</Button>
                 {dataRandom && <h1 style={{ color: 'yellow' }}>{dataRandom.dataRandom}</h1>}

@@ -47,9 +47,22 @@
 .Parrafo {
     color: white;
     text-shadow: 2px 2px 5px gray;
-    margin: 0;
+    position: absolute; 
+    top: 7%; 
+    left: 2;   
     font-size: 30px;
 }
+
+.Salir {
+    color: white;
+    text-shadow: 2px 2px 5px gray;
+    position: absolute; 
+    top: 7%; 
+    right: 0;
+    margin-right: 10%;
+    font-size: 30px;
+}
+
 
 .Entrada {
     display: flex;
@@ -112,4 +125,11 @@ input {
     font-weight: bold;
     text-align: center;
     margin-top: 3%;
+}
+
+.goBack{
+    font-size: 30px;
+    margin-bottom: 20%;
+    font-weight: bold;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
 }

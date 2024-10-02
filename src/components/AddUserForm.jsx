@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
+import '../styles/AddUsers.css'; 
 
 const AddUserForm = () => {
   const [name, setName] = useState("");
@@ -54,18 +55,21 @@ const AddUserForm = () => {
     <div>
       <form onSubmit={handleSubmit} >
         <input
+        className="inputAdd"
           type="text"
           placeholder="Nombre"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
         <input
+          className="inputAdd"
           type="email"
           placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
         <input
+          className="inputAdd"
           type="password"
           placeholder="Contraseña"
           value={password}

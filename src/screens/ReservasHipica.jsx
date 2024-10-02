@@ -10,6 +10,9 @@ import Datetime from 'react-datetime'; // Importa Datetime
 import 'react-datetime/css/react-datetime.css'; // Importa los estilos
 import { sendHorseMailStart } from '../store/actions/sendMails';
 import { connect } from 'react-redux';
+import { Arrow90degLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+
 
 class ReservasHipica extends React.Component {
     constructor() {
@@ -51,6 +54,9 @@ class ReservasHipica extends React.Component {
 
         return (
             <div className='ReservasHipica'>
+                <Link to="/" className="Salir"> 
+                    <Arrow90degLeft />
+                </Link>
                 <Clock formato="horayfecha" />
                 <h1 >HIPICA  DON FAUSTINO</h1>
                 <GaleriaImagenes className='Galeria' imagenes={GALERIARESERVASHIPICA} />
