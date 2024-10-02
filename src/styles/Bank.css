@@ -1,0 +1,115 @@
+.PantallaRegistroBanco {
+    background-color: #003DA5;
+    display: flex; 
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    height: 100vh;
+    width: 100vw;
+    padding: 20px;
+    position: relative;
+}
+
+.Formulario {
+    background-color: #005EB8;
+    border: 2px solid white;
+    border-radius: 8px;
+    width: 60%;
+    height: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Formulario-registry {
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 8px;
+    width: 40%;
+    height: 60%;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+
+.Parrafo {
+    color: white;
+    text-shadow: 2px 2px 5px gray;
+    margin: 0;
+    font-size: 30px;
+}
+
+.Entrada {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    align-items: center;
+    border-right: 2px solid white;
+}
+
+.entrada-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+    height: 100%;
+    justify-content: center;
+}
+
+.Registro {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.boton-entrar {
+    margin-top: 5%;
+    width: 40%;
+    font-weight: bold;
+}
+
+label {
+    margin-bottom: 5px;
+    width: 100%;
+    font-weight: bold;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+input {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.data-title {
+    font-size: 30px;
+    margin-top: 5%;
+    font-weight: bold;
+    text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
+}
+
+.boton-registrarse {
+    font-weight: bold;
+}
+
+.error-message {
+    color: rgb(116, 14, 14);
+    font-weight: bold;
+    text-align: center;
+    margin-top: 3%;
+}

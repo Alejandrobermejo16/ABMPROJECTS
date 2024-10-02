@@ -12,6 +12,7 @@ import {  Translate, CalendarDate, PersonRaisedHand } from "react-bootstrap-icon
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
 import { faAngular } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Bank from "../screens/Bank.jsx";
 
 const ImagenAlejandro = require("../img/Alejandro.jpeg");
 
@@ -93,7 +94,9 @@ class FilterScreens extends React.Component {
               <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("ReservasHipica")}>
                 <CalendarDate /> Reservas Hipica
               </Nav.Link>
-              
+              <Nav.Link className="nav-links" onClick={() => this.handlePantallaClick("Bank")}>
+                <CalendarDate /> Banco
+              </Nav.Link>
               <Nav.Link
                 className="nav-links"
                 href="https://abm-survey-lit-element.vercel.app/"
@@ -280,6 +283,7 @@ class FilterScreens extends React.Component {
               {pantallaActual === "TranslateComponent" && <TranslateComponent />}
               {pantallaActual === "ReservasHipica" && <ReservasHipica />}
               {pantallaActual === "Fit" && <LoginUserScreen />}
+              {pantallaActual === "Bank" && <Bank />}
             </div>
           )
         )}
