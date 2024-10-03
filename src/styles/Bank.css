@@ -133,3 +133,43 @@ input {
     font-weight: bold;
     text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.7);
 }
+
+
+@media (max-width: 1200px) {
+   
+    .data-title{
+        font-size: 50px;
+    }
+
+    .Formulario{
+        width: 80%;
+    }
+
+    .entrada-container{
+        width: 100%;
+        font-size: 50px;
+        margin-right: 50%;
+        padding-right: 5%;
+    }
+
+.boton-entrar{
+    width: 100%;
+}
+
+.boton-registrarse{
+    padding-left: 3%;
+    margin-left: 14%;
+    font-size: 40px;;
+}
+
+.Formulario-registry{
+    width: 80%;
+}
+
+.Parrafo{
+    font-size: 60px;
+}
+.Salir{
+    font-size: 60px;
+}
+  }
