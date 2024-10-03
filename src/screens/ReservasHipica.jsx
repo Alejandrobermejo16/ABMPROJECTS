@@ -13,7 +13,6 @@ import { connect } from 'react-redux';
 import { Arrow90degLeft } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
 
-
 class ReservasHipica extends React.Component {
     constructor() {
         super();
