@@ -68,8 +68,38 @@ const GALERIARESERVASHIPICA2 = [
     
     
   ];
+
+   
   
+   function validacionPass(password){
+     let longMin = 8;
+     let mayus = /[A-Z]/.test(password);
+     let minus = /[a-z]/.test(password);
+     let CaracterEspecial = /[^a-zA-Z0-9]/.test(password);
+     let tieneNumero = /\d/.test(password);
+
+     if(password.length <= 0){
+      return 'Deben de rellenarse todos los campos del formulario'
+    }
+    else if(password.length < longMin){
+      return 'La contraseña debe de contener al menos 8 caracteres'
+    } else if( !mayus) {
+      return 'La contraseña debe de contener al menos una Mayuscula'
+
+    }else if( !minus) {
+      return 'La contraseña debe de contener al menos una Minuscula'
+    }
+      else if( !CaracterEspecial) {
+        return 'La contraseña debe de contener al menos un caracter especial'
+      }
+      else if( !tieneNumero) {
+        return 'La contraseña debe de contener al menos un Numero'
+      }
+
+      return true;
+  } 
+ 
 
 
-module.exports = {    LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
+module.exports = {validacionPass, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
 
