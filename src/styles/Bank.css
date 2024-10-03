@@ -138,7 +138,7 @@ input {
 @media (max-width: 1200px) {
    
     .data-title{
-        font-size: 50px;
+        font-size: 20px;
     }
 
     .Formulario{
@@ -147,7 +147,7 @@ input {
 
     .entrada-container{
         width: 100%;
-        font-size: 50px;
+        font-size: 20px;
         margin-right: 50%;
         padding-right: 5%;
     }
@@ -159,7 +159,7 @@ input {
 .boton-registrarse{
     padding-left: 3%;
     margin-left: 14%;
-    font-size: 40px;;
+    font-size: 15px;;
 }
 
 .Formulario-registry{
@@ -167,9 +167,11 @@ input {
 }
 
 .Parrafo{
-    font-size: 60px;
+    font-size: 20px;
 }
 .Salir{
-    font-size: 60px;
+    font-size: 20px;
 }
+
+
   }
