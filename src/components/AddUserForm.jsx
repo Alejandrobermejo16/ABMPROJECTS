@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import '../styles/AddUsers.css'; 
-
+import Button from 'react-bootstrap/Button';
 
 const AddUserForm = () => {
   const [name, setName] = useState("");
@@ -56,7 +56,7 @@ const AddUserForm = () => {
     <div>
       <form onSubmit={handleSubmit} >
         <input
-        className="inputAdd"
+          className="inputAdd"
           type="text"
           placeholder="Nombre"
           value={name}
@@ -78,7 +78,7 @@ const AddUserForm = () => {
         />
         <div style={{ paddingTop: "10px" }}>
           
-          <button type="submit">Añadir Usuario</button>
+          <Button variant="secondary" disabled={name.length < 3 || email.length <3 || password.length < 3} type="submit">Añadir Usuario</Button>
         </div>
         <p>{message}</p> {/* Mostrar mensaje al usuario */}
       </form>

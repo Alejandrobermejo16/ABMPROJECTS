@@ -101,12 +101,14 @@ const LoginUserScreen = () => {
             <Modal.Body>
               <form>
                 <input
+                  id='emailIniciarSesion'
                   type="email"
                   placeholder="Correo electrónico"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
+                  id='passwordIniciarSesion'
                   type="password"
                   placeholder="Contraseña"
                   value={password}
@@ -124,7 +126,7 @@ const LoginUserScreen = () => {
                   Cargando...
                 </Button>
               ) : (
-                <Button variant="primary" onClick={sendDataUser}>
+                <Button disabled={email.length < 3 || password.length < 3} variant="primary" onClick={sendDataUser}>
                   Iniciar Sesión
                 </Button>
               )}
