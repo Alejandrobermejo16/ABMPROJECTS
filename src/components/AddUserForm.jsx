@@ -3,6 +3,7 @@ import axios from "axios";
 import Spinner from "react-bootstrap/Spinner";
 import '../styles/AddUsers.css'; 
 import Button from 'react-bootstrap/Button';
+import { validacionPass } from "../Constants";
 
 const AddUserForm = () => {
   const [name, setName] = useState("");
@@ -15,41 +16,51 @@ const AddUserForm = () => {
     event.preventDefault();
     setLoading(true); // Mostrar loader al iniciar la petición
 
-    try {
-      const apiUrl =
-        process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
+    let responseValPass = validacionPass(password);
 
-      // Endpoint para crear usuario
-      const createUserResponse = await axios.post(
-        `${apiUrl}/api/users/create`,
-        { name, email, password }, // Envía name, email y password
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
+    if(responseValPass !== true){
+      setLoading(false);
+      setMessage(responseValPass);
+    } else{
+      try {
+        const apiUrl =
+          process.env.REACT_APP_API_URL || "https://backendabmprojects.vercel.app";
+  
+        // Endpoint para crear usuario
+        const createUserResponse = await axios.post(
+          `${apiUrl}/api/users/create`,
+          { name, email, password }, // Envía name, email y password
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
+  
+        // Manejar la respuesta del servidor
+        if (createUserResponse.status === 201) {
+          setMessage("Usuario añadido correctamente");
+          setName("");
+          setEmail("");
+          setPassword("");
+        } else {
+          setMessage("Error al añadir usuario");
         }
-      );
-
-      // Manejar la respuesta del servidor
-      if (createUserResponse.status === 201) {
-        setMessage("Usuario añadido correctamente");
-        setName("");
-        setEmail("");
-        setPassword("");
-      } else {
-        setMessage("Error al añadir usuario");
+  
+        // // Ejemplo: Obtener todos los usuarios después de crear uno
+        // const getUsersResponse = await axios.get(`${apiUrl}/api/users`); 
+        // console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
+      } catch (error) {
+        console.error("Error al enviar el formulario:", error);
+        console.error("Respuesta del servidor:", error.response);
+        setMessage("Error al enviar el formulario");
+      } finally {
+        setLoading(false); // Ocultar loader al finalizar la petición
       }
-
-      // // Ejemplo: Obtener todos los usuarios después de crear uno
-      // const getUsersResponse = await axios.get(`${apiUrl}/api/users`); 
-      // console.log("Respuesta de obtener usuarios:", getUsersResponse.data);
-    } catch (error) {
-      console.error("Error al enviar el formulario:", error);
-      console.error("Respuesta del servidor:", error.response);
-      setMessage("Error al enviar el formulario");
-    } finally {
-      setLoading(false); // Ocultar loader al finalizar la petición
     }
+
+
+    
   };
   
   return (
