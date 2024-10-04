@@ -9,6 +9,8 @@ const BankForm = () => {
   const [showRegistry, setShowRegistry] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [dniInput, setdniInput] = useState("");
+  const [passInput, setpassInput] = useState("");
 
 
   const navigate = useNavigate();  
@@ -21,12 +23,19 @@ const BankForm = () => {
 
  
  const reviewUserData = () => {
+
+  setdniInput(dniInput);
+  setpassInput(passInput);
   setLoading(true);
   fetch('https://backendabmprojects.vercel.app/api/users/getUserByDniAndPassword', {
-    method: 'GET', // Método de la solicitud
+    method: 'POST', // Método de la solicitud
     headers: {
         'Content-Type': 'application/json', // Indicar que el contenido es JSON
     },
+    body: JSON.stringify({
+      dni: dniInput, 
+      password: passInput
+    })
 })
 .then(response => {
   setLoading(false);
@@ -36,6 +45,8 @@ const BankForm = () => {
       return;
     }
     setLoading(false);
+    setError("Usuario encontrado");
+
  //en el else que seria aqui tengo que poner el componente nuevo al que navegara en caso de que si que sea respuesta válida
  //estaría bien que en caso de que se acceda , le pasemos al componente, los datos que se puedan ver no contrasñea por ejemplo 
  //pero si nombre y demás
@@ -50,9 +61,9 @@ const BankForm = () => {
             <p className="data-title">INTRODUCE TUS DATOS DE USUARIO</p>
             <div className="entrada-container">
               <label>Username:</label>
-              <input type="text" placeholder="DNI/NIE" />
+              <input type="text" placeholder="DNI/NIE" value={dniInput} />
               <label>Password:</label>
-              <input type="password" placeholder="Password" />
+              <input type="password" placeholder="Password" value={passInput} />
               <button onClick={reviewUserData} className="boton-entrar">ENTRAR</button>
               <p className='errorparraf'>{error}</p>
               {loading ? (
