@@ -6,6 +6,8 @@ import { FaInfoCircle } from 'react-icons/fa';
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
 import { validacionPass } from "../Constants";
+import Spinner from 'react-bootstrap/Spinner';
+
 
 const RegistryBank = () => {
   const [showtext, setShowtext] = useState(false);
@@ -13,7 +15,10 @@ const RegistryBank = () => {
   const [inputPassValue, setInputPassValue] = useState("");
   const [inputDNIValue, setInputDNIValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   
+
   const navigate = useNavigate();  // Inicializa useNavigate aquí
 
   const cleanData = () => {
@@ -24,6 +29,7 @@ const RegistryBank = () => {
   };
 
   const sendData = (data) => {
+    setLoading(true);
     fetch('https://backendabmprojects.vercel.app/api/users/createUserBank', {
       method: 'POST', // Método de la solicitud
       headers: {
@@ -86,7 +92,10 @@ const RegistryBank = () => {
         };
         cleanData();
         sendData(data);
-        navigate('/abmBank/login');
+        setTimeout(() => {
+          setLoading(false);
+          navigate('/abmBank/login');
+        }, 4000)
       
       } else {
         setErrorMessage(validationResponse);
@@ -148,7 +157,14 @@ const RegistryBank = () => {
           {errorMessage && <p className="error-message">{errorMessage}</p>}
         </div>
       ) : (
-        <p>Los datos han sido enviados correctamente</p>
+        <div>
+          <p>Los datos han sido enviados correctamente</p>
+          {loading ? (
+            <Spinner animation="border" variant="primary"  />
+          ): ''}
+    
+        </div>
+        
       )}
     </div>
     </div>
