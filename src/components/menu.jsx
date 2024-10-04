@@ -24,7 +24,7 @@ class Menu extends React.Component {
           <Nav.Link as={Link} to="/reservas" className="nav-links">
             <CalendarDate /> Reservas Hipica
           </Nav.Link>
-          <Nav.Link as={Link} to="/bank" className="nav-links">
+          <Nav.Link as={Link} to="/abmBank/login" className="nav-links">
             <CreditCard /> Banco
           </Nav.Link>
           <Nav.Link

@@ -7,7 +7,7 @@ import TranslateComponent from './components/translateComponent';
 import ReservasHipica from './screens/ReservasHipica';
 import LoginUserScreen from './screens/LoguinUserScreen';
 import Bank from './screens/Bank';
-
+import RegistryBank from './components/BankRegisrty';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import InitialDashboard from './screens/InitialDashboard';
@@ -23,7 +23,8 @@ function App() {
             <Route path="/translate" element={<TranslateComponent />} />
             <Route path="/reservas" element={<ReservasHipica />} />
             <Route path="/fit" element={<LoginUserScreen />} />
-            <Route path="/bank" element={<Bank />} />
+            <Route path="/abmBank/login" element={<Bank />} />
+            <Route path="/abmBank/register" element={<RegistryBank />} />
           </Routes>
         </BrowserRouter>
       </div>

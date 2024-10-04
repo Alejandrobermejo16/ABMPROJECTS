@@ -1,13 +1,23 @@
 import React, { useState } from 'react';
 import "../styles/Bank.css";
-import RegistryBank from './BankRegisrty';  // Asegúrate de que este nombre esté bien escrito
+import RegistryBank from './BankRegisrty';
+import { useNavigate } from 'react-router-dom';
+
+
 
 const BankForm = () => {
   const [showRegistry, setShowRegistry] = useState(false);
 
+  const navigate = useNavigate();  
+
+
   const accessRegistry = () => {
     setShowRegistry(true);
+    navigate('/abmBank/register');
   };
+
+ 
+
 
   return (
     <div>
@@ -31,6 +41,7 @@ const BankForm = () => {
         </div>
       ) : (
         <RegistryBank />
+        
       )}
     </div>
   );
