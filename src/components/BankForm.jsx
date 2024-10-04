@@ -4,54 +4,53 @@ import RegistryBank from './BankRegisrty';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
 
-
 const BankForm = () => {
   const [showRegistry, setShowRegistry] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [dniInput, setdniInput] = useState("");
-  const [passInput, setpassInput] = useState("");
-
+  const [dniInput, setDniInput] = useState("");
+  const [passInput, setPassInput] = useState("");
 
   const navigate = useNavigate();  
-
 
   const accessRegistry = () => {
     setShowRegistry(true);
     navigate('/abmBank/register');
   };
 
- 
- const reviewUserData = () => {
-
-  setdniInput(dniInput);
-  setpassInput(passInput);
-  setLoading(true);
-  fetch('https://backendabmprojects.vercel.app/api/users/getUserByDniAndPassword', {
-    method: 'POST', // Método de la solicitud
-    headers: {
-        'Content-Type': 'application/json', // Indicar que el contenido es JSON
-    },
-    body: JSON.stringify({
-      dni: dniInput, 
-      password: passInput
+  const reviewUserData = () => {
+    setLoading(true);
+    
+    fetch('https://backendabmprojects.vercel.app/api/users/getUserByDniAndPassword', {
+      method: 'POST', 
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        dni: dniInput, 
+        password: passInput
+      })
     })
-})
-.then(response => {
-  setLoading(false);
-    // Manejar la respuesta del servidor
-    if (!response.ok) {
-      setError("El usuario o la contraseña son incorrectos");
-      return;
-    }
-    setLoading(false);
-    setError("Usuario encontrado");
-
- //en el else que seria aqui tengo que poner el componente nuevo al que navegara en caso de que si que sea respuesta válida
- //estaría bien que en caso de que se acceda , le pasemos al componente, los datos que se puedan ver no contrasñea por ejemplo 
- //pero si nombre y demás
-  })
-}
+    .then(response => {
+      setLoading(false);
+      if (!response.ok) {
+        setError("El usuario o la contraseña son incorrectos");
+        return;
+      }
+      return response.json(); // Asegúrate de manejar la respuesta como JSON
+    })
+    .then(data => {
+      // Aquí verifica si `data` contiene la información del usuario
+      if (data) {
+        // Navega al nuevo componente, pasando los datos necesarios
+        navigate('/ruta-del-nuevo-componente', { state: { userData: data } }); // Cambia a la ruta correcta
+      }
+    })
+    .catch(error => {
+      setLoading(false);
+      setError("Hubo un error al intentar acceder");
+    });
+  }
 
   return (
     <div>
@@ -61,15 +60,20 @@ const BankForm = () => {
             <p className="data-title">INTRODUCE TUS DATOS DE USUARIO</p>
             <div className="entrada-container">
               <label>Username:</label>
-              <input type="text" placeholder="DNI/NIE" onChange={dniInput} />
+              <input
+                type="text"
+                placeholder="DNI/NIE"
+                onChange={(e) => setDniInput(e.target.value)} // Actualiza el estado
+              />
               <label>Password:</label>
-              <input type="password" placeholder="Password" onChange={passInput} />
+              <input
+                type="password"
+                placeholder="Password"
+                onChange={(e) => setPassInput(e.target.value)} // Actualiza el estado
+              />
               <button onClick={reviewUserData} className="boton-entrar">ENTRAR</button>
               <p className='errorparraf'>{error}</p>
-              {loading ? (
-              <Spinner animation="border" role="status" />
-              ): ''}
-
+              {loading && <Spinner animation="border" role="status" />}
             </div>
           </div>
           <div className="Registro">
@@ -78,10 +82,8 @@ const BankForm = () => {
             </button>
           </div>
         </div>
-        
       ) : (
         <RegistryBank />
-        
       )}
     </div>
   );
