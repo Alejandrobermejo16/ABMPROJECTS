@@ -31,27 +31,31 @@ const RegistryBank = () => {
 
   const sendData = (data) => {
     setLoading(true);
+    
     fetch('https://backendabmprojects.vercel.app/api/users/createUserBank', {
       method: 'POST', // Método de la solicitud
       headers: {
           'Content-Type': 'application/json', // Indicar que el contenido es JSON
       },
       body: JSON.stringify(data) // Convertir el objeto a cadena JSON
-  })
-  .then(response => {
-      // Manejar la respuesta del servidor
-      if (response.status(409)) {
-        return setErrorMessage("Este usuario ya existe");
-      }
-      return response.json(); // Convertir la respuesta a JSON
-  })
-  .then(data => {
-      console.log('Success:', data); // Manejar los datos devueltos por el servidor
-  })
-  .catch(error => {
-      console.error('Error:', error); // Manejar cualquier error
-  });
+    })
+    .then(response => {
+        // Manejar la respuesta del servidor
+        if (response.status === 409) {
+          setLoading(false); // Dejar de cargar en caso de error
+          setErrorMessage("Este usuario ya existe");
+          throw new Error("Usuario existente");
+        }
+        return response.json(); // Convertir la respuesta a JSON si no hay error
+    })
+    .then(data => {
+        console.log('Success:', data); // Manejar los datos devueltos por el servidor
+    })
+    .catch(error => {
+        console.error('Error:', error); // Manejar cualquier otro error
+    });
   }
+  
 
   const RandomCardForUser = () => {
     let card = [];
