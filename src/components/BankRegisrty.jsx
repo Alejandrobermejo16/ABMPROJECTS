@@ -23,6 +23,29 @@ const RegistryBank = () => {
     setInputDNIValue("");
   };
 
+  const sendData = (data) => {
+    fetch('http://localhost:3001/api/users/createUserBank', {
+      method: 'POST', // Método de la solicitud
+      headers: {
+          'Content-Type': 'application/json', // Indicar que el contenido es JSON
+      },
+      body: JSON.stringify(data) // Convertir el objeto a cadena JSON
+  })
+  .then(response => {
+      // Manejar la respuesta del servidor
+      if (!response.ok) {
+          throw new Error('Network response was not ok ' + response.statusText);
+      }
+      return response.json(); // Convertir la respuesta a JSON
+  })
+  .then(data => {
+      console.log('Success:', data); // Manejar los datos devueltos por el servidor
+  })
+  .catch(error => {
+      console.error('Error:', error); // Manejar cualquier error
+  });
+  }
+
   const RandomCardForUser = () => {
     let card = [];
     for (let x = 0; x < 18; x++) { 
@@ -62,7 +85,7 @@ const RegistryBank = () => {
           account2: productAccount2,
         };
         cleanData();
-
+        sendData(data);
         navigate('/abmBank/login');
       
       } else {
@@ -74,7 +97,7 @@ const RegistryBank = () => {
   };
 
   return (
-    <div class='PantallaRegistroBanco'> 
+    <div className='PantallaRegistroBanco'> 
     <div className="Formulario-registry">
       {!showtext ? (
         <div>
@@ -98,7 +121,7 @@ const RegistryBank = () => {
               type="text"
               placeholder="DNI/NIE"
               value={inputDNIValue}
-              onChange={(e) => setInputNameValue(e.target.value)}
+              onChange={(e) => setInputDNIValue(e.target.value)}
             />
             <label>Introduce tu nombre:</label>
             <input
