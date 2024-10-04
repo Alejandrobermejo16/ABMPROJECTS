@@ -144,7 +144,7 @@ input {
 @media (max-width: 1200px) {
 
     .errorparraf{
-        font-size: 10px;
+        font-size: 8px;
     }
    
     .data-title{
@@ -152,7 +152,7 @@ input {
     }
 
     .Formulario{
-        width: 80%;
+        width: 90%;
     }
 
     .entrada-container{
