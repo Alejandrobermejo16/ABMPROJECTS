@@ -40,8 +40,8 @@ const RegistryBank = () => {
   })
   .then(response => {
       // Manejar la respuesta del servidor
-      if (!response.ok) {
-          
+      if (response.status(409)) {
+        return setErrorMessage("Este usuario ya existe");
       }
       return response.json(); // Convertir la respuesta a JSON
   })
