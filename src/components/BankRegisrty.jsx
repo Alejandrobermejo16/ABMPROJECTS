@@ -24,7 +24,7 @@ const RegistryBank = () => {
   };
 
   const sendData = (data) => {
-    fetch('http://localhost:3001/api/users/createUserBank', {
+    fetch('https://backendabmprojects.vercel.app/api/users/createUserBank', {
       method: 'POST', // Método de la solicitud
       headers: {
           'Content-Type': 'application/json', // Indicar que el contenido es JSON
