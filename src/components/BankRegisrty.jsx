@@ -7,7 +7,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
 import { validacionPass } from "../Constants";
 import Spinner from 'react-bootstrap/Spinner';
-
+import { Arrow90degLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
 
 const RegistryBank = () => {
   const [showtext, setShowtext] = useState(false);
@@ -110,6 +111,9 @@ const RegistryBank = () => {
     <div className="Formulario-registry">
       {!showtext ? (
         <div>
+          <Link to="/abmBank/login" className="Salir"> 
+        <Arrow90degLeft />
+          </Link>
           <p className="data-title">INTRODUCE TUS DATOS DE ACCESO</p>
           <OverlayTrigger
             placement="top"
