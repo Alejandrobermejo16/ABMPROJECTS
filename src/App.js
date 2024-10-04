@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes } from "react-router-dom"; // Eliminamos Router de aquí
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import GridDashboard from './components/GridDashboard'; 
 import TranslateComponent from './components/translateComponent';
 import ReservasHipica from './screens/ReservasHipica';

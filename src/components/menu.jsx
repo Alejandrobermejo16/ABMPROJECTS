@@ -1,6 +1,6 @@
 import React from "react";
 import { Nav } from "react-bootstrap";
-import { Link } from "react-router-dom"; // Importa Link de react-router-dom
+import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
 import "../styles/InitialFilter.css";
 import { Translate, CalendarDate, PersonRaisedHand, CreditCard } from "react-bootstrap-icons";

@@ -11,6 +11,7 @@ const RegistryBank = () => {
   const [showtext, setShowtext] = useState(false);
   const [inputNameValue, setInputNameValue] = useState("");
   const [inputPassValue, setInputPassValue] = useState("");
+  const [inputDNIValue, setInputDNIValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   
   const navigate = useNavigate();  // Inicializa useNavigate aquí
@@ -19,6 +20,7 @@ const RegistryBank = () => {
     setErrorMessage("");
     setInputNameValue("");
     setInputPassValue("");
+    setInputDNIValue("");
   };
 
   const RandomCardForUser = () => {
@@ -42,7 +44,7 @@ const RegistryBank = () => {
   const showTextFunction = () => {
     const validationResponse = validacionPass(inputPassValue);
 
-    if (validationResponse.length >= 0 || (inputPassValue !== '' && inputNameValue !== '')) {
+    if (validationResponse.length >= 0 || (inputPassValue !== '' && inputNameValue !== '' && inputDNIValue !== '')) {
       if (validationResponse === true) {
         setShowtext(true);
         let prductCard1 = RandomCardForUser();
@@ -53,6 +55,7 @@ const RegistryBank = () => {
         const data = {
           name: inputNameValue,
           pass: inputPassValue,
+          dni: inputDNIValue,
           card1: prductCard1,
           card2: prductCard2,
           account1: productAccount1,
@@ -90,6 +93,13 @@ const RegistryBank = () => {
           </OverlayTrigger>
 
           <div className="entrada-container">
+          <label>Introduce tu DNI:</label>
+            <input
+              type="text"
+              placeholder="DNI/NIE"
+              value={inputDNIValue}
+              onChange={(e) => setInputNameValue(e.target.value)}
+            />
             <label>Introduce tu nombre:</label>
             <input
               type="text"

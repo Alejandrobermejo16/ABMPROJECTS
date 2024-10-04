@@ -27,7 +27,7 @@ const BankForm = () => {
             <p className="data-title">INTRODUCE TUS DATOS DE USUARIO</p>
             <div className="entrada-container">
               <label>Username:</label>
-              <input type="text" placeholder="Username" />
+              <input type="text" placeholder="DNI/NIE" />
               <label>Password:</label>
               <input type="password" placeholder="Password" />
               <button className="boton-entrar">ENTRAR</button>
