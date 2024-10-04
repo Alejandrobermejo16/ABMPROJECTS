@@ -1,3 +1,7 @@
+.errorparraf{
+    color: rgb(190, 19, 19);
+}
+
 .PantallaRegistroBanco {
     background-color: #003DA5;
     display: flex; 

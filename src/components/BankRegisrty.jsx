@@ -41,7 +41,7 @@ const RegistryBank = () => {
   .then(response => {
       // Manejar la respuesta del servidor
       if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
+          
       }
       return response.json(); // Convertir la respuesta a JSON
   })

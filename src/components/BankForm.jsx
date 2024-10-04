@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const BankForm = () => {
   const [showRegistry, setShowRegistry] = useState(false);
+  const [error, setError] = useState("");
+
 
   const navigate = useNavigate();  
 
@@ -17,7 +19,24 @@ const BankForm = () => {
   };
 
  
-
+ const reviewUserData = () => {
+  fetch('https://backendabmprojects.vercel.app/api/users/getUserByDniAndPassword', {
+    method: 'GET', // Método de la solicitud
+    headers: {
+        'Content-Type': 'application/json', // Indicar que el contenido es JSON
+    },
+})
+.then(response => {
+    // Manejar la respuesta del servidor
+    if (!response.ok) {
+      setError("El usuario o la contraseña son incorrectos");
+      return;
+    }
+ //en el else que seria aqui tengo que poner el componente nuevo al que navegara en caso de que si que sea respuesta válida
+ //estaría bien que en caso de que se acceda , le pasemos al componente, los datos que se puedan ver no contrasñea por ejemplo 
+ //pero si nombre y demás
+  })
+}
 
   return (
     <div>
@@ -30,7 +49,8 @@ const BankForm = () => {
               <input type="text" placeholder="DNI/NIE" />
               <label>Password:</label>
               <input type="password" placeholder="Password" />
-              <button className="boton-entrar">ENTRAR</button>
+              <button onClick={reviewUserData} className="boton-entrar">ENTRAR</button>
+              <p className='errorparraf'>{error}</p>
             </div>
           </div>
           <div className="Registro">
@@ -39,6 +59,7 @@ const BankForm = () => {
             </button>
           </div>
         </div>
+        
       ) : (
         <RegistryBank />
         
