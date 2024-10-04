@@ -43,6 +43,7 @@ const RegistryBank = () => {
         // Manejar la respuesta del servidor
         if (response.status === 409) {
           setLoading(false); // Dejar de cargar en caso de error
+          setShowtext(true);
           setErrorMessage("Este usuario ya existe");
           throw new Error("Usuario existente");
         }
