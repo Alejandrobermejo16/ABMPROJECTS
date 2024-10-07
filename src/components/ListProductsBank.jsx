@@ -1,31 +1,36 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/ListProductsBank.css";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const ListProductsBank = ({ userName }) => {
+  const [userData, setUserData] = useState(null); // Cambiado a null para un manejo de estado más claro
 
-  const DataUser = () => {
+  useEffect(() => {
+    const fetchUserData = () => {
+      // Aquí puedes utilizar userName si es necesario para la solicitud
+      fetch("https://backendabmprojects.vercel.app/api/users/productsUserBank")
+        .then((response) => {
+          // Verificar si la respuesta fue exitosa
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
+          }
+          // Convertir la respuesta en JSON
+          return response.json();
+        })
+        .then((data) => {
+          // Manejar los datos recibidos
+          console.log("Datos obtenidos:", data);
+          setUserData(data); // Aquí puedes guardar los datos en el estado
+        })
+        .catch((error) => {
+          // Manejar cualquier error que ocurra
+          console.error("Hubo un problema con la solicitud fetch:", error);
+        });
+    };
 
-    let user = userName;
+    fetchUserData(); // Invocar la función para obtener los datos
 
-    fetch("https://backendabmprojects.vercel.app/api/users/productsUserBank")
-      .then((response) => {
-        // Verificar si la respuesta fue exitosa
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        // Convertir la respuesta en JSON
-        return response.json();
-      })
-      .then((data) => {
-        // Manejar los datos recibidos
-        console.log("Datos obtenidos:", data);
-      })
-      .catch((error) => {
-        // Manejar cualquier error que ocurra
-        console.error("Hubo un problema con la solicitud fetch:", error);
-      });
-  };
+  }, [userName]); // Puedes agregar userName a la lista de dependencias si quieres que se ejecute nuevamente cuando cambie
 
   return (
     <div className="Contenedor-tarjetas-padre">
