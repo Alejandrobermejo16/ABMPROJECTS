@@ -8,7 +8,7 @@ const ListProductsBank = ({ userName }) => {
 
     let user = userName;
 
-    fetch("apiUrl")
+    fetch("https://backendabmprojects.vercel.app/api/users/productsUserBank")
       .then((response) => {
         // Verificar si la respuesta fue exitosa
         if (!response.ok) {
