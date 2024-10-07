@@ -24,7 +24,6 @@ const BankForm = () => {
 
  
  const reviewUserData = () => {
-  navigate('/abmBank/ListProducts');
 
   setdniInput(dniInput);
   setpassInput(passInput);
@@ -48,7 +47,8 @@ const BankForm = () => {
     }
     setUserName(dniInput);
     setLoading(false);
-    setError("Usuario encontrado");
+    navigate('/abmBank/ListProducts');
+
 
  //en el else que seria aqui tengo que poner el componente nuevo al que navegara en caso de que si que sea respuesta válida
  //estaría bien que en caso de que se acceda , le pasemos al componente, los datos que se puedan ver no contrasñea por ejemplo 
