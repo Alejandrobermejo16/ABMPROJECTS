@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useLocation } from "react";
 import "../styles/ListProductsBank.css";
 import ListGroup from "react-bootstrap/ListGroup";
 
 const ListProductsBank = ({ userName }) => {
-  const [userData, setUserData] = useState(null); // Cambiado a null para un manejo de estado más claro
+  const { userName } = location.state || {}; // Recupera el DNI
 
   useEffect(() => {
     console.log(userName);

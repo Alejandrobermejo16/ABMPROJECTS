@@ -47,7 +47,7 @@ const BankForm = () => {
     }
     setUserName(dniInput);
     setLoading(false);
-    navigate('/abmBank/ListProducts');
+    navigate('/abmBank/ListProducts', { state: { userName: dniInput } });
 
 
  //en el else que seria aqui tengo que poner el componente nuevo al que navegara en caso de que si que sea respuesta válida
@@ -83,7 +83,7 @@ const BankForm = () => {
         </div>
         
       ) : (
-        <RegistryBank userName={dniInput}>
+        <RegistryBank >
           
         </RegistryBank>
         
