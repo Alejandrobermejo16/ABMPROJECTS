@@ -34,7 +34,7 @@ const BankForm = () => {
     },
     body: JSON.stringify({
       dni: dniInput, 
-      password: passInput
+      pass: passInput
     })
 })
 .then(response => {
@@ -63,7 +63,7 @@ const BankForm = () => {
               <label>Username:</label>
               <input type="text" placeholder="DNI/NIE"  onChange={(e) => setdniInput(e.target.value)} />
               <label>Password:</label>
-              <input type="password" placeholder="Password"  onChange={(e) => setPassInput(e.target.value)} />
+              <input type="password" placeholder="Password"  onChange={(e) => setpassInput(e.target.value)} />
               <button onClick={reviewUserData} className="boton-entrar">ENTRAR</button>
               <p className='errorparraf'>{error}</p>
               {loading ? (
