@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"; // Asegúrate de importar useState
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"; 
 import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
@@ -6,7 +6,7 @@ import "../styles/ListProductsBank.css";
 const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
-  const [userData, setuserData] = useState([]); // Estado para almacenar productos
+  const [userData, setUserData] = useState(null); // Estado para almacenar productos
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -22,7 +22,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setuserData(data); // Guarda los datos en el estado
+        setUserData(data); // Cambiar a setUserData
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -34,6 +34,11 @@ const ListProductsBank = () => {
     }
   }, [userName]);
 
+  // Verifica que userData no sea null
+  if (!userData) {
+    return <div>Cargando...</div>; // Puedes mostrar un mensaje de carga
+  }
+
   return (
     <div className="Contenedor-tarjetas-padre">
       <h1 className="usuarioName">Bienvenido {userData.name}</h1>
@@ -43,13 +48,10 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          {userData.map((user, index) => ( 
+          {userData.map((account, index) => ( // Asegúrate de que 'accounts' sea un array en tu API
             <ListGroup.Item as="li" key={index}>
-              {user.account1}
-              <ListGroup.Item as="li">{user.account1}</ListGroup.Item>
-
+              {account.name} {/* Cambia 'account.name' por la propiedad correcta */}
             </ListGroup.Item>
-
           ))}
         </ListGroup>
       </div>
@@ -59,9 +61,9 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          {userData.map((user, index) => ( 
+          {userData.map((card, index) => ( // Asegúrate de que 'cards' sea un array en tu API
             <ListGroup.Item as="li" key={index}>
-              {user.cardName}
+              {card.cardName} {/* Cambia 'card.cardName' por la propiedad correcta */}
             </ListGroup.Item>
           ))}
         </ListGroup>
