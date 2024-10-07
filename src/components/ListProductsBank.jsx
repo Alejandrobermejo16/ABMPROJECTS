@@ -23,6 +23,7 @@ const ListProductsBank = () => {
       .then(data => {
         console.log("Datos obtenidos:", data);
         setUserData(data); // Guardar el objeto directamente
+        console.log(userData);
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -41,7 +42,7 @@ const ListProductsBank = () => {
 
   return (
     <div className="Contenedor-tarjetas-padre">
-      <h1 className="usuarioName">Bienvenido {userData.name}</h1>
+      <h1 className="usuarioName">Bienvenido {userData}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
