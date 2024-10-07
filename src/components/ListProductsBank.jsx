@@ -36,14 +36,14 @@ const ListProductsBank = () => {
 
   return (
     <div className="Contenedor-tarjetas-padre">
-      <h1 className="usuarioName">Bienvenido {userName}</h1>
+      <h1 className="usuarioName">Bienvenido {data.name}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          {userName.map((user, index) => ( 
+          {data.map((user, index) => ( 
             <ListGroup.Item as="li" key={index}>
               {user.account1}
               <ListGroup.Item as="li">{user.account1}</ListGroup.Item>
@@ -59,7 +59,7 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          {userName.map((user, index) => ( 
+          {data.map((user, index) => ( 
             <ListGroup.Item as="li" key={index}>
               {user.cardName}
             </ListGroup.Item>
