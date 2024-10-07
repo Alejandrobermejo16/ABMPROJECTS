@@ -6,7 +6,7 @@ import "../styles/ListProductsBank.css";
 const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
-  const [userData, setUserData] = useState([]); // Estado para almacenar productos
+  const [userData, setUserData] = useState(null); // Estado para almacenar productos
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -22,9 +22,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        let data2 = [];
-        data2.push(data);
-        setUserData(data2);
+        setUserData(data); // Guardar el objeto directamente
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -50,11 +48,12 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          {userData.map((account, index) => ( // Asegúrate de que 'accounts' sea un array en tu API
-            <ListGroup.Item as="li" key={index}>
-              {account.name} {/* Cambia 'account.name' por la propiedad correcta */}
-            </ListGroup.Item>
-          ))}
+          <ListGroup.Item as="li">
+            {userData.account1} {/* Accede a account1 directamente */}
+          </ListGroup.Item>
+          <ListGroup.Item as="li">
+            {userData.account2} {/* Accede a account2 directamente */}
+          </ListGroup.Item>
         </ListGroup>
       </div>
 
@@ -63,11 +62,12 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          {userData.map((card, index) => ( // Asegúrate de que 'cards' sea un array en tu API
-            <ListGroup.Item as="li" key={index}>
-              {card.cardName} {/* Cambia 'card.cardName' por la propiedad correcta */}
-            </ListGroup.Item>
-          ))}
+          <ListGroup.Item as="li">
+            {userData.card1} {/* Accede a card1 directamente */}
+          </ListGroup.Item>
+          <ListGroup.Item as="li">
+            {userData.card2} {/* Accede a card2 directamente */}
+          </ListGroup.Item>
         </ListGroup>
       </div>
     </div>
@@ -75,5 +75,3 @@ const ListProductsBank = () => {
 }
 
 export default ListProductsBank;
-
-
