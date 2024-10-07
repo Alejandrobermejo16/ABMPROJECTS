@@ -22,8 +22,8 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(data.data); // Guardar el objeto directamente
-        console.log(userData);
+        setUserData(response); // Guardar el objeto directamente
+        console.log(response);
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
