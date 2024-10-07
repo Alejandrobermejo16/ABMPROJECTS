@@ -11,6 +11,7 @@ import RegistryBank from './components/BankRegisrty';
 import { Provider } from 'react-redux';
 import store from './store/index';
 import InitialDashboard from './screens/InitialDashboard';
+import ListProductsBank from './components/ListProductsBank';
 
 function App() {
   return (
@@ -25,6 +26,9 @@ function App() {
             <Route path="/fit" element={<LoginUserScreen />} />
             <Route path="/abmBank/login" element={<Bank />} />
             <Route path="/abmBank/register" element={<RegistryBank />} />
+            <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
+
+
           </Routes>
         </BrowserRouter>
       </div>

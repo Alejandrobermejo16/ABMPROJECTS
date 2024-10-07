@@ -17,7 +17,6 @@ const RegistryBank = () => {
   const [inputDNIValue, setInputDNIValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-
   
 
   const navigate = useNavigate();  // Inicializa useNavigate aquí
