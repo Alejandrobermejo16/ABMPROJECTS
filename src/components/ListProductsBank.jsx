@@ -22,8 +22,8 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(response); // Guardar el objeto directamente
-        console.log(response);
+        setUserData(data); // Guardar el objeto directamente
+        console.log(data); // Cambié response a data
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -39,7 +39,6 @@ const ListProductsBank = () => {
   if (!userData) {
     return <div>Cargando...</div>; // Puedes mostrar un mensaje de carga
   }
-
   return (
     <div className="Contenedor-tarjetas-padre">
       <h1 className="usuarioName">Bienvenido {userData}</h1>
