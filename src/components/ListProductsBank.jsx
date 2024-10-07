@@ -8,15 +8,16 @@ const ListProductsBank = ({ userName }) => {
   useEffect(() => {
     const fetchUserData = () => {
       // Aquí puedes utilizar userName si es necesario para la solicitud
-      fetch("https://backendabmprojects.vercel.app/api/users/productsUserBank")
-        .then((response) => {
-          // Verificar si la respuesta fue exitosa
-          if (!response.ok) {
-            throw new Error("Network response was not ok");
-          }
-          // Convertir la respuesta en JSON
-          return response.json();
+      fetch('https://backendabmprojects.vercel.app/api/users/productsUserBank', {
+        method: 'POST', // Método de la solicitud
+        headers: {
+            'Content-Type': 'application/json', // Indicar que el contenido es JSON
+        },
+        body: JSON.stringify({
+          dni: dniInput, 
+          pass: passInput
         })
+    })
         .then((data) => {
           // Manejar los datos recibidos
           console.log("Datos obtenidos:", data);
