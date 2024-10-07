@@ -22,8 +22,9 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        let data2 = [data];
-        setUserData(data2); // Cambiar a setUserData
+        let data2 = [];
+        data2.push(data);
+        setUserData(data2);
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
