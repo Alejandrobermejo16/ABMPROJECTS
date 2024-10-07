@@ -22,7 +22,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(data); // Guardar el objeto directamente
+        setUserData(data.data); // Guardar el objeto directamente
         console.log(userData);
       })
       .catch(error => {
