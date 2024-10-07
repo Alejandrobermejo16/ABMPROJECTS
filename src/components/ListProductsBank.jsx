@@ -6,6 +6,7 @@ const ListProductsBank = ({ userName }) => {
   const [userData, setUserData] = useState(null); // Cambiado a null para un manejo de estado más claro
 
   useEffect(() => {
+    console.log(userName);
     const fetchUserData = () => {
       // Aquí puedes utilizar userName si es necesario para la solicitud
       fetch('https://backendabmprojects.vercel.app/api/users/productsUserBank', {
@@ -14,7 +15,7 @@ const ListProductsBank = ({ userName }) => {
             'Content-Type': 'application/json', // Indicar que el contenido es JSON
         },
         body: JSON.stringify({
-          dni: dniInput, 
+          dni: userName, 
         })
     })
         .then((data) => {
