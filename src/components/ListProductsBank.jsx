@@ -6,7 +6,7 @@ import "../styles/ListProductsBank.css";
 const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
-  const [products, setProducts] = useState([]); // Estado para almacenar productos
+  const [userData, setuserData] = useState([]); // Estado para almacenar productos
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -22,7 +22,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setProducts(data); // Guarda los datos en el estado
+        setuserData(data); // Guarda los datos en el estado
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -36,14 +36,14 @@ const ListProductsBank = () => {
 
   return (
     <div className="Contenedor-tarjetas-padre">
-      <h1 className="usuarioName">Bienvenido {data.name}</h1>
+      <h1 className="usuarioName">Bienvenido {userData.name}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          {data.map((user, index) => ( 
+          {userData.map((user, index) => ( 
             <ListGroup.Item as="li" key={index}>
               {user.account1}
               <ListGroup.Item as="li">{user.account1}</ListGroup.Item>
@@ -59,7 +59,7 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          {data.map((user, index) => ( 
+          {userData.map((user, index) => ( 
             <ListGroup.Item as="li" key={index}>
               {user.cardName}
             </ListGroup.Item>
