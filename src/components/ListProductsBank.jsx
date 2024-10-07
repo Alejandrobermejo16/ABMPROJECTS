@@ -1,37 +1,36 @@
-import React, { useState, useEffect, useLocation } from "react";
-import "../styles/ListProductsBank.css";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom"; // Asegúrate de importar useLocation
 import ListGroup from "react-bootstrap/ListGroup";
+import "../styles/ListProductsBank.css";
 
-const ListProductsBank = ({ userName }) => {
+const ListProductsBank = () => {
+  const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
 
   useEffect(() => {
     console.log(userName);
     const fetchUserData = () => {
-      // Aquí puedes utilizar userName si es necesario para la solicitud
       fetch('https://backendabmprojects.vercel.app/api/users/productsUserBank', {
-        method: 'POST', // Método de la solicitud
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json', // Indicar que el contenido es JSON
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          dni: userName, 
+          dni: userName,
         })
-    })
-        .then((data) => {
-          // Manejar los datos recibidos
-          console.log("Datos obtenidos:", data);
-          setUserData(data); // Aquí puedes guardar los datos en el estado
-        })
-        .catch((error) => {
-          // Manejar cualquier error que ocurra
-          console.error("Hubo un problema con la solicitud fetch:", error);
-        });
+      })
+      .then(response => response.json()) // Asegúrate de convertir la respuesta a JSON
+      .then(data => {
+        console.log("Datos obtenidos:", data);
+        // Aquí puedes guardar los datos en el estado (deberías agregar un useState si quieres usarlos)
+      })
+      .catch(error => {
+        console.error("Hubo un problema con la solicitud fetch:", error);
+      });
     };
 
-    fetchUserData(); // Invocar la función para obtener los datos
-
-  }, [userName]); // Puedes agregar userName a la lista de dependencias si quieres que se ejecute nuevamente cuando cambie
+    fetchUserData();
+  }, [userName]); // Se ejecuta cuando userName cambia
 
   return (
     <div className="Contenedor-tarjetas-padre">
@@ -66,3 +65,5 @@ const ListProductsBank = ({ userName }) => {
 }
 
 export default ListProductsBank;
+
+

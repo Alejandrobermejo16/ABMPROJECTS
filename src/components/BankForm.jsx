@@ -11,7 +11,6 @@ const BankForm = () => {
   const [loading, setLoading] = useState(false);
   const [dniInput, setdniInput] = useState("");
   const [passInput, setpassInput] = useState("");
-  const [userName, setUserName] = useState("");
 
 
   const navigate = useNavigate();  
@@ -45,7 +44,6 @@ const BankForm = () => {
       setError("El usuario o la contraseña son incorrectos");
       return;
     }
-    setUserName(dniInput);
     setLoading(false);
     navigate('/abmBank/ListProducts', { state: { userName: dniInput } });
 
