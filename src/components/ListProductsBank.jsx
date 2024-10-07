@@ -6,7 +6,7 @@ import "../styles/ListProductsBank.css";
 const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
-  const [userData, setUserData] = useState(null); // Estado para almacenar productos
+  const [userData, setUserData] = useState([]); // Estado para almacenar productos
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -22,7 +22,8 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(data); // Cambiar a setUserData
+        let data2 = [data];
+        setUserData(data2); // Cambiar a setUserData
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
