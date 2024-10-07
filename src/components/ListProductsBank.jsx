@@ -15,7 +15,6 @@ const ListProductsBank = ({ userName }) => {
         },
         body: JSON.stringify({
           dni: dniInput, 
-          pass: passInput
         })
     })
         .then((data) => {
