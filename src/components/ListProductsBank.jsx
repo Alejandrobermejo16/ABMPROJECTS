@@ -41,7 +41,7 @@ const ListProductsBank = () => {
   }
   return (
     <div className="Contenedor-tarjetas-padre">
-      <h1 className="usuarioName">Bienvenido {userData}</h1>
+      <h1 className="usuarioName">Bienvenido {userData.data.name}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
@@ -49,10 +49,10 @@ const ListProductsBank = () => {
             Cuentas
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.account1} {/* Accede a account1 directamente */}
+            {userData.data.account1} {/* Accede a account1 directamente */}
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.account2} {/* Accede a account2 directamente */}
+            {userData.data.account2} {/* Accede a account2 directamente */}
           </ListGroup.Item>
         </ListGroup>
       </div>
@@ -63,10 +63,10 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.card1} {/* Accede a card1 directamente */}
+            {userData.data.card1} {/* Accede a card1 directamente */}
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.card2} {/* Accede a card2 directamente */}
+            {userData.data.card2} {/* Accede a card2 directamente */}
           </ListGroup.Item>
         </ListGroup>
       </div>
