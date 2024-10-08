@@ -29,7 +29,6 @@ function App() {
             <Route path="/abmBank/login" element={<Bank />} />
             <Route path="/abmBank/register" element={<RegistryBank />} />
             <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
-            <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
             <Route path="/abmBank/ListProducts/accounts/:id" element={<AccountDetail />} />
             <Route path="/abmBank/ListProducts/cards/:id" element={<CardDetail />} />
 
