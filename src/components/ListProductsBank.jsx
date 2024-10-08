@@ -22,7 +22,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(data); // Guardar el objeto directamente
+        setUserData(data.data); // Guardar el objeto directamente
         console.log(data); // Cambié response a data
       })
       .catch(error => {
@@ -49,10 +49,10 @@ const ListProductsBank = () => {
             Cuentas
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.data.account1} {/* Accede a account1 directamente */}
+            {userData.account1}
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.data.account2} {/* Accede a account2 directamente */}
+            {userData.account2}
           </ListGroup.Item>
         </ListGroup>
       </div>
@@ -63,10 +63,10 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.data.card1} {/* Accede a card1 directamente */}
+            {userData.card1} 
           </ListGroup.Item>
           <ListGroup.Item as="li">
-            {userData.data.card2} {/* Accede a card2 directamente */}
+            {userData.card2}
           </ListGroup.Item>
         </ListGroup>
       </div>
