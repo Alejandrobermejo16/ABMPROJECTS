@@ -36,6 +36,26 @@ const ListProductsBank = () => {
     }
   }, [userName]);
 
+  const closeSession = () => {
+    setTimeout(() => {
+      console.log("El componente se va a cerrar.");
+      setUserData(null);
+      navigate('/abmBank/login');
+        
+    }, "8000");
+    
+};
+
+// useEffect para ejecutar la función al montar el componente
+useEffect(() => {
+  closeSession(); // Llama a la función
+
+    // Opcional: puedes devolver una función de limpieza aquí si es necesario
+    return () => {
+        console.log("El componente se va a desmontar.");
+    };
+}, []); // El array vacío asegura que se ejecute solo al montar
+
   // Verifica que userData no sea null
   if (!userData) {
     return <div>Cargando...</div>; // Puedes mostrar un mensaje de carga
