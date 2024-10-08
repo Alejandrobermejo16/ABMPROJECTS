@@ -41,7 +41,7 @@ const ListProductsBank = () => {
   }
   return (
     <div className="Contenedor-tarjetas-padre">
-      <h1 className="usuarioName">Bienvenido {userData.data.name}</h1>
+      <h1 className="usuarioName">Bienvenido {userData.name}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
