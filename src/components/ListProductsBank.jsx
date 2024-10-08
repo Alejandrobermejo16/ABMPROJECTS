@@ -29,7 +29,6 @@ const ListProductsBank = () => {
       .then(data => {
         console.log("Datos obtenidos:", data);
         setUserData(data.data);
-        console.log(data);
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -42,7 +41,6 @@ const ListProductsBank = () => {
   }, [userName]);
 
   const closeSession = () => {
-    // Cerrar el modal y navegar a la página de login
     setShowModalClose(false);
     setUserData(null); // Limpiar los datos del usuario
     navigate('/abmBank/login'); // Navegar a la página de login
@@ -55,6 +53,11 @@ const ListProductsBank = () => {
       clearTimeout(timeoutRef.current);
     }
 
+    // Limpiar el temporizador del modal si está activo
+    if (modalTimeoutRef.current) {
+      clearTimeout(modalTimeoutRef.current);
+    }
+
     // Reiniciar el temporizador para mostrar el modal después de 4 minutos y 30 segundos
     timeoutRef.current = setTimeout(() => {
       setShowModalClose(true); // Mostrar modal
@@ -62,7 +65,7 @@ const ListProductsBank = () => {
       modalTimeoutRef.current = setTimeout(() => {
         closeSession(); // Cerrar sesión automáticamente después de 30 segundos
       }, 30000); // 30,000 ms = 30 segundos
-    }, 90000); //90 seg
+    }, 270000); // 4 minutos y 30 segundos = 270000 ms
   };
 
   // Añadir event listeners para detectar actividad del usuario
