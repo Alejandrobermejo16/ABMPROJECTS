@@ -1,13 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; 
 import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 const ListProductsBank = () => {
   const navigate = useNavigate();  
   const location = useLocation();
-  const { userName } = location.state || {}; // Recupera el DNI
-  const [userData, setUserData] = useState(null); // Estado para almacenar productos
+  const { userName } = location.state || {}; 
+  const [userData, setUserData] = useState(null);
+  const [showModalClose, setShowModalClose] = useState(false);
+  const timeoutRef = useRef(null); // Referencia para el temporizador de inactividad
+  const modalTimeoutRef = useRef(null); // Referencia para el temporizador del modal
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -23,45 +28,96 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         console.log("Datos obtenidos:", data);
-        setUserData(data.data); // Guardar el objeto directamente
-        console.log(data); // Cambié response a data
+        setUserData(data.data);
+        console.log(data);
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
       });
     };
 
-    if (userName) { // Solo ejecuta si userName está definido
+    if (userName) {
       fetchUserData();
     }
   }, [userName]);
 
   const closeSession = () => {
-    setTimeout(() => {
-      console.log("El componente se va a cerrar.");
-      setUserData(null);
-      navigate('/abmBank/login');
-        
-    }, "8000");
-    
-};
+    // Reiniciar temporizador del modal si ya estaba abierto
+    if (modalTimeoutRef.current) {
+      clearTimeout(modalTimeoutRef.current);
+      setShowModalClose(false); // Cierra el modal si estaba abierto
+    }
 
-// useEffect para ejecutar la función al montar el componente
-useEffect(() => {
-  closeSession(); // Llama a la función
+    // Mostrar el modal
+    setShowModalClose(true);
 
-    // Opcional: puedes devolver una función de limpieza aquí si es necesario
+    // Iniciar el temporizador del modal
+    modalTimeoutRef.current = setTimeout(() => {
+      setUserData(null); // Limpiar los datos del usuario
+      navigate('/abmBank/login'); // Navegar a la página de login
+    }, 30000); // 30,000 ms = 30 segundos
+  };
+
+  // Manejar la actividad del usuario para reiniciar el temporizador
+  const handleUserActivity = () => {
+    // Reiniciar el temporizador de inactividad
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    // Iniciar el temporizador de 20 segundos
+    timeoutRef.current = setTimeout(closeSession, 20000); // 20,000 ms = 20 segundos
+  };
+
+  // Añadir event listeners para detectar actividad del usuario
+  useEffect(() => {
+    window.addEventListener('mousemove', handleUserActivity);
+    window.addEventListener('click', handleUserActivity);
+    window.addEventListener('keydown', handleUserActivity);
+
+    // Iniciar el temporizador al montar el componente
+    handleUserActivity(); // Llama a la función al iniciar
+
+    // Limpiar los event listeners y los temporizadores al desmontar
     return () => {
-        console.log("El componente se va a desmontar.");
+      clearTimeout(timeoutRef.current);
+      clearTimeout(modalTimeoutRef.current);
+      window.removeEventListener('mousemove', handleUserActivity);
+      window.removeEventListener('click', handleUserActivity);
+      window.removeEventListener('keydown', handleUserActivity);
     };
-}, []); // El array vacío asegura que se ejecute solo al montar
+  }, []);
 
   // Verifica que userData no sea null
   if (!userData) {
     return <div>Cargando...</div>; // Puedes mostrar un mensaje de carga
   }
+
   return (
     <div className="Contenedor-tarjetas-padre">
+      {/* Modal para cerrar sesión */}
+      <Modal show={showModalClose} onHide={() => setShowModalClose(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Cerrar Sesión</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>¿Deseas cerrar la sesión?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => {
+            setShowModalClose(false); // Cierra el modal
+            handleUserActivity(); // Reinicia el proceso al cerrar
+          }}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={() => {
+            setUserData(null);
+            navigate('/abmBank/login'); // Cerrar sesión y navegar a la página de login
+          }}>
+            Cerrar Sesión
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
       <h1 className="usuarioName">Bienvenido {userData.name}</h1>
 
       <div className="Cuentas">
@@ -70,7 +126,7 @@ useEffect(() => {
             Cuentas
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`)}>
-          {userData.account1}
+            {userData.account1}
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`)}>
             {userData.account2}
@@ -84,10 +140,10 @@ useEffect(() => {
             Tarjetas
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`)}>
-          {userData.card1} 
+            {userData.card1} 
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`)}>
-          {userData.card2}
+            {userData.card2}
           </ListGroup.Item>
         </ListGroup>
       </div>
