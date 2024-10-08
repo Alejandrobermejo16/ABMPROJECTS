@@ -42,20 +42,10 @@ const ListProductsBank = () => {
   }, [userName]);
 
   const closeSession = () => {
-    // Reiniciar temporizador del modal si ya estaba abierto
-    if (modalTimeoutRef.current) {
-      clearTimeout(modalTimeoutRef.current);
-      setShowModalClose(false); // Cierra el modal si estaba abierto
-    }
-
-    // Mostrar el modal
-    setShowModalClose(true);
-
-    // Iniciar el temporizador del modal
-    modalTimeoutRef.current = setTimeout(() => {
-      setUserData(null); // Limpiar los datos del usuario
-      navigate('/abmBank/login'); // Navegar a la página de login
-    }, 30000); // 30,000 ms = 30 segundos
+    // Cerrar el modal y navegar a la página de login
+    setShowModalClose(false);
+    setUserData(null); // Limpiar los datos del usuario
+    navigate('/abmBank/login'); // Navegar a la página de login
   };
 
   // Manejar la actividad del usuario para reiniciar el temporizador
@@ -64,8 +54,15 @@ const ListProductsBank = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    // Iniciar el temporizador de 20 segundos
-    timeoutRef.current = setTimeout(closeSession, 27000); // 20,000 ms = 20 segundos
+
+    // Reiniciar el temporizador para mostrar el modal después de 4 minutos y 30 segundos
+    timeoutRef.current = setTimeout(() => {
+      setShowModalClose(true); // Mostrar modal
+      // Iniciar temporizador de 30 segundos para cerrar sesión automáticamente
+      modalTimeoutRef.current = setTimeout(() => {
+        closeSession(); // Cerrar sesión automáticamente después de 30 segundos
+      }, 30000); // 30,000 ms = 30 segundos
+    }, 270000); // 270,000 ms = 4 minutos y 30 segundos
   };
 
   // Añadir event listeners para detectar actividad del usuario
@@ -95,17 +92,20 @@ const ListProductsBank = () => {
   return (
     <div className="Contenedor-tarjetas-padre">
       {/* Modal para cerrar sesión */}
-      <Modal show={showModalClose} onHide={() => setShowModalClose(false)}>
+      <Modal show={showModalClose} onHide={() => {
+        setShowModalClose(false);
+        handleUserActivity(); // Reinicia el proceso al cerrar
+      }}>
         <Modal.Header closeButton>
           <Modal.Title>Cerrar Sesión</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>La sesion expirará pasados 30 segundos</p>
+          <p>La sesión expirará pasados 30 segundos si no interactúas.</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => {
             setShowModalClose(false); // Cierra el modal
-            handleUserActivity(); // Reinicia el proceso al cerrar
+            handleUserActivity(); // Reinicia el temporizador al cerrar
           }}>
             Cancelar
           </Button>
