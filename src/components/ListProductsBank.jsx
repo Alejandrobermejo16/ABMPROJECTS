@@ -65,7 +65,7 @@ const ListProductsBank = () => {
       clearTimeout(timeoutRef.current);
     }
     // Iniciar el temporizador de 20 segundos
-    timeoutRef.current = setTimeout(closeSession, 20000); // 20,000 ms = 20 segundos
+    timeoutRef.current = setTimeout(closeSession, 27000); // 20,000 ms = 20 segundos
   };
 
   // Añadir event listeners para detectar actividad del usuario
@@ -100,7 +100,7 @@ const ListProductsBank = () => {
           <Modal.Title>Cerrar Sesión</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <p>¿Deseas cerrar la sesión?</p>
+          <p>La sesion expirará pasados 30 segundos</p>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => {
@@ -108,12 +108,6 @@ const ListProductsBank = () => {
             handleUserActivity(); // Reinicia el proceso al cerrar
           }}>
             Cancelar
-          </Button>
-          <Button variant="primary" onClick={() => {
-            setUserData(null);
-            navigate('/abmBank/login'); // Cerrar sesión y navegar a la página de login
-          }}>
-            Cerrar Sesión
           </Button>
         </Modal.Footer>
       </Modal>
