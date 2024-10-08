@@ -84,10 +84,7 @@ const ListProductsBank = () => {
 
   return (
     <div className="Contenedor-tarjetas-padre">
-      <Modal show={showModalClose} onHide={() => {
-        setShowModalClose(false);
-        handleUserActivity();
-      }}>
+      <Modal show={showModalClose} onHide={!showModalClose}>
         <Modal.Header closeButton>
           <Modal.Title>Cerrar Sesión</Modal.Title>
         </Modal.Header>
