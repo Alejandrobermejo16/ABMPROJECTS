@@ -76,7 +76,7 @@ const ListProductsBank = () => {
       window.removeEventListener('click', handleUserActivity);
       window.removeEventListener('keydown', handleUserActivity);
     };
-  }, []);
+  });
 
   if (!userData) {
     return <div>Cargando...</div>;
