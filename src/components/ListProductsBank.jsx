@@ -15,7 +15,6 @@ const ListProductsBank = () => {
   const timeoutRef = useRef(null);
   const modalTimeoutRef = useRef(null);
 
-
   useEffect(() => {
     const fetchUserData = () => {
       fetch('https://backendabmprojects.vercel.app/api/users/productsUserBank', {
@@ -23,9 +22,7 @@ const ListProductsBank = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          dni: userName,
-        })
+        body: JSON.stringify({ dni: userName }),
       })
       .then(response => response.json())
       .then(data => {
@@ -59,8 +56,6 @@ const ListProductsBank = () => {
     // Inicia el timeout para mostrar la modal después de 270 segundos
     timeoutRef.current = setTimeout(() => {
       setShowModalClose(true);
-
-      // Inicia el timeout para cerrar sesión después de 30 segundos
       modalTimeoutRef.current = setTimeout(() => {
         closeSession();
       }, 30000);
@@ -71,8 +66,6 @@ const ListProductsBank = () => {
     window.addEventListener('mousemove', handleUserActivity);
     window.addEventListener('click', handleUserActivity);
     window.addEventListener('keydown', handleUserActivity);
-
-    // Inicia la actividad del usuario
     handleUserActivity();
 
     return () => {
@@ -118,10 +111,14 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`)}>
+          <ListGroup.Item 
+            as="li" 
+            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`, { state: { userData } })}>
             {protectedShow(userData.account1)}
           </ListGroup.Item>
-          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`)}>
+          <ListGroup.Item 
+            as="li" 
+            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`, { state: { userData } })}>
             {protectedShow(userData.account2)}
           </ListGroup.Item>
         </ListGroup>
@@ -132,10 +129,14 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`)}>
+          <ListGroup.Item 
+            as="li" 
+            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`, { state: { userData } })}>
             {protectedShow(userData.card1)} 
           </ListGroup.Item>
-          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`)}>
+          <ListGroup.Item 
+            as="li" 
+            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`, { state: { userData } })}>
             {protectedShow(userData.card2)}
           </ListGroup.Item>
         </ListGroup>
