@@ -4,7 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import protectedShow from '../Constants';
+import {protectedShow} from '../Constants';
 
 const ListProductsBank = () => {
   const navigate = useNavigate();  
