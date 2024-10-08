@@ -12,6 +12,8 @@ import { Provider } from 'react-redux';
 import store from './store/index';
 import InitialDashboard from './screens/InitialDashboard';
 import ListProductsBank from './components/ListProductsBank';
+import AccountDetail from './components/AccountDetail';
+import CardDetail from './components/CardDetail';
 
 function App() {
   return (
@@ -27,7 +29,9 @@ function App() {
             <Route path="/abmBank/login" element={<Bank />} />
             <Route path="/abmBank/register" element={<RegistryBank />} />
             <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
-
+            <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
+            <Route path="/abmBank/ListProducts/accounts/:id" element={<AccountDetail />} />
+            <Route path="/abmBank/ListProducts/cards/:id" element={<CardDetail />} />
 
           </Routes>
         </BrowserRouter>

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../styles/Bank.css";
-import { useNavigate } from 'react-router-dom';  // Asegúrate de importar useNavigate
+import { useNavigate } from 'react-router-dom';  
 import Button from "react-bootstrap/Button";
 import { FaInfoCircle } from 'react-icons/fa'; 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -19,7 +19,7 @@ const RegistryBank = () => {
   const [loading, setLoading] = useState(false);
   
 
-  const navigate = useNavigate();  // Inicializa useNavigate aquí
+  const navigate = useNavigate();  
 
   const cleanData = () => {
     setErrorMessage("");

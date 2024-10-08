@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; 
+import { useLocation, useNavigate } from "react-router-dom"; 
 import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
 
 const ListProductsBank = () => {
+  const navigate = useNavigate();  
   const location = useLocation();
   const { userName } = location.state || {}; // Recupera el DNI
   const [userData, setUserData] = useState(null); // Estado para almacenar productos
@@ -48,10 +49,10 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          <ListGroup.Item as="li">
-            {userData.account1}
+          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`)}>
+          {userData.account1}
           </ListGroup.Item>
-          <ListGroup.Item as="li">
+          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`)}>
             {userData.account2}
           </ListGroup.Item>
         </ListGroup>
@@ -62,11 +63,11 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          <ListGroup.Item as="li">
-            {userData.card1} 
+          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`)}>
+          {userData.card1} 
           </ListGroup.Item>
-          <ListGroup.Item as="li">
-            {userData.card2}
+          <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`)}>
+          {userData.card2}
           </ListGroup.Item>
         </ListGroup>
       </div>
