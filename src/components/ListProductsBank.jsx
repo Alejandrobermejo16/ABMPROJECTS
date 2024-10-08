@@ -54,8 +54,11 @@ const ListProductsBank = () => {
       clearTimeout(modalTimeoutRef.current);
     }
 
+    // Inicia el timeout para mostrar la modal después de 270 segundos
     timeoutRef.current = setTimeout(() => {
       setShowModalClose(true);
+
+      // Inicia el timeout para cerrar sesión después de 30 segundos
       modalTimeoutRef.current = setTimeout(() => {
         closeSession();
       }, 30000);
@@ -67,6 +70,7 @@ const ListProductsBank = () => {
     window.addEventListener('click', handleUserActivity);
     window.addEventListener('keydown', handleUserActivity);
 
+    // Inicia la actividad del usuario
     handleUserActivity();
 
     return () => {
@@ -76,7 +80,7 @@ const ListProductsBank = () => {
       window.removeEventListener('click', handleUserActivity);
       window.removeEventListener('keydown', handleUserActivity);
     };
-  });
+  }, []);
 
   if (!userData) {
     return <div>Cargando...</div>;
@@ -84,7 +88,7 @@ const ListProductsBank = () => {
 
   return (
     <div className="Contenedor-tarjetas-padre">
-      <Modal show={showModalClose} onHide={!showModalClose}>
+      <Modal show={showModalClose} onHide={() => setShowModalClose(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Cerrar Sesión</Modal.Title>
         </Modal.Header>
@@ -92,10 +96,14 @@ const ListProductsBank = () => {
           <p>La sesión expirará pasados 30 segundos si no interactúas.</p>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => {
-            setShowModalClose(false);
-            handleUserActivity();
-          }}>
+          <Button
+            variant="secondary"
+            onClick={() => {
+              setShowModalClose(false);
+              clearTimeout(modalTimeoutRef.current); // Cancela el timeout de cierre de sesión
+              handleUserActivity(); // Reinicia el conteo de actividad del usuario
+            }}
+          >
             Cancelar
           </Button>
         </Modal.Footer>
