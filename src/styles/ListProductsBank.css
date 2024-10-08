@@ -4,6 +4,7 @@
     height: 100vh;
 }
 .Cuentas, .Tarjetas {
+    cursor: pointer;
     display: flex;                
     justify-content: center;      
     align-items: center;          
