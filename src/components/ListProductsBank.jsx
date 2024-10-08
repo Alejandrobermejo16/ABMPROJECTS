@@ -62,7 +62,7 @@ const ListProductsBank = () => {
       modalTimeoutRef.current = setTimeout(() => {
         closeSession(); // Cerrar sesión automáticamente después de 30 segundos
       }, 30000); // 30,000 ms = 30 segundos
-    }, 270000); // 270,000 ms = 4 minutos y 30 segundos
+    }, 90000); //90 seg
   };
 
   // Añadir event listeners para detectar actividad del usuario
