@@ -100,6 +100,29 @@ const GALERIARESERVASHIPICA2 = [
   } 
  
 
+  function  protectedShow(cadena) {
+    // Crea una variable para almacenar el nuevo string
+    let resultado = '';
 
-module.exports = {validacionPass, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
+    // Define la longitud del string
+    const longitud = cadena.length;
+
+    for (let i = 0; i < longitud; i++) {
+        if (i < 4 || i >= longitud - 4) {
+            // Mantiene los primeros 4 y los últimos 4 caracteres
+            resultado += cadena.charAt(i);
+        } else if (!isNaN(cadena.charAt(i))) {
+            // Si es un número, reemplázalo por '*'
+            resultado += '*';
+        } else {
+            // Mantiene los caracteres que no son números
+            resultado += cadena.charAt(i);
+        }
+    }
+
+    return resultado;
+}
+
+
+module.exports = {validacionPass,protectedShow, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
 

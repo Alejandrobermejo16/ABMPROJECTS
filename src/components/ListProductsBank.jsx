@@ -4,6 +4,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import protectedShow from '../Constants';
 
 const ListProductsBank = () => {
   const navigate = useNavigate();  
@@ -13,6 +14,7 @@ const ListProductsBank = () => {
   const [showModalClose, setShowModalClose] = useState(false);
   const timeoutRef = useRef(null);
   const modalTimeoutRef = useRef(null);
+
 
   useEffect(() => {
     const fetchUserData = () => {
@@ -109,7 +111,7 @@ const ListProductsBank = () => {
         </Modal.Footer>
       </Modal>
 
-      <h1 className="usuarioName">Bienvenido {userData.name}</h1>
+      <h1 className="usuarioName">Bienvenido, {userData.name}</h1>
 
       <div className="Cuentas">
         <ListGroup className="Lista" as="ul">
@@ -117,10 +119,10 @@ const ListProductsBank = () => {
             Cuentas
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`)}>
-            {userData.account1}
+            {protectedShow(userData.account1)}
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`)}>
-            {userData.account2}
+            {protectedShow(userData.account2)}
           </ListGroup.Item>
         </ListGroup>
       </div>
@@ -131,10 +133,10 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`)}>
-            {userData.card1} 
+            {protectedShow(userData.card1)} 
           </ListGroup.Item>
           <ListGroup.Item as="li" onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`)}>
-            {userData.card2}
+            {protectedShow(userData.card2)}
           </ListGroup.Item>
         </ListGroup>
       </div>
