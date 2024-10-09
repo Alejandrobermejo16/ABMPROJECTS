@@ -7,6 +7,14 @@ const AccountDetail = () => {
   const location = useLocation();
   const { AccountData } = location.state || {};
 
+
+
+  // useEffect para hacer console.log de cardData al montar el componente
+  useEffect(() => {
+    console.log("Card Data:", AccountData);
+  }, [AccountData]); // Se ejecutará cada vez que cardData cambie
+
+
   return (
     <div className="container-Account">
       <h1>Detalle de la Cuenta</h1>
