@@ -123,6 +123,46 @@ const GALERIARESERVASHIPICA2 = [
     return resultado;
 }
 
+function datosCuenta(numero_Cuenta, nombre) {
+  let nombreTit = nombre;
+  let cuenta = numero_Cuenta;
+  let limite_Credito = 2500 + "€";  
+  let saldo_Actual = (Math.random() * 2500).toFixed(2) + "€";
+  let EstadoCuenta = "Activo";
+  
+  let dataCuenta = {
+    titular: nombreTit,
+    num_cuenta: cuenta,
+    lim_credito: limite_Credito,
+    Saldo_Actual: saldo_Actual,
+    Estado_Cuenta: EstadoCuenta,
+  };
+  
+  return dataCuenta;
+}
 
-module.exports = {validacionPass,protectedShow, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
+
+function datosTarjeta(numero_Tarjeta, nombre) {
+  let nombre_Tit = nombre;
+  let tarjeta = numero_Tarjeta;
+  let limite_Credito = 1500 + "€";  // Agregar el símbolo de euro
+  let saldo_Actual = (Math.random() * 1500).toFixed(2) + "€";  // Agregar el símbolo de euro
+  let CVV = Math.trunc(Math.random() * (999 - 100) + 100);
+  let typeCard = ["Visa", "Mastercard", "American Express"];
+  let randomCard = typeCard[Math.trunc(Math.random() * typeCard.length)];
+  
+  let dataTarjeta = {
+    titular: nombre_Tit,
+    num_tarjeta: tarjeta,
+    lim_credito: limite_Credito,
+    Saldo_Actual: saldo_Actual,
+    CVV: CVV,
+    typeCard: randomCard,
+  };
+  
+  return dataTarjeta;
+}
+
+
+module.exports = {validacionPass,protectedShow,datosCuenta,datosTarjeta, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
 

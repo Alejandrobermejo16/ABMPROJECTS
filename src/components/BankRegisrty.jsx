@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 import { FaInfoCircle } from 'react-icons/fa'; 
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import { Tooltip } from "react-bootstrap";
-import { validacionPass } from "../Constants";
+import { validacionPass, datosCuenta, datosTarjeta } from "../Constants";
 import Spinner from 'react-bootstrap/Spinner';
 import { Arrow90degLeft } from "react-bootstrap-icons";
 import { Link } from "react-router-dom";
@@ -85,15 +85,17 @@ const RegistryBank = () => {
         let productAccount1 = RandomAccountForUser();
         let prductCard2 = RandomCardForUser();
         let productAccount2 = RandomAccountForUser();
-        
+        let dataAccount1 = datosCuenta(prductAccount1,inputNameValue);
+        let dataAccount2 = datosCuenta(prductAccount2,inputNameValue);
+        let dataCard1 = datosTarjeta(prductCard1,inputNameValue);
+        let dataCard2 = datosTarjeta(prductCard2,inputNameValue) 
+
         const data = {
           name: inputNameValue,
           pass: inputPassValue,
           dni: inputDNIValue,
-          card1: prductCard1,
-          card2: prductCard2,
-          account1: productAccount1,
-          account2: productAccount2,
+          Accounts: [dataAccount1,dataAccount2],
+          Cards: [dataCard1,dataCard2]
         };
         cleanData();
         sendData(data);
