@@ -143,7 +143,8 @@ const ListProductsBank = () => {
           <ListGroup.Item 
             as="li" 
             onClick={() => {
-              const AccountData = dataForAccountOrCard('account1', userData); 
+              const AccountData = dataForAccountOrCard('account1', userData);
+              console.log(AccountData);
               navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
             }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
           
