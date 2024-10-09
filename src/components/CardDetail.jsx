@@ -4,7 +4,7 @@ import { useParams, useLocation } from "react-router-dom";
 function CardDetail() {
   const { id } = useParams(); // se obtiene de los parámetros de la url
   const location = useLocation();
-  const { cardData } = location.state || {}; // Accede a cardData si está disponible
+  const { cardData, index } = location.state || {}; // Se accede a cardData y al índice
 
   // useEffect para hacer console.log de cardData al montar el componente
   useEffect(() => {
