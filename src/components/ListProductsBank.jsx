@@ -143,9 +143,12 @@ const ListProductsBank = () => {
           <ListGroup.Item 
             as="li" 
             onClick={() => {
-              const AccountData = dataForAccountOrCard('account1', userData); // Llama a la función para obtener los datos de la tarjeta
-              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
-            }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
+              if (userData?.Accounts?.length > 0) {
+                  const AccountData = dataForAccountOrCard('account1', userData);
+                  navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0]?.num_cuenta}`, { state: { AccountData } });
+              }
+          }}>
+          {protectedShow(userData?.Accounts[0]?.num_cuenta)}
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
