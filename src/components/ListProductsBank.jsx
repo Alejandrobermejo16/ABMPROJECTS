@@ -27,6 +27,7 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         setUserData(data.data);
+        console.log(data.data,"datos recibidos de la llamada");
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
