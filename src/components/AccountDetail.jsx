@@ -5,14 +5,14 @@ import { useParams, useLocation } from "react-router-dom";
 const AccountDetail = () => {
   const { id } = useParams(); 
   const location = useLocation();
-  const { AccountData } = location.state || {};
+  const { userData } = location.state || {};
 
 
 
   // useEffect para hacer console.log de cardData al montar el componente
   useEffect(() => {
-    console.log("Card Data:", AccountData);
-  }, [AccountData]); // Se ejecutará cada vez que cardData cambie
+    console.log("Card Data:", userData);
+  }, [userData]); // Se ejecutará cada vez que cardData cambie
 
 
   return (
