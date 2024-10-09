@@ -150,7 +150,8 @@ function datosTarjeta(numero_Tarjeta, nombre) {
   let CVV = Math.trunc(Math.random() * (999 - 100) + 100);
   let typeCard = ["Visa", "Mastercard", "American Express"];
   let randomCard = typeCard[Math.trunc(Math.random() * typeCard.length)];
-  
+  let fech_caducidad = getRandomMonthAndYear();
+
   let dataTarjeta = {
     titular: nombre_Tit,
     num_tarjeta: tarjeta,
@@ -158,11 +159,23 @@ function datosTarjeta(numero_Tarjeta, nombre) {
     Saldo_Actual: saldo_Actual,
     CVV: CVV,
     typeCard: randomCard,
+    fech_caducidad: fech_caducidad
   };
   
   return dataTarjeta;
 }
 
 
-module.exports = {validacionPass,protectedShow,datosCuenta,datosTarjeta, LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
+function getRandomMonthAndYear() {
+  // Generar un año aleatorio entre 2024 y 2030
+  const year = Math.floor(Math.random() * (31 - 24)) + 24; // 2024 a 2030
+
+  // Generar un mes aleatorio entre 0 y 11 (0 es enero, 11 es diciembre)
+  const month = Math.floor(Math.random() * 12);
+
+  // Retornar el mes y el año en formato "MM/YYYY"
+  return `${String(month + 1).padStart(2, '0')}/${year}`;
+}
+
+module.exports = {validacionPass,protectedShow,datosCuenta,datosTarjeta,getRandomMonthAndYear,  LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS, GALERIARESERVASHIPICA, GALERIARESERVASHIPICA2 };
 
