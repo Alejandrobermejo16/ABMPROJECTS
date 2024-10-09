@@ -5,13 +5,13 @@ import { useParams, useLocation } from "react-router-dom";
 const AccountDetail = () => {
   const { id } = useParams(); 
   const location = useLocation();
-  const { userData } = location.state || {};
+  const { AccountData } = location.state || {};
 
 
 
   useEffect(() => {
-    console.log("Account Data:", userData);
-  }, [userData]); // Se ejecutará cada vez que cardData cambie
+    console.log("Account Data:", AccountData);
+  }, [AccountData]); // Se ejecutará cada vez que cardData cambie
 
   return (
     <div className="container-Account">

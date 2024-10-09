@@ -141,7 +141,7 @@ const ListProductsBank = () => {
             onClick={() => {
               const AccountData = dataForAccountOrCard('account1', userData); 
               setUserData(AccountData);
-              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { userData } });
+              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
             }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
           
           {protectedShow(userData?.Accounts[0]?.num_cuenta)}
