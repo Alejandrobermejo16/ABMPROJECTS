@@ -11,7 +11,6 @@ const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; 
   const [userData, setUserData] = useState(null);
-  const [AccountData, setAccountData] = useState(null);
 
   const [showModalClose, setShowModalClose] = useState(false);
   const timeoutRef = useRef(null);
@@ -46,40 +45,14 @@ const ListProductsBank = () => {
     navigate('/abmBank/login');
   };
 
-
-  const dataForAccountOrCard = (type, objeto) => {
-    let filtrado; 
-
-    if (type === 'account1') {
-        console.log(objeto,"objeto");
-        filtrado = objeto.Accounts.filter(numaccount => numaccount.num_cuenta === objeto.Accounts[0].num_cuenta);
-        console.log("filtrado obtenido");
-      }
-        else if (type === 'account2') {
-          filtrado = objeto.Accounts.filter(numaccount => numaccount.num_cuenta === objeto.Accounts[1].num_cuenta);
-    } else if (type === 'card1') {
-        filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards[0].num_tarjeta);
-    } 
-    else if (type === 'card2') {
-      filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards1[0].num_tarjeta);
-  }
-  else {
-        return []; 
-    }
-
-    return filtrado; 
-};
-
   const handleUserActivity = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-
     if (modalTimeoutRef.current) {
       clearTimeout(modalTimeoutRef.current);
     }
 
-    // Inicia el timeout para mostrar la modal después de 270 segundos
     timeoutRef.current = setTimeout(() => {
       setShowModalClose(true);
       modalTimeoutRef.current = setTimeout(() => {
@@ -121,8 +94,8 @@ const ListProductsBank = () => {
             variant="secondary"
             onClick={() => {
               setShowModalClose(false);
-              clearTimeout(modalTimeoutRef.current); // Cancela el timeout de cierre de sesión
-              handleUserActivity(); // Reinicia el conteo de actividad del usuario
+              clearTimeout(modalTimeoutRef.current); 
+              handleUserActivity(); 
             }}
           >
             Cancelar
@@ -137,24 +110,16 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Cuentas
           </ListGroup.Item>
-          <ListGroup.Item 
-            as="li" 
-            onClick={() => {
-              const AccountData = dataForAccountOrCard('account1', userData);
-              console.log(AccountData);
-              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
-            }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
-          
-          {protectedShow(userData?.Accounts[0]?.num_cuenta)}
-          </ListGroup.Item>
-          <ListGroup.Item 
-            as="li" 
-            onClick={() => {
-              const AccountData = dataForAccountOrCard('account2', userData); // Llama a la función para obtener los datos de la tarjeta
-              setUserData(AccountData);
-              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { userData } });
-            }}>            {protectedShow(userData.Accounts[1].num_cuenta)}
-          </ListGroup.Item>
+          {userData.Accounts.map((account, index) => (
+            <ListGroup.Item 
+              key={index} 
+              as="li" 
+              onClick={() => {
+                navigate(`/abmBank/ListProducts/accounts/${account.num_cuenta}`, { state: { AccountData: userData.Accounts, index } });
+              }}>
+              {protectedShow(account.num_cuenta)}
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </div>
 
@@ -163,21 +128,16 @@ const ListProductsBank = () => {
           <ListGroup.Item as="li" active>
             Tarjetas
           </ListGroup.Item>
-          <ListGroup.Item 
-            as="li" 
-            onClick={() => {
-              const cardData = dataForAccountOrCard('card1', userData); // Llama a la función para obtener los datos de la tarjeta
-              navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { cardData } });
-            }}>
-            {userData.Cards[0].num_tarjeta} 
-          </ListGroup.Item>
-          <ListGroup.Item 
-            as="li" 
-            onClick={() => {
-              const cardData = dataForAccountOrCard('card2', userData); // Llama a la función para obtener los datos de la tarjeta
-              navigate(`/abmBank/ListProducts/cards/${userData.Cards[1].num_tarjeta}`, { state: { cardData } });
-            }}>            {userData.Cards[1].num_tarjeta}
-          </ListGroup.Item>
+          {userData.Cards.map((card, index) => (
+            <ListGroup.Item 
+              key={index} 
+              as="li" 
+              onClick={() => {
+                navigate(`/abmBank/ListProducts/cards/${card.num_tarjeta}`, { state: { cardData: userData.Cards, index } });
+              }}>
+              {card.num_tarjeta}
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </div>
     </div>
@@ -185,3 +145,4 @@ const ListProductsBank = () => {
 }
 
 export default ListProductsBank;
+
