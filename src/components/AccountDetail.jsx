@@ -7,8 +7,6 @@ const AccountDetail = () => {
   const { AccountData, index } = location.state || {}; 
 
   useEffect(() => {
-    console.log("Account Data:", AccountData, index);
-    console.log("Selected index:", index);
   }, [AccountData, index]);
 
   const account = AccountData ? AccountData[index] : null;

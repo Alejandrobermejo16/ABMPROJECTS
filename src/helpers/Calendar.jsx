@@ -172,7 +172,6 @@ class CalendarioPrincipal extends Component {
       }
     
       if (response.status === 200 || response.status === 201) {
-        console.log("Datos de calorías guardados correctamente");
         
         // Actualizar el estado con los datos más recientes del servidor
         const updatedResponse = await axios.get(`${apiUrl}/api/users/cal`, {

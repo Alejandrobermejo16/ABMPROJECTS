@@ -48,12 +48,6 @@ const RegistryBank = () => {
         }
         return response.json(); // Convertir la respuesta a JSON si no hay error
     })
-    .then(data => {
-        console.log('Success:', data); // Manejar los datos devueltos por el servidor
-    })
-    .catch(error => {
-        console.error('Error:', error); // Manejar cualquier otro error
-    });
   }
   
 

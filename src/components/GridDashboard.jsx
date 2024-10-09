@@ -14,7 +14,6 @@ class GridDashboard extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.dataRandom !== prevProps.dataRandom) {
-            //console.log('Nuevo valor de dataRandom:', this.props.dataRandom);
         }
     }
 
@@ -61,7 +60,6 @@ class GridDashboard extends Component {
     //cambia el estado de visibilidad del checkbox cada vez que se le llama
     statusCheckbox = (idTarea) => {
         const { disabledCheckbox } = this.state;
-        console.log("El id de la tarea seleccionada es ", idTarea);
         this.setState({ disabledCheckbox: !disabledCheckbox, selectedTaskId: idTarea });
     }
 

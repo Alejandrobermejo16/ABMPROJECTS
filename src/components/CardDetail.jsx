@@ -6,9 +6,7 @@ function CardDetail() {
   const location = useLocation();
   const { cardData, index } = location.state || {}; // Se accede a cardData y al índice
 
-  // useEffect para hacer console.log de cardData al montar el componente
   useEffect(() => {
-    console.log("Card Data:", cardData, index);
   }, [cardData]); // Se ejecutará cada vez que cardData cambie
 
 
