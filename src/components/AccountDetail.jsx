@@ -11,7 +11,7 @@ const AccountDetail = () => {
 
   useEffect(() => {
     console.log("Account Data:", AccountData);
-  }, [AccountData]); // Se ejecutará cada vez que cardData cambie
+  }, [AccountData]); 
 
   return (
     <div className="container-Account">

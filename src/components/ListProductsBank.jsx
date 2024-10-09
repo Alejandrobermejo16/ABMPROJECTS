@@ -11,6 +11,8 @@ const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; 
   const [userData, setUserData] = useState(null);
+  const [AccountData, setAccountData] = useState(null);
+
   const [showModalClose, setShowModalClose] = useState(false);
   const timeoutRef = useRef(null);
   const modalTimeoutRef = useRef(null);
@@ -51,16 +53,18 @@ const ListProductsBank = () => {
     if (type === 'account1') {
         
         filtrado = objeto.Cards.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[0].num_cuenta);
+        setAccountData(filtrado);
     }
         else if (type === 'account2') {
-         
           filtrado = objeto.Accounts.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[1].num_cuenta);
+          setAccountData(filtrado);
     } else if (type === 'card1') {
-        
         filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards[0].num_tarjeta);
+        setAccountData(filtrado);
     } 
     else if (type === 'card2') {
       filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards1[0].num_tarjeta);
+      setAccountData(filtrado);
   }
   else {
         return []; 
@@ -140,7 +144,6 @@ const ListProductsBank = () => {
             as="li" 
             onClick={() => {
               const AccountData = dataForAccountOrCard('account1', userData); 
-              setUserData(AccountData);
               navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
             }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
           
