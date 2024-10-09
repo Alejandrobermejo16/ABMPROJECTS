@@ -67,12 +67,12 @@ const RegistryBank = () => {
   };
 
   const RandomAccountForUser = () => {
-    let card = ["ES22"];
+    let account = ["ES22"];
     for (let x = 0; x < 18; x++) { 
       const numero = Math.floor(Math.random() * 10);
-      card.push(numero);
+      account.push(numero);
     }
-    return card.join('');
+    return account.join('');
   };
 
   const showTextFunction = () => {
