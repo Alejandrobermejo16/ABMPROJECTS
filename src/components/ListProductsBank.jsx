@@ -132,12 +132,12 @@ const ListProductsBank = () => {
           <ListGroup.Item 
             as="li" 
             onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`, { state: { userData } })}>
-            {protectedShow(userData.card1)} 
+            {userData.card1} 
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
             onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`, { state: { userData } })}>
-            {protectedShow(userData.card2)}
+            {userData.card2}
           </ListGroup.Item>
         </ListGroup>
       </div>
