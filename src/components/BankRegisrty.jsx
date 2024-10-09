@@ -17,8 +17,7 @@ const RegistryBank = () => {
   const [inputDNIValue, setInputDNIValue] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  
-  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 
   const navigate = useNavigate();  
 
@@ -31,8 +30,8 @@ const RegistryBank = () => {
 
   const sendData = (data) => {
     setLoading(true);
-    
-    fetch(`${backendUrl}/users/createUserBank`, {
+
+    fetch('https://backendabmprojects.vercel.app/api/users/createUserBank', {
       method: 'POST', // Método de la solicitud
       headers: {
           'Content-Type': 'application/json', // Indicar que el contenido es JSON
@@ -49,8 +48,14 @@ const RegistryBank = () => {
         }
         return response.json(); // Convertir la respuesta a JSON si no hay error
     })
+    .then(data => {
+        console.log('Success:', data); // Manejar los datos devueltos por el servidor
+    })
+    .catch(error => {
+        console.error('Error:', error); // Manejar cualquier otro error
+    });
   }
-  
+
 
   const RandomCardForUser = () => {
     let card = [];
@@ -98,7 +103,7 @@ const RegistryBank = () => {
           setLoading(false);
           navigate('/abmBank/login');
         }, 4000)
-      
+
       } else {
         setErrorMessage(validationResponse);
       }
@@ -167,9 +172,9 @@ const RegistryBank = () => {
           {loading ? (
             <Spinner animation="border" variant="primary"  />
           ): ''}
-    
+
         </div>
-        
+
       )}
     </div>
     </div>
