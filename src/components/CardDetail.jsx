@@ -14,10 +14,10 @@ function CardDetail() {
       <h1>Detalle de Tarjeta</h1>
       <p>Número de Tarjeta: {id}</p>
       <p>Nombre del titular: {cardData ? cardData.name : 'Cargando...'}</p>
-      <p>Fecha de Vencimiento: {cardData ? cardData.Cards[0].fech_caducidad : 'Cargando...'}</p>
-      <p>CVV: {cardData ? cardData.Cards[0].CVV : 'Cargando...'}</p>
-      <p>Tipo de Tarjeta: {cardData ? cardData.Cards[0].typeCard : 'Cargando...'}</p>
-      <p>Límite de Crédito: {cardData ? cardData.Cards[0].lim_credito : 'Cargando...'}</p>
+      <p>Fecha de Vencimiento: {cardData ? cardData.fech_caducidad : 'Cargando...'}</p>
+      <p>CVV: {cardData ? cardData.CVV : 'Cargando...'}</p>
+      <p>Tipo de Tarjeta: {cardData ? cardData.typeCard : 'Cargando...'}</p>
+      <p>Límite de Crédito: {cardData ? cardData.lim_credito : 'Cargando...'}</p>
     </div>
   );
 }
