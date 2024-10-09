@@ -85,8 +85,8 @@ const RegistryBank = () => {
         let productAccount1 = RandomAccountForUser();
         let prductCard2 = RandomCardForUser();
         let productAccount2 = RandomAccountForUser();
-        let dataAccount1 = datosCuenta(prductAccount1,inputNameValue);
-        let dataAccount2 = datosCuenta(prductAccount2,inputNameValue);
+        let dataAccount1 = datosCuenta(productAccount1,inputNameValue);
+        let dataAccount2 = datosCuenta(productAccount2,inputNameValue);
         let dataCard1 = datosTarjeta(prductCard1,inputNameValue);
         let dataCard2 = datosTarjeta(prductCard2,inputNameValue) 
 
