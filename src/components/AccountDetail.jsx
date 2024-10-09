@@ -17,10 +17,10 @@ const AccountDetail = () => {
     <div className="container-Account">
       <h1>Detalle de la Cuenta</h1>
       <p>Número de cuenta: {id}</p>
-       <p>Nombre del Titular: {AccountData ? AccountData.titular : 'Cargando...'}</p>
-      <p>Límite de Crédito: {AccountData ? AccountData.lim_credito : 'Cargando...'}</p>
-      <p>Saldo Actual: {AccountData ? AccountData.Saldo_Actual : 'Cargando...'}</p>
-      <p>Estado de la Cuenta: {AccountData ? AccountData.Estado_Cuenta : 'Cargando...'}</p>
+       <p>Nombre del Titular: {AccountData ? AccountData[0].titular : 'Cargando...'}</p>
+      <p>Límite de Crédito: {AccountData ? AccountData[0].lim_credito : 'Cargando...'}</p>
+      <p>Saldo Actual: {AccountData ? AccountData[0].Saldo_Actual : 'Cargando...'}</p>
+      <p>Estado de la Cuenta: {AccountData ? AccountData[0].Estado_Cuenta : 'Cargando...'}</p>
     </div>
   );
 };
