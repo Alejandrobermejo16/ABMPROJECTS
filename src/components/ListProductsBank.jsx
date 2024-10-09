@@ -44,11 +44,40 @@ const ListProductsBank = () => {
     navigate('/abmBank/login');
   };
 
+
+  const dataForAccountOrCard = (type, objeto) => {
+    let filtrado; 
+
+    if (type === 'account1') {
+        
+        filtrado = objeto.Cards.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[0].num_cuenta);
+        setUserData(filtrado);
+    }
+        else if (type === 'account2') {
+         
+          filtrado = objeto.Accounts.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[1].num_cuenta);
+          setUserData(filtrado);
+    } else if (type === 'card1') {
+        
+        filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards[0].num_tarjeta);
+        setUserData(filtrado);
+    } 
+    else if (type === 'card2') {
+      filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards1[0].num_tarjeta);
+      setUserData(filtrado);
+  }
+  else {
+        return []; 
+    }
+
+    return filtrado; 
+};
+
   const handleUserActivity = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
-    
+
     if (modalTimeoutRef.current) {
       clearTimeout(modalTimeoutRef.current);
     }
@@ -113,13 +142,17 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { userData } })}>
-            {protectedShow(userData.Accounts[0].num_cuenta)}
+            onClick={() => {
+              const AccountData = dataForAccountOrCard('account1', userData); // Llama a la función para obtener los datos de la tarjeta
+              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { AccountData } });
+            }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { userData } })}>
-            {protectedShow(userData.Accounts[1].num_cuenta)}
+            onClick={() => {
+              const AccountData = dataForAccountOrCard('account2', userData); // Llama a la función para obtener los datos de la tarjeta
+              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { AccountData } });
+            }}>            {protectedShow(userData.Accounts[1].num_cuenta)}
           </ListGroup.Item>
         </ListGroup>
       </div>
@@ -131,13 +164,18 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { userData } })}>
+            onClick={() => {
+              const cardData = dataForAccountOrCard('card1', userData); // Llama a la función para obtener los datos de la tarjeta
+              navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { cardData } });
+            }}>
             {userData.Cards[0].num_tarjeta} 
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { userData } })}>
-            {userData.Cards[1].num_tarjeta}
+            onClick={() => {
+              const cardData = dataForAccountOrCard('card2', userData); // Llama a la función para obtener los datos de la tarjeta
+              navigate(`/abmBank/ListProducts/cards/${userData.Cards[1].num_tarjeta}`, { state: { cardData } });
+            }}>            {userData.Cards[1].num_tarjeta}
           </ListGroup.Item>
         </ListGroup>
       </div>
