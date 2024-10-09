@@ -27,7 +27,6 @@ const ListProductsBank = () => {
       .then(response => response.json())
       .then(data => {
         setUserData(data.data);
-        console.log(data.data,"datos recibidos de la llamada");
       })
       .catch(error => {
         console.error("Hubo un problema con la solicitud fetch:", error);
@@ -114,12 +113,12 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account1}`, { state: { userData } })}>
+            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { userData } })}>
             {protectedShow(userData.account1)}
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.account2}`, { state: { userData } })}>
+            onClick={() => navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { userData } })}>
             {protectedShow(userData.account2)}
           </ListGroup.Item>
         </ListGroup>
@@ -132,12 +131,12 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card1}`, { state: { userData } })}>
+            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { userData } })}>
             {userData.card1} 
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
-            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.card2}`, { state: { userData } })}>
+            onClick={() => navigate(`/abmBank/ListProducts/cards/${userData.Cards[0].num_tarjeta}`, { state: { userData } })}>
             {userData.card2}
           </ListGroup.Item>
         </ListGroup>
