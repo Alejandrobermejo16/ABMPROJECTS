@@ -51,7 +51,7 @@ const ListProductsBank = () => {
     let filtrado; 
 
     if (type === 'account1') {
-        
+        console.log(objeto);
         filtrado = objeto.Cards.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[0].num_cuenta);
         setAccountData(filtrado);
     }
