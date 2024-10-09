@@ -13,13 +13,13 @@ function CardDetail() {
 
   return (
     <div className="container-Card">
-      <h1>Detalle de Tarjeta</h1>
+      {/* <h1>Detalle de Tarjeta</h1>
       <p>Número de Tarjeta: {id}</p>
       <p>Nombre del titular: {cardData ? cardData.name : 'Cargando...'}</p>
       <p>Fecha de Vencimiento: {cardData ? cardData.fech_caducidad : 'Cargando...'}</p>
       <p>CVV: {cardData ? cardData.CVV : 'Cargando...'}</p>
       <p>Tipo de Tarjeta: {cardData ? cardData.typeCard : 'Cargando...'}</p>
-      <p>Límite de Crédito: {cardData ? cardData.lim_credito : 'Cargando...'}</p>
+      <p>Límite de Crédito: {cardData ? cardData.lim_credito : 'Cargando...'}</p> */}
     </div>
   );
 }
