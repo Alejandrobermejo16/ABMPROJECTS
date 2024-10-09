@@ -1,13 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 
 function CardDetail() {
-  const { id } = useParams(); //se obtiene de los parametros de la url
+  const { id } = useParams(); // se obtiene de los parámetros de la url
   const location = useLocation();
   const { cardData } = location.state || {}; // Accede a cardData si está disponible
 
-
-  
+  // useEffect para hacer console.log de cardData al montar el componente
+  useEffect(() => {
+    console.log("Card Data:", cardData);
+  }, [cardData]); // Se ejecutará cada vez que cardData cambie
 
   return (
     <div className="container-Card">
@@ -23,3 +25,4 @@ function CardDetail() {
 }
 
 export default CardDetail;
+
