@@ -31,10 +31,9 @@ const RegistryBank = () => {
 
   const sendData = (data) => {
     setLoading(true);
-    console.log('Backend URL:', backendUrl);
-
     
-    fetch(`${backendUrl}/users/createUserBank`, {
+    
+    fetch(`${backendUrl}`, {
       method: 'POST', // Método de la solicitud
       headers: {
           'Content-Type': 'application/json', // Indicar que el contenido es JSON
