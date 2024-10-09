@@ -51,20 +51,16 @@ const ListProductsBank = () => {
     if (type === 'account1') {
         
         filtrado = objeto.Cards.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[0].num_cuenta);
-        setUserData(filtrado);
     }
         else if (type === 'account2') {
          
           filtrado = objeto.Accounts.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[1].num_cuenta);
-          setUserData(filtrado);
     } else if (type === 'card1') {
         
         filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards[0].num_tarjeta);
-        setUserData(filtrado);
     } 
     else if (type === 'card2') {
       filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards1[0].num_tarjeta);
-      setUserData(filtrado);
   }
   else {
         return []; 
@@ -143,18 +139,19 @@ const ListProductsBank = () => {
           <ListGroup.Item 
             as="li" 
             onClick={() => {
-              if (userData?.Accounts?.length > 0) {
-                  const AccountData = dataForAccountOrCard('account1', userData);
-                  navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0]?.num_cuenta}`, { state: { AccountData } });
-              }
-          }}>
+              const AccountData = dataForAccountOrCard('account1', userData); 
+              setUserData(AccountData);
+              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[0].num_cuenta}`, { state: { userData } });
+            }}>            {protectedShow(userData.Accounts[0].num_cuenta)}
+          
           {protectedShow(userData?.Accounts[0]?.num_cuenta)}
           </ListGroup.Item>
           <ListGroup.Item 
             as="li" 
             onClick={() => {
               const AccountData = dataForAccountOrCard('account2', userData); // Llama a la función para obtener los datos de la tarjeta
-              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { AccountData } });
+              setUserData(AccountData);
+              navigate(`/abmBank/ListProducts/accounts/${userData.Accounts[1].num_cuenta}`, { state: { userData } });
             }}>            {protectedShow(userData.Accounts[1].num_cuenta)}
           </ListGroup.Item>
         </ListGroup>
