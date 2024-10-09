@@ -8,7 +8,7 @@ function CardDetail() {
 
   // useEffect para hacer console.log de cardData al montar el componente
   useEffect(() => {
-    console.log("Card Data:", cardData);
+    console.log("Card Data:", cardData, index);
   }, [cardData]); // Se ejecutará cada vez que cardData cambie
 
 
