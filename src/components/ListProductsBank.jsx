@@ -51,20 +51,17 @@ const ListProductsBank = () => {
     let filtrado; 
 
     if (type === 'account1') {
-        console.log(objeto);
-        filtrado = objeto.Cards.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[0].num_cuenta);
-        setAccountData(filtrado);
-    }
+        console.log(objeto,"objeto");
+        filtrado = objeto.Accounts.filter(numaccount => numaccount.num_cuenta === objeto.Accounts[0].num_cuenta);
+        console.log("filtrado obtenido");
+      }
         else if (type === 'account2') {
-          filtrado = objeto.Accounts.filter(numaccount => numaccount.num_tarjeta === objeto.Accounts[1].num_cuenta);
-          setAccountData(filtrado);
+          filtrado = objeto.Accounts.filter(numaccount => numaccount.num_cuenta === objeto.Accounts[1].num_cuenta);
     } else if (type === 'card1') {
         filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards[0].num_tarjeta);
-        setAccountData(filtrado);
     } 
     else if (type === 'card2') {
       filtrado = objeto.Accounts.filter(numcard => numcard.num_tarjeta === objeto.Cards1[0].num_tarjeta);
-      setAccountData(filtrado);
   }
   else {
         return []; 
