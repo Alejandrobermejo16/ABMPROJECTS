@@ -18,6 +18,7 @@ const RegistryBank = () => {
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
   
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const navigate = useNavigate();  
 
@@ -31,7 +32,7 @@ const RegistryBank = () => {
   const sendData = (data) => {
     setLoading(true);
     
-    fetch('https://backendabmprojects.vercel.app/api/users/createUserBank', {
+    fetch(`${backendUrl}/users/createUserBank`, {
       method: 'POST', // Método de la solicitud
       headers: {
           'Content-Type': 'application/json', // Indicar que el contenido es JSON
