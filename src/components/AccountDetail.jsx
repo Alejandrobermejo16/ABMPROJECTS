@@ -9,11 +9,9 @@ const AccountDetail = () => {
 
 
 
-  // useEffect para hacer console.log de cardData al montar el componente
   useEffect(() => {
-    console.log("Card Data:", userData);
+    console.log("Account Data:", userData);
   }, [userData]); // Se ejecutará cada vez que cardData cambie
-
 
   return (
     <div className="container-Account">
