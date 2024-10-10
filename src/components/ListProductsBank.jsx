@@ -1,10 +1,10 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom"; 
 import ListGroup from "react-bootstrap/ListGroup";
 import "../styles/ListProductsBank.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import {protectedShow} from '../Constants';
+import { protectedShow } from '../Constants';
 
 const ListProductsBank = () => {
   const navigate = useNavigate();  
@@ -38,13 +38,13 @@ const ListProductsBank = () => {
     }
   }, [userName]);
 
-  const closeSession = () => {
+  const closeSession = useCallback(() => {
     setShowModalClose(false);
     setUserData(null);
     navigate('/abmBank/login');
-  };
+  }, [navigate]); // Asegúrate de que navigate esté en las dependencias
 
-  const handleUserActivity = () => {
+  const handleUserActivity = useCallback(() => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
     }
@@ -58,7 +58,7 @@ const ListProductsBank = () => {
         closeSession();
       }, 30000);
     }, 270000);
-  };
+  }, [closeSession]); // Añadir closeSession a las dependencias
 
   useEffect(() => {
     window.addEventListener('mousemove', handleUserActivity);
@@ -73,7 +73,7 @@ const ListProductsBank = () => {
       window.removeEventListener('click', handleUserActivity);
       window.removeEventListener('keydown', handleUserActivity);
     };
-  }, []);
+  }, [handleUserActivity]); // handleUserActivity ya está en las dependencias
 
   if (!userData) {
     return <div>Cargando...</div>;
@@ -111,16 +111,16 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           {userData.Accounts.map((account, index) => (
             <ListGroup.Item 
-            key={index} 
-            as="li" 
-            onClick={() => {
-              navigate(`/abmBank/ListProducts/accounts/${account.num_cuenta}`, { state: { AccountData: userData.Accounts, index, userName: userName } });
-            }}>
-            <div className="account-details">
-              <span className="account-number">{protectedShow(account.num_cuenta)}</span>
-              <span className="account-balance">{account.Saldo_Actual}</span>
-            </div>
-          </ListGroup.Item>
+              key={index} 
+              as="li" 
+              onClick={() => {
+                navigate(`/abmBank/ListProducts/accounts/${account.num_cuenta}`, { state: { AccountData: userData.Accounts, index, userName: userName } });
+              }}>
+              <div className="account-details">
+                <span className="account-number">{protectedShow(account.num_cuenta)}</span>
+                <span className="account-balance">{account.Saldo_Actual}</span>
+              </div>
+            </ListGroup.Item>
           ))}
         </ListGroup>
       </div>
@@ -131,17 +131,17 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           {userData.Cards.map((card, index) => (
-             <ListGroup.Item 
-             key={index} 
-             as="li" 
-             onClick={() => {
-               navigate(`/abmBank/ListProducts/cards/${card.num_tarjeta}`, { state: { cardData: userData.Cards, index, userName: userName } });
-             }}>
-             <div className="account-details"> {/* Manteniendo la clase para detalles de cuenta */}
-               <span className="account-number">{card.num_tarjeta}</span> {/* Clase para el número de tarjeta */}
-               <span className="account-balance">{card.Saldo_Actual}</span> {/* Clase para el saldo */}
-             </div>
-           </ListGroup.Item>
+            <ListGroup.Item 
+              key={index} 
+              as="li" 
+              onClick={() => {
+                navigate(`/abmBank/ListProducts/cards/${card.num_tarjeta}`, { state: { cardData: userData.Cards, index, userName: userName } });
+              }}>
+              <div className="account-details">
+                <span className="account-number">{card.num_tarjeta}</span>
+                <span className="account-balance">{card.Saldo_Actual}</span>
+              </div>
+            </ListGroup.Item>
           ))}
         </ListGroup>
       </div>

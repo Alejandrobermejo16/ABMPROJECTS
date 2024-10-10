@@ -3,18 +3,25 @@ import "../styles/Bank.css";
 import RegistryBank from './BankRegisrty';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'react-bootstrap';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 const BankForm = () => {
   const [showRegistry, setShowRegistry] = useState(false);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [dniInput, setdniInput] = useState("");
-  const [passInput, setpassInput] = useState("");
+  const [passInput, setPassInput] = useState("");
+ 
+  const [showPassword, setShowPassword] = useState(false);
 
 
   const navigate = useNavigate();  
 
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const accessRegistry = () => {
     setShowRegistry(true);
@@ -25,7 +32,7 @@ const BankForm = () => {
  const reviewUserData = () => {
 
   setdniInput(dniInput);
-  setpassInput(passInput);
+  setPassInput(passInput);
   setLoading(true);
   fetch('https://backendabmprojects.vercel.app/api/users/getUserByDniAndPassword', {
     method: 'POST', // Método de la solicitud
@@ -64,7 +71,16 @@ const BankForm = () => {
               <label>Username:</label>
               <input type="text" placeholder="DNI/NIE"  onChange={(e) => setdniInput(e.target.value)} />
               <label>Password:</label>
-              <input type="password" placeholder="Password"  onChange={(e) => setpassInput(e.target.value)} />
+              <div className="input-container">
+      <input
+        type={showPassword ? "text" : "password"}
+        placeholder="Password"
+        onChange={(e) => setPassInput(e.target.value)}
+      />
+      <button type="button" onClick={togglePasswordVisibility} className="eye-button">
+        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+      </button>
+    </div>
               <button onClick={reviewUserData} className="boton-entrar">ENTRAR</button>
               <p className='errorparraf'>{error}</p>
               {loading ? (

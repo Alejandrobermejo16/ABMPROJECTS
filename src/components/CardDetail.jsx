@@ -8,14 +8,22 @@ function CardDetail() {
   const location = useLocation();
   const { cardData, index, userName } = location.state || {}; // Se accede a cardData y al índice
   const [theme, setTheme] = useState("cvv-value");
-  
+  const [show, setShow] = useState("VER");
+
 
   useEffect(() => {}, [cardData]); // Se ejecutará cada vez que cardData cambie
 
   const card = cardData ? cardData[index] : null;
 
- const themeValue = (theme) => {
-  setTheme("cvv-value-show");
+ const themeValue = (show) => {
+  if(show === 'VER'){
+    setShow("OCULTAR");
+    setTheme("cvv-value-show");
+  } else {
+    setShow("VER");
+    setTheme("cvv-value");
+  }
+  
  }
 
   return (
@@ -41,7 +49,7 @@ function CardDetail() {
           <div className="card-item">
             <strong>CVV:</strong>
             <span className={theme}>{card ? card.CVV : "Cargando..."}</span>
-            <button className="boton-cvv" onClick={themeValue}>VER</button>
+            <button className="boton-cvv" onClick={() => themeValue(show)}>{show}</button>
           </div>
           <div className="card-item">
             <strong>Tipo de Tarjeta:</strong>{" "}

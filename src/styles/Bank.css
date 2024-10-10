@@ -297,6 +297,36 @@ input {
   }
 
 
+  .input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: fit-content;
+  }
+  
+  input {
+    padding-right: 40px; /* Espacio para el icono */
+    height: 40px;
+    font-size: 16px;
+  }
+  
+  .eye-button {
+    position: absolute;
+    right: 10px; /* Ajusta la posición del icono dentro del input */
+    background: none;
+    border: none;
+    cursor: pointer;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: 3%;
+  }
+  
+  .eye-button:focus {
+    outline: none;
+  }
+
+
 @media (max-width: 1200px) {
 
     .errorparraf{
