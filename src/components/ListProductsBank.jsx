@@ -11,7 +11,6 @@ const ListProductsBank = () => {
   const location = useLocation();
   const { userName } = location.state || {}; 
   const [userData, setUserData] = useState(null);
-
   const [showModalClose, setShowModalClose] = useState(false);
   const timeoutRef = useRef(null);
   const modalTimeoutRef = useRef(null);
@@ -112,13 +111,16 @@ const ListProductsBank = () => {
           </ListGroup.Item>
           {userData.Accounts.map((account, index) => (
             <ListGroup.Item 
-              key={index} 
-              as="li" 
-              onClick={() => {
-                navigate(`/abmBank/ListProducts/accounts/${account.num_cuenta}`, { state: { AccountData: userData.Accounts, index } });
-              }}>
-              {protectedShow(account.num_cuenta)}
-            </ListGroup.Item>
+            key={index} 
+            as="li" 
+            onClick={() => {
+              navigate(`/abmBank/ListProducts/accounts/${account.num_cuenta}`, { state: { AccountData: userData.Accounts, index, userName: userName } });
+            }}>
+            <div className="account-details">
+              <span className="account-number">{protectedShow(account.num_cuenta)}</span>
+              <span className="account-balance">{account.Saldo_Actual}</span>
+            </div>
+          </ListGroup.Item>
           ))}
         </ListGroup>
       </div>
@@ -129,14 +131,17 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           {userData.Cards.map((card, index) => (
-            <ListGroup.Item 
-              key={index} 
-              as="li" 
-              onClick={() => {
-                navigate(`/abmBank/ListProducts/cards/${card.num_tarjeta}`, { state: { cardData: userData.Cards, index } });
-              }}>
-              {card.num_tarjeta}
-            </ListGroup.Item>
+             <ListGroup.Item 
+             key={index} 
+             as="li" 
+             onClick={() => {
+               navigate(`/abmBank/ListProducts/cards/${card.num_tarjeta}`, { state: { cardData: userData.Cards, index, userName: userName } });
+             }}>
+             <div className="account-details"> {/* Manteniendo la clase para detalles de cuenta */}
+               <span className="account-number">{card.num_tarjeta}</span> {/* Clase para el número de tarjeta */}
+               <span className="account-balance">{card.Saldo_Actual}</span> {/* Clase para el saldo */}
+             </div>
+           </ListGroup.Item>
           ))}
         </ListGroup>
       </div>
