@@ -5,6 +5,9 @@ import "../styles/ListProductsBank.css";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { protectedShow } from '../Constants';
+import { Arrow90degLeft } from "react-bootstrap-icons";
+import { Link } from "react-router-dom";
+
 
 const ListProductsBank = () => {
   const navigate = useNavigate();  
@@ -101,7 +104,9 @@ const ListProductsBank = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
+      <Link to="/abmBank/login" className="Salir"> 
+        <Arrow90degLeft />
+          </Link>
       <h1 className="usuarioName">Bienvenido, {userData.name}</h1>
 
       <div className="Cuentas">
