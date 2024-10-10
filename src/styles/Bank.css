@@ -260,6 +260,42 @@ input {
     color: #003DA5; /* Color del texto fuerte */
 }
 
+.cvv-value {
+    filter: blur(4px); /* Ajusta el valor de blur según tus necesidades */
+    transition: filter 0.3s; /* Suaviza el cambio del desenfoque */
+    margin-left: 10px;
+  }
+
+  .cvv-value-show{
+    margin-left: 10px;
+    filter: blur(0px);
+
+  }
+
+  .boton-cvv {
+    margin-left: auto; /* Alinear automáticamente a la derecha */
+    cursor: pointer;
+    display: block; /* Asegura que el margen izquierdo funcione correctamente */
+    background-color: #007bff; /* Color de fondo azul */
+    color: #fff; /* Color de texto blanco */
+    border: none; /* Sin borde */
+    border-radius: 5px; /* Bordes redondeados */
+    padding: 10px 20px; /* Espaciado interno (arriba-abajo, izquierda-derecha) */
+    font-size: 16px; /* Tamaño de fuente */
+    cursor: pointer; /* Cambiar el cursor al pasar sobre el botón */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves */
+  }
+  
+  .boton-cvv:hover {
+    background-color: #0056b3; /* Color de fondo más oscuro al pasar el mouse */
+    transform: scale(1.05); /* Aumentar ligeramente el tamaño */
+  }
+  
+  .boton-cvv:focus {
+    outline: none; /* Eliminar el contorno al enfocar */
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.5); /* Sombra de enfoque */
+  }
+
 
 @media (max-width: 1200px) {
 
