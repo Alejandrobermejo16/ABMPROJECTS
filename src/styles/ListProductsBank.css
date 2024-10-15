@@ -36,3 +36,17 @@
     background-color: #003399;
 
 }
+
+@media only screen and (max-width: 1200px) {
+
+   .account-number, .account-balance{
+    font-size: 15px;
+   }
+   .Lista{
+    padding-top: 15%;
+    width: 95%;
+}
+
+   
+}
+  

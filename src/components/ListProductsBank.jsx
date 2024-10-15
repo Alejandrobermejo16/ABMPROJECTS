@@ -136,7 +136,8 @@ const ListProductsBank = () => {
             Tarjetas
           </ListGroup.Item>
           {userData.Cards.map((card, index) => (
-            <ListGroup.Item 
+            <ListGroup.Item
+            className="prueba"
               key={index} 
               as="li" 
               onClick={() => {
