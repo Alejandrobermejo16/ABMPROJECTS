@@ -14,6 +14,7 @@ import InitialDashboard from './screens/InitialDashboard';
 import ListProductsBank from './components/ListProductsBank';
 import AccountDetail from './components/AccountDetail';
 import CardDetail from './components/CardDetail';
+import School from './screens/School';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/abmBank/ListProducts" element={<ListProductsBank />} />
             <Route path="/abmBank/ListProducts/accounts/:id" element={<AccountDetail />} />
             <Route path="/abmBank/ListProducts/cards/:id" element={<CardDetail />} />
+            <Route path="/abmBank/school" element={<School />} />
 
           </Routes>
         </BrowserRouter>

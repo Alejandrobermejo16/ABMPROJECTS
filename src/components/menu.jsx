@@ -3,7 +3,7 @@ import { Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { BoxArrowUpRight } from "react-bootstrap-icons";
 import "../styles/InitialFilter.css";
-import { Translate, CalendarDate, PersonRaisedHand, CreditCard } from "react-bootstrap-icons";
+import { Translate, CalendarDate, PersonRaisedHand, CreditCard, Backpack } from "react-bootstrap-icons";
 import { faAngular } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -26,6 +26,9 @@ class Menu extends React.Component {
           </Nav.Link>
           <Nav.Link as={Link} to="/abmBank/login" className="nav-links">
             <CreditCard /> Banco
+          </Nav.Link>
+          <Nav.Link as={Link} to="/abmBank/school" className="nav-links">
+            <Backpack /> School
           </Nav.Link>
           <Nav.Link
             className="nav-links"
