@@ -74,7 +74,8 @@ const SectionFilterSchool = () => {
 
   return (
     <div className="sectionPanel">
-      <div className="menu">
+    <div className="menu">
+      <div className="enlaces">
         <ul>
           {sections.map((section, index) => (
             <li key={index}>
@@ -82,51 +83,46 @@ const SectionFilterSchool = () => {
             </li>
           ))}
         </ul>
-        <div className="footer">
-          <button
-            onClick={openModalAddNewSection}
-            className="addNewSectionButton"
-          >
-            Añadir nueva sección
-          </button>
-        </div>
       </div>
-      {openModal && (
-        <div
-          className="modal show"
-          style={{ display: "block", position: "initial" }}
+      <div className="footer">
+        <button
+          onClick={openModalAddNewSection}
+          className="addNewSectionButton"
         >
-          <Modal.Dialog>
-            <Modal.Header closeButton onHide={closeModalAddNewSection}>
-              <Modal.Title style={{ color: "blue" }}>
-                Añade una sección
-              </Modal.Title>
-            </Modal.Header>
-
-            <Modal.Body>
-              <Form.Control
-                value={valueInputAddSection}
-                onChange={handleInputChange}
-                as="textarea"
-                placeholder="Escribe aquí el nombre de la nueva sección"
-              />
-            </Modal.Body>
-
-            <Modal.Footer>
-              <Button onClick={closeModalAddNewSection} variant="secondary">
-                Cerrar
-              </Button>
-              <Button
-                variant="primary"
-                onClick={addNewSection} // Llama a la función sin parámetros
-              >
-                Añadir
-              </Button>
-            </Modal.Footer>
-          </Modal.Dialog>
-        </div>
-      )}
+          Añadir nueva sección
+        </button>
+      </div>
     </div>
+    {openModal && (
+  <Modal show={openModal} onHide={closeModalAddNewSection}>
+    <Modal.Header closeButton onHide={closeModalAddNewSection}>
+      <Modal.Title style={{ color: "blue" }}>
+        Añade una sección
+      </Modal.Title>
+    </Modal.Header>
+
+    <Modal.Body>
+      <Form.Control
+        value={valueInputAddSection}
+        onChange={handleInputChange}
+        as="textarea"
+        placeholder="Escribe aquí el nombre de la nueva sección"
+      />
+    </Modal.Body>
+
+    <Modal.Footer>
+      <Button onClick={closeModalAddNewSection} variant="secondary">
+        Cerrar
+      </Button>
+      <Button variant="primary" onClick={addNewSection}>
+        Añadir
+      </Button>
+    </Modal.Footer>
+  </Modal>
+)}
+
+  </div>
+  
   );
 };
 
