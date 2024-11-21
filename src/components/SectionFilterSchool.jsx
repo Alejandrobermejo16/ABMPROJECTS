@@ -57,6 +57,7 @@ const SectionFilterSchool = () => {
       .catch((error) => {
         console.error("Error al añadir la sección:", error);
       });
+      closeModalAddNewSection();
   };
 
   const openModalAddNewSection = () => {
