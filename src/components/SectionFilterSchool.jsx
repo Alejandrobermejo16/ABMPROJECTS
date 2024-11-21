@@ -36,7 +36,7 @@ const SectionFilterSchool = () => {
     let orderSections = secciones.sort((a, b) =>
       a.toLowerCase().localeCompare(b.toLowerCase())
     );
-    fetch("https://backendabmprojects.vercel.app/api/users/createUserBank", {
+    fetch("https://backendabmprojects.vercel.app/api/users/createNewSection", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const SectionFilterSchool = () => {
       })
       .then((data) => {
         console.log("Sección añadida correctamente:", data);
-        fetchSections(); // Vuelve a obtener las secciones actualizadas
+        fetchSections();
       })
       .catch((error) => {
         console.error("Error al añadir la sección:", error);
