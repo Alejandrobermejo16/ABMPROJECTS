@@ -7,9 +7,9 @@ import Form from "react-bootstrap/Form";
 const SectionFilterSchool = () => {
   const [openModal, setOpenModal] = useState(false);
   const [valueInputAddSection, setValueInputAddSection] = useState("");
-  const [sections, setSections] = useState([]); // Estado para almacenar las secciones
+  const [sections, setSections] = useState([]); 
 
-  // Método para obtener las secciones del backend
+  // gets the sections and sorts them
   const fetchSections = () => {
     fetch("https://backendabmprojects.vercel.app/api/users/getSections")
       .then((response) => {
@@ -19,11 +19,11 @@ const SectionFilterSchool = () => {
         return response.json(); // Convierte la respuesta en JSON
       })
       .then((data) => {
-        // Asegúrate de que 'data' sea un array antes de intentar ordenarlo
-        let orderSections = data.sort((a, b) =>
+        const sections = data.sections.map(item => item.Sections).filter(section => section);
+        let orderSections = sections.sort((a, b) =>
           a.toLowerCase().localeCompare(b.toLowerCase())
         );
-        setSections(orderSections); // Actualiza el estado con las secciones ordenadas
+        setSections(orderSections);
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);
