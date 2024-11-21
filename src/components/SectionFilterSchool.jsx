@@ -16,10 +16,14 @@ const SectionFilterSchool = () => {
         if (!response.ok) {
           throw new Error("Error al obtener las secciones");
         }
-        return response.json();
+        return response.json(); // Convierte la respuesta en JSON
       })
       .then((data) => {
-        setSections(data); // Actualiza el estado con las secciones obtenidas
+        // Asegúrate de que 'data' sea un array antes de intentar ordenarlo
+        let orderSections = data.sort((a, b) =>
+          a.toLowerCase().localeCompare(b.toLowerCase())
+        );
+        setSections(orderSections); // Actualiza el estado con las secciones ordenadas
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);
@@ -31,17 +35,14 @@ const SectionFilterSchool = () => {
     fetchSections();
   }, []);
 
-  const addNewSection = ({ secciones }) => {
-    secciones.push(valueInputAddSection); // Usa el valor del input
-    let orderSections = secciones.sort((a, b) =>
-      a.toLowerCase().localeCompare(b.toLowerCase())
-    );
+  const addNewSection = () => {
+    // Añadir la nueva sección en el backend
     fetch("https://backendabmprojects.vercel.app/api/users/createNewSection", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(orderSections),
+      body: JSON.stringify({ orderSections: valueInputAddSection }), // Enviamos el objeto correctamente
     })
       .then((response) => {
         if (response.status === 409) {
@@ -51,7 +52,7 @@ const SectionFilterSchool = () => {
       })
       .then((data) => {
         console.log("Sección añadida correctamente:", data);
-        fetchSections();
+        fetchSections(); // Vuelve a obtener las secciones después de añadir una nueva
       })
       .catch((error) => {
         console.error("Error al añadir la sección:", error);
@@ -116,7 +117,7 @@ const SectionFilterSchool = () => {
               </Button>
               <Button
                 variant="primary"
-                onClick={() => addNewSection({ secciones: sections })}
+                onClick={addNewSection} // Llama a la función sin parámetros
               >
                 Añadir
               </Button>
