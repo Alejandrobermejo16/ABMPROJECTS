@@ -5,44 +5,59 @@ const SectionNotesSchool = ({ selectedSection }) => {
   const editableRef = useRef(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [currentSection, setCurrentSection] = useState(selectedSection);
 
-  // Definición de `fetchSections` en useCallback para mantenerlo estable en las dependencias de `useEffect`
+  // Update `the section` only if `selectedSection` changes
+  useEffect(() => {
+    setCurrentSection(selectedSection);
+  }, [selectedSection]);
+
   const fetchSections = useCallback(() => {
-    const url = new URL("https://backendabmprojects.vercel.app/api/users/getContent");
-    url.searchParams.append("orderSections", selectedSection);
+    if (!selectedSection) return;
 
-    fetch(url)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener las secciones");
-        }
-        return response.json(); // Convierte la respuesta en JSON
-      })
-      .then((data) => {
-        if (data.content) {
-          // Usa DOMParser para parsear el contenido HTML y evitar problemas con caracteres especiales
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(data.content, "text/html");
-          editableRef.current.innerHTML = doc.body.innerHTML;
-        } else {
-          editableRef.current.innerHTML = "";
-        }
-      })
-      .catch((error) => {
-        console.error("Error al obtener las secciones:", error);
-      });
-  }, [selectedSection]); // Dependencia de `selectedSection`
+    if (selectedSection !== currentSection) {
+      const url = new URL(
+        "https://backendabmprojects.vercel.app/api/users/getContent"
+      );
+      url.searchParams.append("orderSections", selectedSection);
 
-  // Función para guardar el contenido en la base de datos
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error al obtener las secciones");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          if (data.content) {
+            // Usa DOMParser para parsear el contenido HTML y evitar problemas con caracteres especiales
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data.content, "text/html");
+            editableRef.current.innerHTML = doc.body.innerHTML;
+            setCurrentSection(data.selectedSection);
+          } else {
+            editableRef.current.innerHTML = "";
+          }
+        })
+        .catch((error) => {
+          console.error("Error al obtener las secciones:", error);
+        });
+    }
+  }, [selectedSection, currentSection]);
+
+  // Function to save the content to the database
   const saveContent = useCallback(() => {
     const contentSave = editableRef.current.innerHTML;
-    fetch("https://backendabmprojects.vercel.app/api/users/updateSectionContent", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ orderSections: selectedSection, contentSave }),
-    })
+    fetch(
+      "https://backendabmprojects.vercel.app/api/users/updateSectionContent",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ orderSections: selectedSection, contentSave }),
+      }
+    )
       .then((response) => {
         if (response.status === 409) {
           console.error("Sección duplicada");
@@ -50,33 +65,29 @@ const SectionNotesSchool = ({ selectedSection }) => {
         return response.json();
       })
       .then((data) => {
-        console.log("Datos añadidos correctamente:", data);
-        setHasPendingChanges(false); // Resetea el estado
+        setHasPendingChanges(false);
       })
       .catch((error) => {
         console.error("Error al guardar los datos en la sección:", error);
       });
-  }, [selectedSection]); // Dependencia de `selectedSection`
+  }, [selectedSection]);
 
-  // Maneja el cambio de texto en el área editable
   const handleChange = () => {
-    setHasPendingChanges(true); // Marca que hay cambios pendientes
+    setHasPendingChanges(true);
 
-    // Resetea el temporizador si ya existe
     if (timeoutId) {
       clearTimeout(timeoutId);
     }
 
-    // Establece un nuevo temporizador para guardar después de 2 segundos de inactividad
     const newTimeoutId = setTimeout(() => {
       if (hasPendingChanges) {
         saveContent();
       }
-    }, 2000); // 2 segundos
+    }, 2000);
     setTimeoutId(newTimeoutId);
   };
 
-  // Maneja el pegado de imágenes
+  // Handles pasting of images
   const handlePaste = (event) => {
     const items = (event.clipboardData || event.originalEvent.clipboardData).items;
     for (const item of items) {
@@ -90,19 +101,36 @@ const SectionNotesSchool = ({ selectedSection }) => {
           img.style.display = "block";
           img.style.margin = "10px 0";
           editableRef.current.appendChild(img);
+  
+          // Marca que hay cambios pendientes
+          setHasPendingChanges(true);
+  
+          // Reinicia el temporizador para guardar cambios automáticamente
+          if (timeoutId) {
+            clearTimeout(timeoutId);
+          }
+  
+          // Establece un nuevo temporizador para guardar automáticamente después de 2 segundos
+          const newTimeoutId = setTimeout(() => {
+            if (hasPendingChanges) {
+              saveContent();
+              setHasPendingChanges(false); // Resetea los cambios pendientes después de guardar
+            }
+          }, 2000); // Ajusta según tus necesidades
+          setTimeoutId(newTimeoutId);
         };
         reader.readAsDataURL(file);
         event.preventDefault();
       }
     }
   };
+  
 
-  // Configura un intervalo para guardar automáticamente los cambios
+  // Set an interval to automatically save changes
   useEffect(() => {
     if (selectedSection) {
-      fetchSections(); // Carga el contenido cuando `selectedSection` cambia
+      fetchSections();
     }
-    return () => clearTimeout(timeoutId); // Limpia el temporizador al desmontar el componente
   }, [selectedSection, fetchSections, timeoutId]);
 
   return (
