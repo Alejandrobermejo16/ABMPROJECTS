@@ -4,10 +4,15 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 
-const SectionFilterSchool = () => {
+const SectionFilterSchool = ({ onSectionSelect }) => {
   const [openModal, setOpenModal] = useState(false);
   const [valueInputAddSection, setValueInputAddSection] = useState("");
   const [sections, setSections] = useState([]); 
+
+
+  const handleSectionClick = (section) => {
+    onSectionSelect(section); // Notifica al padre la sección seleccionada
+  };
 
   // gets the sections and sorts them
   const fetchSections = () => {
@@ -76,13 +81,15 @@ const SectionFilterSchool = () => {
     <div className="sectionPanel">
     <div className="menu">
       <div className="enlaces">
-        <ul>
-          {sections.map((section, index) => (
-            <li key={index}>
-              <a href="#">{section}</a>
-            </li>
-          ))}
-        </ul>
+      <ul>
+            {sections.map((section, index) => (
+              <li key={index}>
+                <a href="#" onClick={() => handleSectionClick(section)}>
+                  {section}
+                </a>
+              </li>
+            ))}
+          </ul>
       </div>
       <div className="footer">
         <button
