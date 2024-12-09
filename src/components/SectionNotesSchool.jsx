@@ -51,7 +51,7 @@ const SectionNotesSchool = ({ selectedSection }) => {
     fetch(
       "https://backendabmprojects.vercel.app/api/users/updateSectionContent",
       {
-        method: "POST",
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
