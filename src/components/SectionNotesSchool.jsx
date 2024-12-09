@@ -5,10 +5,13 @@ const SectionNotesSchool = ({ selectedSection }) => {
   const editableRef = useRef(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [contentSave, setContentSave] = useState([]);
 
-   // gets the sections and sorts them
-   const fetchSections = () => {
-    fetch("https://backendabmprojects.vercel.app/api/users/getSections")
+  const fetchSections = () => {
+    const url = new URL("https://backendabmprojects.vercel.app/api/users/getContent");
+    url.searchParams.append("orderSections", selectedSection);
+  
+    fetch(url)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Error al obtener las secciones");
@@ -16,25 +19,21 @@ const SectionNotesSchool = ({ selectedSection }) => {
         return response.json(); // Convierte la respuesta en JSON
       })
       .then((data) => {
-        const sections = data.sections.map(item => item.Sections).filter(section => section);
-        let orderSections = sections.sort((a, b) =>
-          a.toLowerCase().localeCompare(b.toLowerCase())
-        );
-        setSections(orderSections);
+        let orderSections = data.sections.map(item => item.Sections).filter(section => section);
+        setContentSave(orderSections);
+        // Si hay contenido guardado, carga ese contenido también
+        if (data.content) {
+          editableRef.current.innerHTML = data.content;
+        }
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);
       });
-  };
+};
 
-  // Hook para llamar al método fetchSections al montar el componente
-  useEffect(() => {
-    fetchSections();
-  }, []);
 
   // Función para guardar el contenido en la base de datos
   const saveContent = useCallback(() => {
-    console.log(selectedSection, "prueba de seccion");
     const contentSave = editableRef.current.innerHTML;    
     fetch("https://backendabmprojects.vercel.app/api/users/updateSectionContent", {
       method: "POST",
@@ -112,6 +111,8 @@ const SectionNotesSchool = ({ selectedSection }) => {
         onPaste={handlePaste}
         placeholder="Escribe tu texto aquí"
       />
+          <button onClick={fetchSections}>get</button>
+
     </div>
   );
 };
