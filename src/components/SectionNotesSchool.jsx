@@ -5,12 +5,12 @@ const SectionNotesSchool = ({ selectedSection }) => {
   const editableRef = useRef(null);
   const [hasPendingChanges, setHasPendingChanges] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
-  const [contentSave, setContentSave] = useState([]);
 
-  const fetchSections = () => {
+  // Definición de `fetchSections` en useCallback para mantenerlo estable en las dependencias de `useEffect`
+  const fetchSections = useCallback(() => {
     const url = new URL("https://backendabmprojects.vercel.app/api/users/getContent");
     url.searchParams.append("orderSections", selectedSection);
-  
+
     fetch(url)
       .then((response) => {
         if (!response.ok) {
@@ -19,22 +19,23 @@ const SectionNotesSchool = ({ selectedSection }) => {
         return response.json(); // Convierte la respuesta en JSON
       })
       .then((data) => {
-        let orderSections = data.sections.map(item => item.Sections).filter(section => section);
-        setContentSave(orderSections);
-        // Si hay contenido guardado, carga ese contenido también
         if (data.content) {
-          editableRef.current.innerHTML = data.content;
+          // Usa DOMParser para parsear el contenido HTML y evitar problemas con caracteres especiales
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data.content, "text/html");
+          editableRef.current.innerHTML = doc.body.innerHTML;
+        } else {
+          editableRef.current.innerHTML = "";
         }
       })
       .catch((error) => {
         console.error("Error al obtener las secciones:", error);
       });
-};
-
+  }, [selectedSection]); // Dependencia de `selectedSection`
 
   // Función para guardar el contenido en la base de datos
   const saveContent = useCallback(() => {
-    const contentSave = editableRef.current.innerHTML;    
+    const contentSave = editableRef.current.innerHTML;
     fetch("https://backendabmprojects.vercel.app/api/users/updateSectionContent", {
       method: "POST",
       headers: {
@@ -98,8 +99,11 @@ const SectionNotesSchool = ({ selectedSection }) => {
 
   // Configura un intervalo para guardar automáticamente los cambios
   useEffect(() => {
+    if (selectedSection) {
+      fetchSections(); // Carga el contenido cuando `selectedSection` cambia
+    }
     return () => clearTimeout(timeoutId); // Limpia el temporizador al desmontar el componente
-  }, [timeoutId]);
+  }, [selectedSection, fetchSections, timeoutId]);
 
   return (
     <div className="notesMenu">
@@ -111,8 +115,7 @@ const SectionNotesSchool = ({ selectedSection }) => {
         onPaste={handlePaste}
         placeholder="Escribe tu texto aquí"
       />
-          <button onClick={fetchSections}>get</button>
-
+      <button onClick={fetchSections}>get</button>
     </div>
   );
 };
