@@ -89,7 +89,8 @@ const SectionNotesSchool = ({ selectedSection }) => {
 
   // Handles pasting of images
   const handlePaste = (event) => {
-    const items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    const items = (event.clipboardData || event.originalEvent.clipboardData)
+      .items;
     for (const item of items) {
       if (item.type.indexOf("image") === 0) {
         const file = item.getAsFile();
@@ -101,15 +102,15 @@ const SectionNotesSchool = ({ selectedSection }) => {
           img.style.display = "block";
           img.style.margin = "10px 0";
           editableRef.current.appendChild(img);
-  
+
           // Marca que hay cambios pendientes
           setHasPendingChanges(true);
-  
+
           // Reinicia el temporizador para guardar cambios automáticamente
           if (timeoutId) {
             clearTimeout(timeoutId);
           }
-  
+
           // Establece un nuevo temporizador para guardar automáticamente después de 2 segundos
           const newTimeoutId = setTimeout(() => {
             if (hasPendingChanges) {
@@ -124,7 +125,6 @@ const SectionNotesSchool = ({ selectedSection }) => {
       }
     }
   };
-  
 
   // Set an interval to automatically save changes
   useEffect(() => {
@@ -143,7 +143,6 @@ const SectionNotesSchool = ({ selectedSection }) => {
         onPaste={handlePaste}
         placeholder="Escribe tu texto aquí"
       />
-      <button onClick={fetchSections}>get</button>
     </div>
   );
 };
