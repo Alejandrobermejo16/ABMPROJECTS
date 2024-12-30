@@ -11,6 +11,8 @@ import { List } from "react-bootstrap-icons";
 import LoginUserScreen from "../screens/LoguinUserScreen.jsx";
 import Bank from "../screens/Bank.jsx";
 import Menu from "./menu.jsx";
+import NewInitialDashboard from "../screens/NewInitialDashboard.jsx";
+
 
 const ImagenAlejandro = require("../img/Alejandro.jpeg");
 
@@ -109,6 +111,8 @@ class FilterScreens extends React.Component {
                 display: "flex",
                 flexDirection: "row",
                 paddingTop: "10px",
+                paddingBottom: "40px",
+                height: "100%"
               }}
             >
               {!loadingSkills ? (
@@ -158,6 +162,7 @@ class FilterScreens extends React.Component {
               )}
 
               {loadingSkills ? (
+                
                 <div className="divSkills">
                   <BarChart
                     width={600}
@@ -165,12 +170,14 @@ class FilterScreens extends React.Component {
                     data={LENGUAJESDEPROGRAMACION}
                     margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
                   >
-                    <CartesianGrid strokeDasharray="3 3" />
+                    <CartesianGrid  strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="nivel_Lenguaje">
+                    <Bar 
+                      dataKey="nivel_Lenguaje"
+                    >
                       {LENGUAJESDEPROGRAMACION.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={entry.color} />
                       ))}
@@ -206,9 +213,9 @@ class FilterScreens extends React.Component {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="otros">
+                    <Bar  dataKey="otros">
                       {OTROS.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                        <Cell  key={`cell-${index}`} fill={entry.color} />
                       ))}
                     </Bar>
                   </BarChart>
@@ -243,6 +250,8 @@ class FilterScreens extends React.Component {
             {pantallaActual === "ReservasHipica" && <ReservasHipica />}
             {pantallaActual === "Fit" && <LoginUserScreen />}
             {pantallaActual === "Bank" && <Bank />}
+            {pantallaActual === "NewInitialDashboard" && <NewInitialDashboard />}
+
           </div>
         )}
       </div>

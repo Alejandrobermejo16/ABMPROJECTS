@@ -1,0 +1,115 @@
+.divProject {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px; /* Espaciado entre elementos */
+    padding: 20px;
+    background: linear-gradient(130deg, #504b4b, #15334d);
+    height: 30%;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: "Arial", sans-serif;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .divProject p {
+    font-size: 1.5rem;
+    font-weight: 700; /* Más grueso */
+    color: #f5f5f5; /* Color más claro para mayor contraste */
+    text-shadow: 3px 3px 8px rgba(19, 60, 194, 0.781), -2px -2px 3px rgba(255, 255, 255, 0.1);
+    letter-spacing: 1px; /* Espaciado entre letras */
+    line-height: 1.6; /* Aumentar la altura de línea para un mejor espaciado */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
+    transition: all 0.3s ease; /* Efecto suave al pasar el mouse */
+  }
+  
+  .divProject p:hover {
+    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
+    color: #2196F3; /* Cambio de color al pasar el mouse */
+  }
+  
+
+.divProject:hover {
+  transform: translateY(-5px);
+}
+
+.imagen {
+  flex: 1;
+  max-width: 150px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid #4788c0;
+}
+
+.imagen img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.presentacion {
+  flex: 2;
+  text-align: center;
+}
+
+.nombre {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #c0baba;
+  margin-bottom: 10px;
+}
+
+footer {
+  margin-top: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 1rem;
+  color: #fff;
+  background-color: #4788c0;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #48a037;
+}
+
+.logoBBVA {
+  max-width: 80px; 
+  height: auto; 
+  margin-top: 10px; 
+  margin-bottom: 10px; 
+  object-fit: contain; 
+  border-radius: 8px; 
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1); 
+}
+.pBBVA {
+  font-size: 1.5rem;
+  margin-top: 9px;
+}
+
+/* Diseño responsivo para móviles */
+@media (max-width: 768px) {
+  .divProject {
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+
+  .imagen {
+    max-width: 100px;
+    margin-bottom: 15px;
+  }
+
+  .nombre {
+    font-size: 1.2rem;
+  }
+
+  .btn {
+    font-size: 0.9rem;
+  }
+}

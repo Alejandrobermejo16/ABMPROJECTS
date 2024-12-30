@@ -63,6 +63,8 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  text-align: center;
+  height: 200vh;
 }
 
 /* Estilos para dispositivos móviles */
@@ -85,6 +87,7 @@
     max-width: 100vw; /* No excede el ancho de la ventana gráfica (viewport) */
     box-sizing: border-box; /* Incluye el padding y border en el ancho total */
     /* Agrega otros estilos según sea necesario */
+    text-align: center; 
   }
 
   /*para los hijos de la pantalla completa*/
@@ -110,6 +113,10 @@
     display: flex;
     flex-direction: column; /* Asegurar que los elementos dentro del contenedor se apilen verticalmente */
     align-items: center; /* Centrar los elementos horizontalmente */
+    overflow-y: scroll;
+    scrollbar-width: none; /* Oculta scrollbar en Firefox */
+    -ms-overflow-style: none; /* Oculta scrollbar en IE y Edge */
+    height: 100vh;
   }
 
   

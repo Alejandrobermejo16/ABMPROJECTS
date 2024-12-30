@@ -1,0 +1,68 @@
+.presentation-div {
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    background: linear-gradient(130deg, #504b4b, #15334d);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .header-presentation {
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #6a5e5e;
+    text-transform: uppercase;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+    margin: 20px 0 10px;
+    color: #6a5e5e;
+    border-left: 4px solid #19c9c9;
+    padding-left: 10px;
+  }
+  
+  .section-intro,
+  .section-skills,
+  .section-projects,
+  .section-contact {
+    margin-bottom: 20px;
+  }
+  
+  .section-skills ul,
+  .section-projects ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  
+  .section-skills ul li,
+  .section-projects ul li {
+    margin: 10px 0;
+    font-size: 1rem;
+  }
+  
+  .section-skills ul li strong,
+  .section-projects ul li strong {
+    color: #19c9c9;
+  }
+  
+  .contact-message {
+    text-align: center;
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+  
+  .contact-message a {
+    color: #19c9c9;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .contact-message a:hover {
+    text-decoration: underline;
+  }
+  
