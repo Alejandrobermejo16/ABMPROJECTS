@@ -35,7 +35,6 @@ function App() {
             <Route path="/abmBank/ListProducts/accounts/:id" element={<AccountDetail />} />
             <Route path="/abmBank/ListProducts/cards/:id" element={<CardDetail />} />
             <Route path="/abmBank/school" element={<School />} />
-
           </Routes>
         </BrowserRouter>
       </div>

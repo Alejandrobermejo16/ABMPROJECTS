@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import '../../styles/NewInitialDashboardTechnologies.css';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Cell } from "recharts";
 import { LENGUAJESDEPROGRAMACION, FRAMEWORKS, OTROS, LIBRERIAS } from "../../Constants";
@@ -21,19 +21,9 @@ const CustomBarChart = ({ data, dataKey, colorKey }) => (
 );
 
 const NewInitialDashboardTechnologies = () => {
-  const [loadingSkills, setLoadingSkills] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoadingSkills(false);
-    }, 1000);
-  }, []);
 
   return (
     <div className="divSkills">
-      {loadingSkills ? (
-        <div>Cargando...</div>
-      ) : (
         <div className="divTech">
           <div className="title-container">
             <h1>Tecnologías que Impulsan Mi Trabajo</h1>
@@ -43,7 +33,6 @@ const NewInitialDashboardTechnologies = () => {
           <CustomBarChart data={OTROS} dataKey="otros" colorKey="color" />
           <CustomBarChart data={LIBRERIAS} dataKey="nivel_Libreria" colorKey="color" />
         </div>
-      )}
     </div>
   );
 };
