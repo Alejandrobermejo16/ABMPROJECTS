@@ -33,6 +33,7 @@ const NewInitialDashboardPresentation = () => {
           <li><strong>Proyecto Encuestas en Lit:</strong> Sistema para manejar encuestas utilizando LitElement.</li>
           <li><strong>Aplicación de gimnasio:</strong> Gestión de calorías diarias, semanales, anuales.</li>
           <li><strong>Traductor web:</strong> Traducción en tiempo real.</li>
+          <li><strong>Old Panel:</strong> Observa el panel antiguo antes de las optimizaciones</li>
           <li><strong>Banco virtual:</strong> Simulación de tarjetas y cuentas bancarias.</li>
           <li><strong>Reservas Hipica: </strong> Gestión de reservas en una hípica</li>
           <li><strong>School: </strong>Simulación de la experiencia de usuario de Word en Office 365</li>

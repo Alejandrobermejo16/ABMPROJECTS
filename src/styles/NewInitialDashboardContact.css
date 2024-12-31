@@ -1,0 +1,28 @@
+.divContact{
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px; 
+        padding: 20px;
+        background: linear-gradient(130deg, #1b1515, #15334d);
+        height: 12%;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        font-family: "Arial", sans-serif;
+        transition: transform 0.2s ease-in-out;
+}
+
+.title{
+    border-bottom: 2px solid white;
+    text-shadow: #0f7cdb 2px 3px 3px;
+}
+
+.linksContainer {
+    display: flex;
+    gap: 15px; 
+  }
+  
+  a:hover{
+    color: white;
+  }
