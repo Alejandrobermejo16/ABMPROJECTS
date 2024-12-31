@@ -17,20 +17,26 @@ const NewInitialDashboardPresentation = () => {
       <section className="section-skills">
         <h2 className="section-title">Habilidades</h2>
         <ul>
-          <li><strong>HTML, CSS y JavaScript:</strong> Interfaces web responsivas y accesibles.</li>
-          <li><strong>React (componentes de clase y funcionales):</strong> Aplicaciones dinámicas y mantenibles.</li>
-          <li><strong>LitElement:</strong> Componentes web reutilizables y modulares.</li>
-          <li><strong>Lit:</strong> Componentes web reutilizables y modulares.</li>
-          <li><strong>Angular (nivel básico):</strong> Experiencia inicial en aplicaciones SPA.</li>
+        <li><strong>HTML, CSS y JavaScript:</strong> Desarrollo de interfaces web responsivas y accesibles.</li>
+        <li><strong>React (componentes de clase y funcionales):</strong> Creación de aplicaciones dinámicas, mantenibles y escalables.</li>
+        <li><strong>Angular (nivel básico):</strong> Conocimientos iniciales en el desarrollo de aplicaciones SPA.</li>
+        <li><strong>Testing:</strong> Diseño de pruebas automatizadas para componentes web reutilizables, empleando Vitest para organización y ejecución, y @open-wc/testing para simulación de fixtures y validaciones.</li>
+        <li><strong>Otras herramientas y tecnologías:</strong> JIRA, GCP (Google Cloud Platform), GIT, AWS, Bitbucket, Vercel, Node.js, MongoDB, Jenkins, React-Bootstrap, ngx-bootstrap.</li>
+        <li><strong>Inteligencia Artificial:</strong> Uso de herramientas como ChatGPT y GitHub Copilot para el desarrollo, mejora de código y búsquedas optimizadas.</li>
+        <li><strong>Comunidades y plataformas de aprendizaje:</strong> Stack Overflow y Codewars para la resolución de problemas y mejora continua en programación.</li>
+        <li><strong>Prettier:</strong> Formateo consistente y automático de código para mejorar la legibilidad y mantener estándares en los proyectos.</li>
         </ul>
       </section>
       <section className="section-projects">
         <h2 className="section-title">Proyectos Destacados</h2>
         <ul>
-          <li><strong>Proyecto Encuestas:</strong> Sistema para manejar encuestas utilizando LitElement.</li>
-          <li><strong>Aplicación de gimnasio:</strong> Gestión de calorías diarias y semanales.</li>
+          <li><strong>Proyecto Encuestas en Lit:</strong> Sistema para manejar encuestas utilizando LitElement.</li>
+          <li><strong>Aplicación de gimnasio:</strong> Gestión de calorías diarias, semanales, anuales.</li>
           <li><strong>Traductor web:</strong> Traducción en tiempo real.</li>
           <li><strong>Banco virtual:</strong> Simulación de tarjetas y cuentas bancarias.</li>
+          <li><strong>Reservas Hipica: </strong> Gestión de reservas en una hípica</li>
+          <li><strong>School: </strong>Simulación de la experiencia de usuario de Word en Office 365</li>
+          <li><strong>Cambio de divisa con Angular: </strong>Sistema de monetizacion</li>
         </ul>
       </section>
       <section className="section-contact">

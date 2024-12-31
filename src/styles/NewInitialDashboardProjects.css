@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 20px; /* Espaciado entre elementos */
+    gap: 20px; 
     padding: 20px;
     background: linear-gradient(130deg, #504b4b, #15334d);
     height: 30%;
@@ -14,18 +14,18 @@
   
   .divProject p {
     font-size: 1.5rem;
-    font-weight: 700; /* Más grueso */
-    color: #f5f5f5; /* Color más claro para mayor contraste */
+    font-weight: 700; 
+    color: #f5f5f5; 
     text-shadow: 3px 3px 8px rgba(19, 60, 194, 0.781), -2px -2px 3px rgba(255, 255, 255, 0.1);
-    letter-spacing: 1px; /* Espaciado entre letras */
-    line-height: 1.6; /* Aumentar la altura de línea para un mejor espaciado */
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Fuente más moderna */
-    transition: all 0.3s ease; /* Efecto suave al pasar el mouse */
+    letter-spacing: 1px;
+    line-height: 1.6; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    transition: all 0.3s ease;
   }
   
   .divProject p:hover {
-    transform: scale(1.05); /* Efecto de aumento al pasar el mouse */
-    color: #2196F3; /* Cambio de color al pasar el mouse */
+    transform: scale(1.05); 
+    color: #2196F3; 
   }
   
 
