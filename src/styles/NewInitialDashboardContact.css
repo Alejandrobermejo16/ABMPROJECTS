@@ -28,6 +28,10 @@
   }
 
   @media (max-width: 768px) {
+   .title{
+    padding-top: 5px;
+   }
+
     .divContact {
       height: auto;
     }
