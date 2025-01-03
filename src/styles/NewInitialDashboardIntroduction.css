@@ -32,4 +32,16 @@
   .introText br {
     margin-top: 10px;
   }
+
+  @media screen and (max-width: 1200px) {
+    
+    .introTitle {
+      font-size: 1.5rem;
+    }
+    .introText {
+      font-size: 1rem;
+    }
+    }
+  
+
   

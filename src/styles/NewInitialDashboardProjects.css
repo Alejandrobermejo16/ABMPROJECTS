@@ -98,7 +98,7 @@ footer {
     flex-direction: column;
     align-items: center;
     padding: 15px;
-    overflow-y: scroll;
+    height: auto;
   }
 
   .imagen {
