@@ -1,6 +1,5 @@
 import React from 'react';
-import FilterScreens from "../components/FilterScreens";
-
+import NewInitialDashboard from './NewInitialDashboard';
 
 class InitialDashboard extends React.Component {
 
@@ -9,7 +8,7 @@ render(){
 
 <div>
 
-<FilterScreens/>
+<NewInitialDashboard/>
 
 </div>
 

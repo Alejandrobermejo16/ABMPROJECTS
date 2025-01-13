@@ -15,7 +15,8 @@ import ListProductsBank from './components/ListProductsBank';
 import AccountDetail from './components/AccountDetail';
 import CardDetail from './components/CardDetail';
 import School from './screens/School';
-import NewInitialDashboard from './screens/NewInitialDashboard';
+import FilterScreens from './components/FilterScreens';
+
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
             <Route path="/task" element={<GridDashboard />} />
             <Route path="/translate" element={<TranslateComponent />} />
             <Route path="/reservas" element={<ReservasHipica />} />
-            <Route path="/newPanel" element={<NewInitialDashboard />} />
+            <Route path="/oldPanel" element={<FilterScreens />} />
             <Route path="/fit" element={<LoginUserScreen />} />
             <Route path="/abmBank/login" element={<Bank />} />
             <Route path="/abmBank/register" element={<RegistryBank />} />
