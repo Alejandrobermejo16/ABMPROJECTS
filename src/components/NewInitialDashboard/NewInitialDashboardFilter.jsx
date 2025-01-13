@@ -17,7 +17,9 @@ const NewInitialDashboardFilter = () => {
     if (menuRef.current) {
       const isMobileView = menuRef.current.clientWidth <= 754;
       setIsMobile(isMobileView);
-      setIsMenuVisible(!isMobileView);
+      if (!isMobileView) {
+        setIsMenuVisible(true); // Ensures menu is always visible on larger screens
+      }
     }
   };
 
@@ -33,12 +35,6 @@ const NewInitialDashboardFilter = () => {
 
   return (
     <div ref={menuRef} className="new-dashboard-filter">
-      {isMobile && !isMenuVisible && (
-        <Button variant="primary" onClick={toggleMenu} className="toggle-menu-button">
-          <List />
-        </Button>
-      )}
-
       {(isMenuVisible || !isMobile) && (
         <Nav fill variant="tabs" defaultActiveKey="/home">
           <Nav.Link as={Link} to="/fit" className="nav-links">
@@ -69,15 +65,21 @@ const NewInitialDashboardFilter = () => {
             <BoxArrowUpRight /> Lit Abm proyect
           </Nav.Link>
           <Nav.Link
-        className="nav-links"
-        href="https://abm-angular-projects.vercel.app"
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ color: "red" }}
-      >
-        <FontAwesomeIcon style={{ color: "red" }} icon={faAngular} /> Creación Componentes Angular
-      </Nav.Link>
+            className="nav-links"
+            href="https://abm-angular-projects.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ color: "red" }}
+          >
+            <FontAwesomeIcon style={{ color: "red" }} icon={faAngular} /> Creación Componentes Angular
+          </Nav.Link>
         </Nav>
+      )}
+      
+      {isMobile && (
+        <Button variant="primary" onClick={toggleMenu} className="toggle-menu-button">
+          <List />
+        </Button>
       )}
     </div>
   );
