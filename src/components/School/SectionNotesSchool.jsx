@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import "../styles/SectionNotesSchool.css";
+import "../../styles/SectionNotesSchool.css";
 
 const SectionNotesSchool = ({ selectedSection }) => {
   const editableRef = useRef(null);

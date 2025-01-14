@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "../styles/School.css";
 import "abm-components/src/page-es/abm-glass-filter/src/abm-glass-filter";
-import SectionFilterSchool from "../components/SectionFilterSchool";
-import SectionNotesSchool from "../components/SectionNotesSchool";
+import SectionFilterSchool from "../components/School/SectionFilterSchool";
+import SectionNotesSchool from "../components/School/SectionNotesSchool";
 
 const School = () => {
   const [selectedSection, setSelectedSection] = useState(null);
