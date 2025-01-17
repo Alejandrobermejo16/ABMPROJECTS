@@ -16,6 +16,12 @@ const School = () => {
       <header className="header">
         <h1 className="h1header">ABM SCHOOL</h1>
         <abm-glass-filter searchValue="prueba"></abm-glass-filter>
+
+      <div className="footerheader">
+        <button class="common-button">H1</button>
+        <button class="common-button">Negrita</button>
+        <button class="common-button">Cursiva</button>
+        </div>
       </header>
       <main className="main-content">
         <SectionFilterSchool onSectionSelect={handleSectionSelect} />
